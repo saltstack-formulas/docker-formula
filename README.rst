@@ -2,7 +2,7 @@
 Docker
 ======
 
-Formulas to install Docker.
+Formulas for working with Docker
 
 .. note::
 
@@ -14,3 +14,8 @@ Available states
 
 .. contents::
     :local:
+
+docker
+------
+
+Install and run Docker
