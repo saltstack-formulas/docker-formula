@@ -15,7 +15,7 @@ Available states
 .. contents::
     :local:
 
-docker
-------
+``docker``
+----------
 
 Install and run Docker
