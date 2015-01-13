@@ -19,3 +19,11 @@ Available states
 ----------
 
 Install and run Docker
+
+
+``docker.registry``
+-------------------
+
+Run a Docker container to start the registry service using AWS S3 to store the images.
+
+It requires the docker state and the `python-formula <https://github.com/TeamLovely/python-formula>`_.

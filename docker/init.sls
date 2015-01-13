@@ -9,7 +9,7 @@ docker-dependencies:
       - ca-certificates
       - lxc
 
-docker_repo:
+docker-repo:
     pkgrepo.managed:
       - repo: 'deb http://get.docker.io/ubuntu docker main'
       - file: '/etc/apt/sources.list.d/docker.list'
@@ -24,5 +24,7 @@ lxc-docker:
     - require:
       - pkg: docker-dependencies
 
-docker:
-  service.running
+docker-service:
+  service.running:
+    - name: docker
+    - enable: True
