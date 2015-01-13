@@ -1,0 +1,15 @@
+{% set registry = salt['grains.filter_by']({
+    'default': {
+        'description': 'Docker Registry',
+        'port': '5000',
+        'restart': 'no',
+        'search_backend': 'sqlalchemy'
+    },
+}, merge=salt['pillar.get']('registry:lookup')) %}
+
+{% set amazon = salt['grains.filter_by']({
+    'default': {
+        'settings_flavor': 's3',
+        'storage_path': '/registry'
+    },
+}, merge=salt['pillar.get']('registry:lookup:amazon')) %}
