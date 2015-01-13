@@ -1,0 +1,7 @@
+registry:
+  lookup:
+    restart: 'always'
+    amazon:
+      aws_bucket: 'my-registry'
+      aws_key: 'ABCDEFGHIJK123456789'
+      aws_secret: 'AbcD+efG-HIjK1+++23456+789'
