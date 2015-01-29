@@ -12,7 +12,7 @@ docker-dependencies-kernel:
       - pkg: lxc-docker
 
 system.reboot:
-  module.run:
+  module.wait:
     - watch:
       - pkg: docker-dependencies-kernel
 {% endif %}
