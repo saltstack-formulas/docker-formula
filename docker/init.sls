@@ -15,6 +15,8 @@ system.reboot:
   module.wait:
     - watch:
       - pkg: docker-dependencies-kernel
+    - require_in:
+      - pkg: lxc-docker
 {% endif %}
 
 docker-dependencies:
