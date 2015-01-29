@@ -2,7 +2,7 @@ docker-python-apt:
   pkg.installed:
     - name: python-apt
 
-{% if grains['lsb_distrib_release'] == '12.04' %}
+{% if grains['lsb_distrib_release'] == '12.04' -%}
 docker-dependencies-kernel:
   pkg.installed:
     - pkgs:
@@ -10,6 +10,7 @@ docker-dependencies-kernel:
       - linux-headers-generic-lts-raring
     - require_in:
       - pkg: lxc-docker
+    - only_if: dpkg --compare-versions {% grains['kernelrelease'] -%} lt 3.8
 
 system.reboot:
   module.wait:
