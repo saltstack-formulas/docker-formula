@@ -11,7 +11,7 @@ docker-dependencies-kernel:
       - linux-headers-generic-lts-raring
     - require_in:
       - pkg: lxc-docker
-    - only_if: dpkg --compare-versions {{ grains['kernelrelease'] }} lt {{ minimal_kernel_version }}
+    - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt {{ minimal_kernel_version }}
 
 system.reboot:
   module.wait:
