@@ -12,13 +12,6 @@ docker-dependencies-kernel:
     - require_in:
       - pkg: lxc-docker
     - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt {{ minimal_kernel_version }}
-
-system.reboot:
-  module.wait:
-    - watch:
-      - pkg: docker-dependencies-kernel
-    - require_in:
-      - pkg: lxc-docker
 {% endif %}
 
 docker-dependencies:
