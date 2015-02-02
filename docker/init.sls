@@ -12,13 +12,6 @@ docker-dependencies-kernel:
     - require_in:
       - pkg: lxc-docker
     - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt {{ minimal_kernel_version }}
-
-# Force cgroup-lite on 12.04, 'cause docker do not work with cgroup-bin, 
-# which is installed by default
-cgroup-lite:
-  pkg.installed:
-    - require_in:
-      - pkg: docker-dependencies
 {% endif %}
 
 docker-dependencies:
