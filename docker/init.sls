@@ -1,10 +1,29 @@
+{% from "docker/map.jinja" import kernel with context %}
+
 docker-python-apt:
   pkg.installed:
     - name: python-apt
 
-{% if grains['os_family'] == 'Debian' %}
-include:
-  - .{{ grains['os']|lower }}
+{% if kernel.pkgrepo is defined %}
+{{ grains['lsb_distrib_codename'] }}-backports-repo:
+  pkgrepo.managed:
+    {% for key, value in kernel.pkgrepo.items() %}
+    - {{ key }}: {{ value }}
+    {% endfor %}
+    - require:
+      - pkg: python-apt
+    - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt 3.8
+{% endif %}
+
+{% if kernel.pkg is defined %}
+docker-dependencies-kernel:
+  pkg.installed:
+    {% for key, value in kernel.pkg.items() %}
+    - {{ key }}: {{ value }}
+    {% endfor %}
+    - require_in:
+      - pkg: lxc-docker
+    - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt 3.8
 {% endif %}
 
 docker-dependencies:
