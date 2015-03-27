@@ -34,3 +34,9 @@
 },
 grain='lsb_distrib_codename',
 merge=salt['pillar.get']('registry:lookup')) %}
+
+{% set compose = salt['grains.filter_by']({
+    'default': {
+        'version': '1.1.0'
+    },
+}, merge=salt['pillar.get']('registry:lookup')) %}
