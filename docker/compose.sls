@@ -7,3 +7,4 @@ compose-pip-dependencies:
     - name: docker-compose == {{ compose.version }}
     - require:
       - pkg: python-pip
+    - reload_modules: true
