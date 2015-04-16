@@ -35,8 +35,9 @@ docker-dependencies:
 
 docker-repo:
     pkgrepo.managed:
-      - repo: 'deb http://get.docker.io/ubuntu docker main'
-      - file: '/etc/apt/sources.list.d/docker.list'
+      - humanname: Docker repo
+      - name: deb http://get.docker.io/ubuntu docker main
+      - file: /etc/apt/sources.list.d/docker.list
       - keyid: d8576a8ba88d21e9
       - keyserver: keyserver.ubuntu.com
       - require_in:
