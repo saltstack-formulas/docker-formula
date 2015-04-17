@@ -47,6 +47,8 @@ docker-repo:
 
 lxc-docker:
   pkg.latest:
+    - fromrepo: docker
+    - refresh: True
     - require:
       - pkg: docker-dependencies
 
