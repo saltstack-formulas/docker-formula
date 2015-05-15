@@ -40,3 +40,6 @@ merge=salt['pillar.get']('registry:lookup')) %}
         'version': '1.1.0'
     },
 }, merge=salt['pillar.get']('registry:lookup')) %}
+
+{% set pkg = salt['grains.filter_by']({
+}, merge=salt['pillar.get']('docker-pkg:lookup')) %}

@@ -1,4 +1,5 @@
 {% from "docker/map.jinja" import kernel with context %}
+{% from "docker/map.jinja" import pkg with context %}
 
 docker-python-apt:
   pkg.installed:
@@ -46,9 +47,12 @@ docker-repo:
         - pkg: docker-python-apt
 
 lxc-docker:
-  pkg.latest:
+  pkg.installed:
     - fromrepo: docker
+    {% if pkg %}
     - refresh: True
+    - version: {{ pkg.version }}
+    {% endif -%}
     - require:
       - pkg: docker-dependencies
 
