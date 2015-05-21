@@ -30,6 +30,7 @@ docker-dependencies-kernel:
 docker-dependencies:
    pkg.installed:
     - pkgs:
+      - apt-transport-https
       - iptables
       - ca-certificates
       - lxc
@@ -37,7 +38,7 @@ docker-dependencies:
 docker-repo:
     pkgrepo.managed:
       - humanname: Docker repo
-      - name: deb http://get.docker.io/ubuntu docker main
+      - name: deb https://get.docker.com/ubuntu docker main
       - file: /etc/apt/sources.list.d/docker.list
       - keyid: d8576a8ba88d21e9
       - keyserver: keyserver.ubuntu.com
