@@ -50,8 +50,8 @@ docker-repo:
 lxc-docker:
   pkg.installed:
     - fromrepo: docker
-    {% if pkg %}
-    {% if pkg.version -%}- name: lxc-docker-{{ pkg.version }}{% endif %}
+    {% if pkg and 'version' in pkg %}
+    - name: lxc-docker-{{ pkg.version }}
     - refresh: True
     {% endif -%}
     - require:
@@ -62,6 +62,6 @@ docker-service:
     - name: docker
     - enable: True
     {% if pkg and "process_signature" in pkg %}
-    - sig: pkg.process_signature
+    - sig: {{ pkg.process_signature }}
     {% endif -%}
 
