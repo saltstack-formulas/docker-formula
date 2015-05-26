@@ -61,3 +61,4 @@ docker-service:
   service.running:
     - name: docker
     - enable: True
+    - sig: /usr/bin/docker
