@@ -57,8 +57,12 @@ lxc-docker:
     - require:
       - pkg: docker-dependencies
 
+{% set process_signature = ['grains.get']('role', '') %}
 docker-service:
   service.running:
     - name: docker
     - enable: True
-    - sig: /usr/bin/docker
+    {% if pkg and "process_signature" in pkg %}
+    - sig: pkg.process_signature
+    {% endif -%}
+
