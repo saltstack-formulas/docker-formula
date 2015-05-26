@@ -57,7 +57,6 @@ lxc-docker:
     - require:
       - pkg: docker-dependencies
 
-{% set process_signature = ['grains.get']('role', '') %}
 docker-service:
   service.running:
     - name: docker
