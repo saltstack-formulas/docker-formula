@@ -8,3 +8,4 @@ registry:
 docker-pkg:
   lookup:
     version: 1.6.2
+    process_signature: /usr/bin/docker
