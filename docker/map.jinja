@@ -43,6 +43,7 @@ merge=salt['pillar.get']('registry:lookup')) %}
 
 {% set pkg = salt['grains.filter_by']({
     'default': {
-        'process_signature': '/usr/bin/docker'
+        'process_signature': '/usr/bin/docker',
+        'refresh_repo': True
     },
 }, merge=salt['pillar.get']('docker-pkg:lookup'), base='default') %}
