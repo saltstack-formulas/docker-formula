@@ -26,6 +26,17 @@
             'dist': 'wheezy-backports'
         }
     },
+    'jessie': {
+        'pkg': {
+            'name': 'linux-image-amd64',
+            'fromrepo': 'jessie-backports'
+        },
+        'pkgrepo': {
+            'name': 'deb http://http.debian.net/debian jessie-backports main',
+            'humanname': 'Jessie Backports',
+            'dist': 'jessie-backports'
+        }
+    },
     'precise': {
         'pkg': {
             'pkgs': ['linux-image-generic-lts-raring', 'linux-headers-generic-lts-raring']
