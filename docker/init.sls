@@ -28,7 +28,7 @@ docker-dependencies-kernel:
 {% endif %}
 
 docker-dependencies:
-   pkg.installed:
+  pkg.installed:
     - pkgs:
       - apt-transport-https
       - iptables
@@ -36,24 +36,27 @@ docker-dependencies:
       - lxc
 
 docker-repo:
-    pkgrepo.managed:
-      - humanname: Docker repo
-      - name: deb https://get.docker.com/ubuntu docker main
-      - file: /etc/apt/sources.list.d/docker.list
-      - keyid: d8576a8ba88d21e9
-      - keyserver: keyserver.ubuntu.com
-      - require_in:
-          - pkg: lxc-docker
-      - require:
-        - pkg: docker-python-apt
+  pkgrepo.managed:
+    - humanname: Docker repo
+    - name: deb https://get.docker.com/ubuntu docker main
+    - file: /etc/apt/sources.list.d/docker.list
+    - keyid: d8576a8ba88d21e9
+    - keyserver: keyserver.ubuntu.com
+    - refresh_db: True
+    - require_in:
+        - pkg: lxc-docker
+    - require:
+      - pkg: docker-python-apt
 
 lxc-docker:
+  {% if pkg and 'version' in pkg %}
   pkg.installed:
-    - fromrepo: docker
-    {% if pkg and 'version' in pkg %}
     - name: lxc-docker-{{ pkg.version }}
-    - refresh: True
-    {% endif -%}
+    - refresh: {{ pkg.refresh_repo }}
+  {% else %}
+  pkg.latest:
+  {% endif %}
+    - fromrepo: docker
     - require:
       - pkg: docker-dependencies
 
