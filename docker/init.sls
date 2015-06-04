@@ -52,10 +52,10 @@ lxc-docker:
   {% if pkg and 'version' in pkg %}
   pkg.installed:
     - name: lxc-docker-{{ pkg.version }}
-    - refresh: {{ pkg.refresh_repo }}
   {% else %}
   pkg.latest:
   {% endif %}
+    - refresh: {{ pkg.refresh_repo }}
     - fromrepo: docker
     - require:
       - pkg: docker-dependencies
