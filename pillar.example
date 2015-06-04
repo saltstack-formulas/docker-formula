@@ -8,4 +8,5 @@ registry:
 docker-pkg:
   lookup:
     version: 1.6.2
+    refresh_repo: false
     process_signature: /usr/bin/docker
