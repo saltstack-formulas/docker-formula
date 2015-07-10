@@ -66,7 +66,7 @@ docker-service:
     - enable: True
     {% if pkg and "process_signature" in pkg %}
     - sig: {{ pkg.process_signature }}
-    {% endif -%}
+    {% endif %}
 
 python-pip:
   pkg.installed
