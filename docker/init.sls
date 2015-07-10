@@ -68,8 +68,9 @@ docker-service:
     - sig: {{ pkg.process_signature }}
     {% endif %}
 
-python-pip:
+docker-py package dependency:
   pkg.installed
+    - name: python-pip
 
 docker-py:
   pip.installed:
