@@ -69,7 +69,7 @@ docker-service:
     {% endif %}
 
 docker-py package dependency:
-  pkg.installed
+  pkg.installed:
     - name: python-pip
 
 docker-py:
