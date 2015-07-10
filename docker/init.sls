@@ -66,5 +66,18 @@ docker-service:
     - enable: True
     {% if pkg and "process_signature" in pkg %}
     - sig: {{ pkg.process_signature }}
-    {% endif -%}
+    {% endif %}
 
+docker-py package dependency:
+  pkg.installed:
+    - name: python-pip
+
+docker-py:
+  pip.installed:
+    {% if pkg and "pip_version" in pkg %}
+    - name: docker-py {{ pkg.pip_version }}
+    {% endif %}
+    - require:
+      - pkg: lxc-docker
+      - pkg: python-pip
+    - reload_modules: True

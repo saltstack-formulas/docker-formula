@@ -10,3 +10,5 @@ docker-pkg:
     version: 1.6.2
     refresh_repo: false
     process_signature: /usr/bin/docker
+    # This is needed to maintain backwards compatability with the above docker version
+    pip_version: '<= 1.2.3'
