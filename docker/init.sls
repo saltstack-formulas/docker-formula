@@ -6,14 +6,14 @@ docker-python-apt:
     - name: python-apt
 
 {% if kernel.pkgrepo is defined %}
-{{ grains['lsb_distrib_codename'] }}-backports-repo:
+{{ grains["lsb_distrib_codename"] }}-backports-repo:
   pkgrepo.managed:
     {% for key, value in kernel.pkgrepo.items() %}
     - {{ key }}: {{ value }}
     {% endfor %}
     - require:
       - pkg: python-apt
-    - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt 3.8
+    - onlyif: dpkg --compare-versions {{ grains["kernelrelease"] }} lt 3.8
 {% endif %}
 
 {% if kernel.pkg is defined %}
@@ -24,7 +24,7 @@ docker-dependencies-kernel:
     {% endfor %}
     - require_in:
       - pkg: lxc-docker
-    - onlyif: dpkg --compare-versions {{ grains['kernelrelease'] }} lt 3.8
+    - onlyif: dpkg --compare-versions {{ grains["kernelrelease"] }} lt 3.8
 {% endif %}
 
 docker-dependencies:
@@ -49,7 +49,7 @@ docker-repo:
       - pkg: docker-python-apt
 
 lxc-docker:
-  {% if pkg and 'version' in pkg %}
+  {% if pkg and "version" in pkg %}
   pkg.installed:
     - name: lxc-docker-{{ pkg.version }}
   {% else %}
@@ -60,10 +60,20 @@ lxc-docker:
     - require:
       - pkg: docker-dependencies
 
+docker-config:
+  file.managed:
+    - name: /etc/default/docker
+    - source: salt://docker/files/config
+    - template: jinja
+    - mode: 644
+    - user: root
+
 docker-service:
   service.running:
     - name: docker
     - enable: True
+    - watch:
+      - file: /etc/default/docker
     {% if pkg and "process_signature" in pkg %}
     - sig: {{ pkg.process_signature }}
     {% endif %}
