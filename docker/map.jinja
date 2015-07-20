@@ -2,8 +2,10 @@
     'default': {
         'description': 'Docker Registry',
         'port': '5000',
+        'version': 'latest',
         'restart': 'no',
-        'search_backend': 'sqlalchemy'
+        'search_backend': 'sqlalchemy',
+        'runoptions': []
     },
 }, merge=salt['pillar.get']('registry:lookup')) %}
 
@@ -55,6 +57,7 @@ merge=salt['pillar.get']('registry:lookup')) %}
 {% set pkg = salt['grains.filter_by']({
     'default': {
         'process_signature': '/usr/bin/docker',
-        'refresh_repo': True
+        'refresh_repo': True,
+        'config': []
     },
 }, merge=salt['pillar.get']('docker-pkg:lookup'), base='default') %}

@@ -1,3 +1,5 @@
+{% from "docker/map.jinja" import registry with context %}
+
 file-registry-upstart-conf:
   file.managed:
     - name: /etc/init/registry.conf
@@ -10,7 +12,7 @@ file-registry-upstart-conf:
 
 cmd-registry-image-pull:
   cmd.run:
-    - name: docker pull registry
+    - name: docker pull registry:{{ registry.version }}
     - require:
       - service: docker-service
 
