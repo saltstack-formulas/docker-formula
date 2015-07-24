@@ -1,5 +1,5 @@
 {% from "docker/map.jinja" import kernel with context %}
-{% from "docker/map.jinja" import pkg with context %}
+{% from "docker/map.jinja" import docker with context %}
 
 docker-python-apt:
   pkg.installed:
@@ -49,13 +49,13 @@ docker-repo:
       - pkg: docker-python-apt
 
 lxc-docker:
-  {% if pkg and "version" in pkg %}
+  {% if "version" in docker %}
   pkg.installed:
-    - name: lxc-docker-{{ pkg.version }}
+    - name: lxc-docker-{{ docker.version }}
   {% else %}
   pkg.latest:
   {% endif %}
-    - refresh: {{ pkg.refresh_repo }}
+    - refresh: {{ docker.refresh_repo }}
     - fromrepo: docker
     - require:
       - pkg: docker-dependencies
@@ -74,20 +74,17 @@ docker-service:
     - enable: True
     - watch:
       - file: /etc/default/docker
-    {% if pkg and "process_signature" in pkg %}
-    - sig: {{ pkg.process_signature }}
+    {% if "process_signature" in docker %}
+    - sig: {{ docker.process_signature }}
     {% endif %}
 
-docker-py package dependency:
+docker-py requirements:
   pkg.installed:
     - name: python-pip
-
-docker-py:
   pip.installed:
-    {% if pkg and "pip_version" in pkg %}
-    - name: docker-py {{ pkg.pip_version }}
+    {% if "pip_version" in docker %}
+    - name: docker-py {{ docker.pip_version }}
     {% endif %}
     - require:
       - pkg: lxc-docker
-      - pkg: python-pip
     - reload_modules: True
