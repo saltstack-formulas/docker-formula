@@ -16,37 +16,6 @@
     },
 }, merge=salt['pillar.get']('registry:lookup:amazon')) %}
 
-{% set kernel = salt['grains.filter_by'] ({
-    'wheezy': {
-        'pkg': {
-            'name': 'linux-image-amd64',
-            'fromrepo': 'wheezy-backports'
-        },
-        'pkgrepo': {
-            'name': 'deb http://http.debian.net/debian wheezy-backports main',
-            'humanname': 'Wheezy Backports',
-            'dist': 'wheezy-backports'
-        }
-    },
-    'jessie': {
-        'pkg': {
-            'name': 'linux-image-amd64',
-            'fromrepo': 'jessie-backports'
-        },
-        'pkgrepo': {
-            'name': 'deb http://http.debian.net/debian jessie-backports main',
-            'humanname': 'Jessie Backports',
-            'dist': 'jessie-backports'
-        }
-    },
-    'precise': {
-        'pkg': {
-            'pkgs': ['linux-image-generic-lts-raring', 'linux-headers-generic-lts-raring']
-        }
-    },
-},
-grain='lsb_distrib_codename',
-merge=salt['pillar.get']('registry:lookup')) %}
 
 {% set compose = salt['grains.filter_by']({
     'default': {
@@ -56,6 +25,12 @@ merge=salt['pillar.get']('registry:lookup')) %}
 
 # Begin migration to new style map.jinja
 {% import_yaml "docker/defaults.yaml" as defaults %}
+{% import_yaml "docker/codenamemap.yaml" as codemap %}
+
 {% set pkg = salt['pillar.get']('docker-pkg:lookup', default={}, merge=True) %}
 {% do defaults.docker.update(pkg) %}
+
+{% set oscode = salt['grains.filter_by'](codemap, grain='oscodename') or {} %}
+{% do defaults.docker.update(oscode) %}
+
 {% set docker = salt['pillar.get']('docker', default=defaults['docker'], merge=True) %}

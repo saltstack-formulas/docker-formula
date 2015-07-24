@@ -1,14 +1,13 @@
-{% from "docker/map.jinja" import kernel with context %}
 {% from "docker/map.jinja" import docker with context %}
 
 docker-python-apt:
   pkg.installed:
     - name: python-apt
 
-{% if kernel.pkgrepo is defined %}
-{{ grains["lsb_distrib_codename"] }}-backports-repo:
+{% if "pkgrepo" in docker.kernel %}
+{{ grains["oscodename"] }}-backports-repo:
   pkgrepo.managed:
-    {% for key, value in kernel.pkgrepo.items() %}
+    {% for key, value in docker.kernel.pkgrepo.items() %}
     - {{ key }}: {{ value }}
     {% endfor %}
     - require:
@@ -16,10 +15,10 @@ docker-python-apt:
     - onlyif: dpkg --compare-versions {{ grains["kernelrelease"] }} lt 3.8
 {% endif %}
 
-{% if kernel.pkg is defined %}
+{% if "pkg"  in docker.kernel %}
 docker-dependencies-kernel:
   pkg.installed:
-    {% for key, value in kernel.pkg.items() %}
+    {% for key, value in docker.kernel.pkg.items() %}
     - {{ key }}: {{ value }}
     {% endfor %}
     - require_in:
