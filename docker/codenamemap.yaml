@@ -1,0 +1,28 @@
+# vim: sts=2 ts=2 sw=2 et ai
+
+wheezy:
+  kernel:
+    pkg:
+      name: linux-image-amd64
+      fromrepo: wheezy-backports
+    pkgrepo:
+      name: deb http://http.debian.net/debian wheezy-backports main
+      humanname: Wheezy Backports
+      dist: wheezy-backports
+
+jessie:
+  kernel:
+    pkg:
+      name: linux-image-amd64
+      fromrepo: jessie-backports
+    pkgrepo:
+      name: deb http://http.debian.net/debian jessie-backports main
+      humanname: Jessie Backports
+      dist: jessie-backports
+
+precise:
+  kernel:
+    pkg:
+      pkgs:
+        - linux-image-generic-lts-raring
+        - linux-headers-generic-lts-raring
