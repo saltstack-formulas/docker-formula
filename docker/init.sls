@@ -22,7 +22,7 @@ docker-dependencies-kernel:
     - {{ key }}: {{ value }}
     {% endfor %}
     - require_in:
-      - pkg: lxc-docker
+      - pkg: docker package
     - onlyif: dpkg --compare-versions {{ grains["kernelrelease"] }} lt 3.8
 {% endif %}
 
@@ -34,30 +34,52 @@ docker-dependencies:
       - ca-certificates
       - lxc
 
-docker-repo:
+{%- if "version" in docker and docker.version < '1.7.1' %}
+docker package repository:
   pkgrepo.managed:
-    - humanname: Docker repo
     - name: deb https://get.docker.com/ubuntu docker main
-    - file: /etc/apt/sources.list.d/docker.list
+    - humanname: Old Docker Package Repository
     - keyid: d8576a8ba88d21e9
+{%- else %}
+purge old packages:
+  pkgrepo.absent:
+    - name: deb https://get.docker.com/ubuntu docker main
+  pkg.purged:
+    - name: lxc-docker*
+    - require_in:
+      - pkgrepo: docker package repository
+
+docker package repository:
+  pkgrepo.managed:
+    - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
+    - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
+    - keyid: f76221572c52609d
+{%- endif %}
     - keyserver: keyserver.ubuntu.com
+    - file: /etc/apt/sources.list.d/docker.list
     - refresh_db: True
     - require_in:
-        - pkg: lxc-docker
+      - pkg: docker package
     - require:
       - pkg: docker-python-apt
 
-lxc-docker:
-  {% if "version" in docker %}
+docker package:
+  {%- if "version" in docker %}
   pkg.installed:
+    {%- if  docker.version < '1.7.1' %}
     - name: lxc-docker-{{ docker.version }}
-  {% else %}
+    {%- else %}
+    - name: docker-engine
+    - version: {{ docker.version }}
+    {%- endif %}
+  {%- else %}
   pkg.latest:
-  {% endif %}
+    - name: docker-engine
+  {%- endif %}
     - refresh: {{ docker.refresh_repo }}
-    - fromrepo: docker
     - require:
       - pkg: docker-dependencies
+      - pkgrepo: docker package repository
 
 docker-config:
   file.managed:
@@ -81,9 +103,11 @@ docker-py requirements:
   pkg.installed:
     - name: python-pip
   pip.installed:
-    {% if "pip_version" in docker %}
+    {%- if "pip_version" in docker %}
     - name: docker-py {{ docker.pip_version }}
-    {% endif %}
+    {%- else %}
+    - name: docker-py
+    {%- endif %}
     - require:
-      - pkg: lxc-docker
+      - pkg: docker package
     - reload_modules: True
