@@ -4,13 +4,14 @@ include:
   - .kernel
 {% endif %}
 
-docker-dependencies:
+docker package dependencies:
   pkg.installed:
     - pkgs:
       - apt-transport-https
       - iptables
       - ca-certificates
       - lxc
+      - python-apt
 
 {%- if "version" in docker and docker.version < '1.7.1' %}
 docker package repository:
@@ -39,7 +40,7 @@ docker package repository:
     - require_in:
       - pkg: docker package
     - require:
-      - pkg: docker-python-apt
+      - pkg: docker package dependencies
 
 docker package:
   {%- if "version" in docker %}
@@ -56,7 +57,7 @@ docker package:
   {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
-      - pkg: docker-dependencies
+      - pkg: docker package dependencies
       - pkgrepo: docker package repository
 
 docker-config:
