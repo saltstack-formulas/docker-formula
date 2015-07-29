@@ -1,4 +1,4 @@
-{% from "docker/map.jinja" import pkg with context %}
+{% from "docker/map.jinja" import docker with context %}
 
 # Docker Upstart and SysVinit configuration file
 
@@ -14,6 +14,6 @@
 # This is also a handy place to tweak where Docker's temporary files go.
 #export TMPDIR="/mnt/bigdrive/docker-tmp"
 
-{% for line in pkg.get("config", []) %}
+{% for line in docker.get("config", []) %}
 {{ line }}
 {% endfor %}
