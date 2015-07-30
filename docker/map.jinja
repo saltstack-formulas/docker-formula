@@ -1,3 +1,9 @@
+{% set containers = salt['grains.filter_by']({
+        'default': {}
+    },
+    merge=salt['pillar.get']('docker-containers:lookup'))
+%}
+
 {% set registry = salt['grains.filter_by']({
     'default': {
         'description': 'Docker Registry',

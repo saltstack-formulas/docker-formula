@@ -1,0 +1,28 @@
+{% from "docker/map.jinja" import registry with context %}
+{% from "docker/map.jinja" import amazon with context %}
+
+description "{{ registry.description }}"
+start on runlevel [2345]
+stop on runlevel [06]
+
+{# as of now docker registry has 'latest' pointing to 0.9.1, instead of 2.x #}
+{% if registry.version != 'latest' %}
+exec docker run \
+{%- for option in registry.runoptions %}
+  {{ option }} \
+{%- endfor %}
+  -p {{ registry.port }}:{{ registry.port }} \
+  --restart="{{ registry.restart }}" \
+  registry:{{ registry.version }}
+{% else %}
+exec docker run \
+  -e SETTINGS_FLAVOR={{ amazon.settings_flavor }} \
+  -e AWS_BUCKET={{ amazon.aws_bucket }} \
+  -e AWS_KEY={{ amazon.aws_key }} \
+  -e AWS_SECRET={{ amazon.aws_secret }} \
+  -e STORAGE_PATH={{ amazon.storage_path }} \
+  -e SEARCH_BACKEND={{ registry.search_backend }} \
+  -p {{ registry.port }}:5000 \
+  --restart="{{ registry.restart }}" \
+  registry
+{% endif %}
