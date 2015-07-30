@@ -3,7 +3,7 @@
 file-registry-upstart-conf:
   file.managed:
     - name: /etc/init/registry.conf
-    - source: salt://docker/files/upstart.conf
+    - source: salt://docker/files/upstart.conf.deprecated.registry
     - mode: 700
     - user: root
     - template: jinja
