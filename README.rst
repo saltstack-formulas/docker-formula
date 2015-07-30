@@ -28,6 +28,7 @@ Install and run Docker daemon
     
     You can override the default docker daemon options by setting each line in the *"docker-pkg:lookup:config"* pillar. This effectively writes the config in */etc/default/docker*. See *pillar.example*
 
+
 ``docker.containers``
 ---------------------
 
@@ -64,12 +65,21 @@ In the example pillar above:
 - Upstart files are created for each container, so ``service <container_name> stop|start|status`` should just work
 - ``service <container_name> stop`` will wipeout the container completely (ie ``docker stop <container_name> + docker rm <container_name>``)
 
+
+``docker.compose``
+------------------
+
+Add support for using `Docker Compose <https://docs.docker.com/compose/>`_
+(previously ``fig``) to define groups of containers and their relationships
+with one another.
+
+
 ``docker.registry (DEPRECATED)``
 --------------------------------
 
 NEW:
 
-Since the more generic *docker-container* above has been implemented, the *docker-registry* state can now be deprecated. Since the registry is just another docker image, we can use *docker-container* with a pillar similar to this:
+Since the more generic *docker-container* above has been implemented, the *docker-registry* state can now be deprecated. The registry is just another docker image, we can use *docker-container* with a pillar similar to this:
 
 ::
 
@@ -102,11 +112,4 @@ If *"registry:lookup:version"* is set to any other version, e.g. *2*, an image w
 In this case, extra *docker run* options can be provided in your *"registry:lookup:runoptions"* pillar to provide environment variables, volumes, or log configuration to the container.
 
 By default, the storage backend used by the registry is "filesystem". Use environment variables to override that, for example to use S3 as backend storage.
-
-``docker.compose``
-------------------
-
-Add support for using `Docker Compose <https://docs.docker.com/compose/>`_
-(previously ``fig``) to define groups of containers and their relationships
-with one another.
 
