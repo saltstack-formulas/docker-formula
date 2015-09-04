@@ -57,6 +57,8 @@ To use it, just include *docker.containers* in your *top.sls*, and configure it 
           - "-v /mnt/myapp:/myapp"
           - "-p 80:80"
           - "--rm"
+        stopoptions:
+          - -t 60
 
 
 In the example pillar above:
