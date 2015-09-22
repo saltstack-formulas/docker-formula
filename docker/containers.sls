@@ -8,10 +8,17 @@ docker-image-{{ name }}:
     - require:
       - service: docker-service
 
+{%- set systemd = salt['cmd.run']('test -d /etc/systemd/system && echo "yes"') %}
+
 docker-container-startup-config-{{ name }}:
   file.managed:
+{%- if systemd == 'yes' %}
+    - name: /etc/systemd/system/docker-{{ name }}.service
+    - source: salt://docker/files/systemd.conf
+{%- else %}
     - name: /etc/init/docker-{{ name }}.conf
     - source: salt://docker/files/upstart.conf
+{%- endif %}
     - mode: 700
     - user: root
     - template: jinja
