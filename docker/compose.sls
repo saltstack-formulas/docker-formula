@@ -10,6 +10,3 @@ compose-pip:
 compose:
   pip.installed:
     - name: docker-compose == {{ compose.version }}
-    - require:
-      - pip: compose-pip
-    - reload_modules: true
