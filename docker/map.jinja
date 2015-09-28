@@ -23,13 +23,6 @@
     },
 }, merge=salt['pillar.get']('registry:lookup:amazon')) %}
 
-
-{% set compose = salt['grains.filter_by']({
-    'default': {
-        'version': '1.1.0'
-    },
-}, merge=salt['pillar.get']('registry:lookup')) %}
-
 # Begin migration to new style map.jinja
 {% import_yaml "docker/defaults.yaml" as defaults %}
 {% import_yaml "docker/codenamemap.yaml" as codemap %}
@@ -41,3 +34,5 @@
 {% do defaults.docker.update(oscode) %}
 
 {% set docker = salt['pillar.get']('docker', default=defaults['docker'], merge=True) %}
+
+{% set compose = salt['pillar.get']('docker:compose', default={}, merge=True) %}
