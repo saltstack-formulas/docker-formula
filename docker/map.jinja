@@ -25,9 +25,9 @@
 
 {% set compose = salt['grains.filter_by']({
     'default': {
-        'version': '1.1.0'
+        'version': '1.4.2'
     },
-}, merge=salt['pillar.get']('registry:lookup')) %}
+}, merge=salt['pillar.get']('docker-compose:lookup')) %}
 
 # Begin migration to new style map.jinja
 {% import_yaml "docker/defaults.yaml" as defaults %}
