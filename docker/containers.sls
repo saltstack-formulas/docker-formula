@@ -4,7 +4,6 @@
 docker-image-{{ name }}:
   cmd.run:
     - name: docker pull {{ container.image }}
-    - unless: docker images | grep {{ container.image }}
     - require:
       - service: docker-service
 
