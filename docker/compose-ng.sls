@@ -28,13 +28,17 @@
   {%- if 'ports' in container and container.ports is iterable %}
     - ports:
     {%- for port_mapping in container.ports %}
-      {%- set mapping = port_mapping.split(':',2) %}
-      {%- if mapping|length < 2 %}
+      {%- if port_mapping is string %}
+        {%- set mapping = port_mapping.split(':',2) %}
+        {%- if mapping|length < 2 %}
       - "{{mapping[0]}}"
-      {%- else %}
+        {%- else %}
       - "{{mapping[-1]}}/tcp":
             HostPort: "{{mapping[-2]}}"
             HostIp: "{{mapping[-3]|d('')}}"
+        {%- endif %}
+      {%- elif port_mapping is mapping %}
+      - {{port_mapping}}
       {%- endif %}
     {%- endfor %}
   {%- endif %}
