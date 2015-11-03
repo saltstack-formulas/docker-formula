@@ -82,11 +82,13 @@ docker-py requirements:
   pkg.installed:
     - name: python-pip
   pip.installed:
-    {%- if "pip_version" in docker %}
-    - name: docker-py {{ docker.pip_version }}
-    {%- else %}
-    - name: docker-py
-    {%- endif %}
+    - name: pip
+    - upgrade: True
+
+docker-py:
+  pip.installed:
+    - name: docker-py>=1.4
     - require:
       - pkg: docker package
+      - pip: docker-py requirements
     - reload_modules: True
