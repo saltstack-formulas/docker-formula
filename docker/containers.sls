@@ -7,14 +7,15 @@ docker-image-{{ name }}:
     - require:
       - service: docker-service
 
-{%- set systemd = salt['cmd.run']('test -d /etc/systemd/system && echo "yes"') == 'yes' %}
+{# TODO: SysV init script #}
+{%- set init_system = salt["cmd.run"]("ps -p1 | grep systemd && echo systemd || echo upstart") %}
 
 docker-container-startup-config-{{ name }}:
   file.managed:
-{%- if systemd %}
+{%- if init_system == "systemd" %}
     - name: /etc/systemd/system/docker-{{ name }}.service
     - source: salt://docker/files/systemd.conf
-{%- else %}
+{%- elif init_system == "upstart" %}
     - name: /etc/init/docker-{{ name }}.conf
     - source: salt://docker/files/upstart.conf
 {%- endif %}
