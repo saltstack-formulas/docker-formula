@@ -23,8 +23,8 @@ docker-container-startup-config-{{ name }}:
     - user: root
     - template: jinja
     - defaults:
-        name: {{ name }}
-        container: {{ container }}
+        name: {{ name | json }}
+        container: {{ container | json }}
     - require:
       - cmd: docker-image-{{ name }}
 
