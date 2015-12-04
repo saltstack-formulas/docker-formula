@@ -13,6 +13,11 @@ docker package dependencies:
       - lxc
       - python-apt
 
+{%- if grains["oscodename"]|lower == 'jessie' %}
+docker package repository:
+  pkgrepo.managed:
+    - name: deb http://http.debian.net/debian jessie-backports main
+{%- else %}
 {%- if "version" in docker and docker.version < '1.7.1' %}
 docker package repository:
   pkgrepo.managed:
@@ -37,6 +42,7 @@ docker package repository:
     - keyserver: keyserver.ubuntu.com
     - file: /etc/apt/sources.list.d/docker.list
     - refresh_db: True
+{%- endif %}
     - require_in:
       - pkg: docker package
     - require:
@@ -45,7 +51,10 @@ docker package repository:
 docker package:
   {%- if "version" in docker %}
   pkg.installed:
-    {%- if  docker.version < '1.7.1' %}
+    {%- if grains["oscodename"]|lower == 'jessie' %}
+    - name: docker.io
+    - version: {{ docker.version }}
+    {%- elif  docker.version < '1.7.1' %}
     - name: lxc-docker-{{ docker.version }}
     {%- else %}
     - name: docker-engine
@@ -53,7 +62,11 @@ docker package:
     {%- endif %}
   {%- else %}
   pkg.latest:
+    {%- if grains["oscodename"]|lower == 'jessie' %}
+    - name: docker.io
+    {%- else %}
     - name: docker-engine
+    {%- endif %}
   {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
@@ -82,6 +95,11 @@ docker-py requirements:
   pkg.installed:
     - name: python-pip
   pip.installed:
+    - name: pip
+    - upgrade: True
+
+docker-py:
+  pip.installed:
     {%- if "pip_version" in docker %}
     - name: docker-py {{ docker.pip_version }}
     {%- else %}
@@ -89,4 +107,5 @@ docker-py requirements:
     {%- endif %}
     - require:
       - pkg: docker package
+      - pip: docker-py requirements
     - reload_modules: True
