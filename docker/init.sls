@@ -72,6 +72,7 @@ docker package:
     - require:
       - pkg: docker package dependencies
       - pkgrepo: docker package repository
+      - file: docker-config
 
 docker-config:
   file.managed:
@@ -87,6 +88,7 @@ docker-service:
     - enable: True
     - watch:
       - file: /etc/default/docker
+      - pkg: docker package
     {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
     {% endif %}
