@@ -91,6 +91,8 @@ docker-service:
     - sig: {{ docker.process_signature }}
     {% endif %}
 
+
+{% if docker.install_docker_py %}
 docker-py requirements:
   pkg.installed:
     - name: python-pip
@@ -109,3 +111,4 @@ docker-py:
       - pkg: docker package
       - pip: docker-py requirements
     - reload_modules: True
+{% endif %}
