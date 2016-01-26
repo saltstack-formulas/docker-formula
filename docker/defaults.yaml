@@ -4,3 +4,4 @@ docker:
   process_signature: '/usr/bin/docker'
   refresh_repo: True
   config: []
+  fluentd_log: False

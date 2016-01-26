@@ -1,6 +1,6 @@
 {% from "docker/map.jinja" import docker with context %}
 
-{% if docker.fluentd_log is defined %}
+{% if docker.fluentd_log %}
 /etc/systemd/system/docker.service:
   file.managed:
     - source: salt://docker/files/docker.service
