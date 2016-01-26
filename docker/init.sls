@@ -1,11 +1,10 @@
 {% from "docker/map.jinja" import docker with context %}
-{% if docker.kernel is defined %}
-include:
-  - .kernel
-{% endif %}
 
 include:
   - .fluentd_agent
+{% if docker.kernel is defined %}
+  - .kernel
+{% endif %}
 
 docker package dependencies:
   pkg.installed:
