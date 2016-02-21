@@ -18,7 +18,19 @@ docker package repository:
   pkgrepo.managed:
     - name: deb http://http.debian.net/debian jessie-backports main
 {%- else %}
-{%- if "version" in docker and docker.version < '1.7.1' %}
+  {%- if "version" in docker %}
+    {%- if (docker.version|string).startswith('1.7.') %}
+      {%- set use_old_repo = docker.version < '1.7.1' %}
+    {%- else %}
+      {%- set version_major = (docker.version|string).split('.')[0]|int %}
+      {%- set version_minor = (docker.version|string).split('.')[1]|int %}
+      {%- set old_repo_major = 1 %}
+      {%- set old_repo_minor = 7 %}
+      {%- set use_old_repo = (version_major < old_repo_major or (version_major == old_repo_major and version_minor < old_repo_minor)) %}
+    {%- endif %}
+  {%- endif %}
+
+{%- if "version" in docker and use_old_repo %}
 docker package repository:
   pkgrepo.managed:
     - name: deb https://get.docker.com/ubuntu docker main
@@ -54,7 +66,7 @@ docker package:
     {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
     - version: {{ docker.version }}
-    {%- elif  docker.version < '1.7.1' %}
+    {%- elif use_old_repo %}
     - name: lxc-docker-{{ docker.version }}
     {%- else %}
     - name: docker-engine
