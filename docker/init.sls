@@ -13,7 +13,7 @@ docker package dependencies:
       - lxc
       - python-apt
 
-{%- if grains["oscodename"]|lower == 'jessie' %}
+{%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
 docker package repository:
   pkgrepo.managed:
     - name: deb http://http.debian.net/debian jessie-backports main
@@ -41,7 +41,9 @@ purge old packages:
   pkgrepo.absent:
     - name: deb https://get.docker.com/ubuntu docker main
   pkg.purged:
-    - name: lxc-docker*
+    - pkgs: 
+      - lxc-docker*
+      - docker.io*
     - require_in:
       - pkgrepo: docker package repository
 
@@ -63,7 +65,7 @@ docker package repository:
 docker package:
   {%- if "version" in docker %}
   pkg.installed:
-    {%- if grains["oscodename"]|lower == 'jessie' %}
+    {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
     - name: docker.io
     - version: {{ docker.version }}
     {%- elif use_old_repo %}
@@ -74,7 +76,7 @@ docker package:
     {%- endif %}
   {%- else %}
   pkg.latest:
-    {%- if grains["oscodename"]|lower == 'jessie' %}
+    {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
     - name: docker.io
     {%- else %}
     - name: docker-engine
