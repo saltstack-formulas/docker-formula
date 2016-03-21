@@ -123,8 +123,4 @@ docker-py:
     {%- else %}
     - name: docker-py
     {%- endif %}
-    - require:
-      - pkg: docker package
-      - pip: docker-py requirements
-    - reload_modules: True
 {% endif %}
