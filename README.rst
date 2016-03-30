@@ -75,6 +75,69 @@ Add support for using `Docker Compose <https://docs.docker.com/compose/>`_
 (previously ``fig``) to define groups of containers and their relationships
 with one another.
 
+``docker.compose-ng``
+---------------------
+
+The intent is to provide an interface similar to the `specification <https://docs.docker.com/compose/yml/>`_
+provided by docker-compose. The hope is that you may provide pillar data
+similar to that which you would use to define services with docker-compose. The
+assumption is that you are already using pillar data and salt formulae to
+represent the state of your existing infrastructure.
+
+No real effort had been made to support every possible feature of
+docker-compose.  Rather, we prefer the syntax provided by the docker-compose
+whenever it is reasonable for the sake of simplicity.
+
+It is worth noting that we have added one attribute which is decidedly absent
+from the docker-compose specification. That attribute is ``dvc``. This is a
+boolean attribute which allows us to define data only volume containers
+which can not be represented with the ``docker.running`` state interface
+since they are not intended to include a long living service inside the
+container.
+
+See the included ``pillar.example`` for a representative pillar data block.
+
+To use this formula, you might target a host with the following pillar:
+
+.. code:: yaml
+
+    docker:
+      compose:
+        registry-data:
+          dvc: True
+          image: &registry_image 'library/registry:0.9.1'
+          container_name: &dvc 'registry-999-99-data'
+          command: echo *dvc data volume container
+          volumes:
+            - &datapath '/registry'
+        registry-service:
+          image: *registry_image
+          container_name: 'registry-999-99-service'
+          restart: 'always'
+          volumes_from:
+            - *dvc
+          environment:
+            SETTINGS_FLAVOR: 'local'
+            STORAGE_PATH: *datapath
+            SEARCH_BACKEND: 'sqlalchemy'
+        nginx:
+          image: 'library/nginx:1.9.0'
+          container_name: 'nginx-999-99'
+          restart: 'always'
+          links:
+            - 'registry-999-99-service:registry'
+          ports:
+            - '80:80'
+            - '443:443'
+
+Then you would target a host with the following states:
+
+.. code:: yaml
+
+    include:
+      - base: docker
+      - base: docker.compose-ng
+
 
 ``docker.registry (DEPRECATED)``
 --------------------------------
