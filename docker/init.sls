@@ -113,8 +113,12 @@ docker-py requirements:
   pkg.installed:
     - name: python-pip
   pip.installed:
+    {%- if "pip" in docker and "version" in docker.pip %}
+    - name: pip {{ docker.pip.version }}
+    {%- else %}
     - name: pip
     - upgrade: True
+    {%- endif %}
 
 docker-py:
   pip.installed:
