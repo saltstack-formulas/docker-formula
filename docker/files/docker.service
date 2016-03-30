@@ -7,7 +7,7 @@ Requires=docker.socket
 [Service]
 Environment="DOCKER_OPTS=--log-driver=fluentd --log-opt tag=docker.{{.Name}}"
 Type=notify
-ExecStart=/usr/bin/docker daemon $DOCKER_OPTS -H fd://
+ExecStart=/usr/bin/docker $DOCKER_OPTS -H fd://
 MountFlags=slave
 LimitNOFILE=1048576
 LimitNPROC=1048576
