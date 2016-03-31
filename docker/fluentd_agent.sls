@@ -12,3 +12,17 @@ delete /etc/systemd/system/docker.service:
   file.absent:
     - name: /etc/systemd/system/docker.service
 {% endif %}
+
+reload_systemd_daemon:
+  cmd.run:
+    - name: /bin/systemctl daemon-reload
+    - watch:
+      - file: /etc/systemd/system/docker.service   
+
+restart_docker_daemon:
+  cmd.run:
+    - name: /bin/systemctl stop docker && /bin/systemctl start docker
+    - require:
+      - cmd: reload_systemd_daemon
+    - watch:
+      - cmd: reload_systemd_daemon
