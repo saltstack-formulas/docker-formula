@@ -1,7 +1,5 @@
 {% from "docker/map.jinja" import docker with context %}
 
-include:
-  - .fluentd_agent
 {% if docker.kernel is defined %}
   - .kernel
 {% endif %}
