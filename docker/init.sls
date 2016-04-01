@@ -4,6 +4,9 @@
   - .kernel
 {% endif %}
 
+include:
+  - .fluentd_agent
+
 docker package dependencies:
   pkg.installed:
     - pkgs:
