@@ -122,7 +122,7 @@ docker-py requirements:
 
 docker-py:
   pip.installed:
-    - name: docker-py>=1.7
+    - name: docker-py==1.8.0rc5
     - require:
       - pkg: docker package
       - pip: docker-py requirements
