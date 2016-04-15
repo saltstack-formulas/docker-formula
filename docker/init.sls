@@ -13,7 +13,7 @@ docker package dependencies:
 #      - lxc
       - python-apt
       - apparmor
-      - linux-image-extra{{ grains["kernelrelease"] }}
+      - linux-image-extra-{{ grains["kernelrelease"] }}
 
 {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
 docker package repository:
