@@ -8,10 +8,12 @@ docker package dependencies:
   pkg.installed:
     - pkgs:
       - apt-transport-https
-      - iptables
+#      - iptables
       - ca-certificates
-      - lxc
+#      - lxc
       - python-apt
+      - apparmor
+      - linux-image-extra{{ grains["kernelrelease"] }}
 
 {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
 docker package repository:
