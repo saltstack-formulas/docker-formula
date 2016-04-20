@@ -1,6 +1,6 @@
 {% from "docker/map.jinja" import docker with context %}
+
 {% if docker.kernel is defined %}
-include:
   - .kernel
 {% endif %}
 
@@ -41,7 +41,7 @@ purge old packages:
   pkgrepo.absent:
     - name: deb https://get.docker.com/ubuntu docker main
   pkg.purged:
-    - pkgs: 
+    - pkgs:
       - lxc-docker*
       - docker.io*
     - require_in:
@@ -138,6 +138,12 @@ docker-py requirements:
 
 docker-py:
   pip.installed:
+    - name: docker-py==1.8.0rc5
+    - require:
+      - pkg: docker package
+      - pip: docker-py requirements
+    - reload_modules: True
+
     {%- if "pip_version" in docker %}
     - name: docker-py {{ docker.pip_version }}
     {%- else %}

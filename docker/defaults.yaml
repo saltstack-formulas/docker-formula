@@ -5,3 +5,4 @@ docker:
   install_docker_py: True
   refresh_repo: True
   config: []
+  fluentd_log: False
