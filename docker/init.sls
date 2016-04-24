@@ -142,4 +142,5 @@ docker-py:
     {%- else %}
     - name: docker-py
     {%- endif %}
+    - reload_modules: true
 {% endif %}
