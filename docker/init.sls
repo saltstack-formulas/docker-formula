@@ -10,7 +10,6 @@ docker package dependencies:
       - apt-transport-https
       - iptables
       - ca-certificates
-      - lxc
       - python-apt
 
 {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
