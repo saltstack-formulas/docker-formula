@@ -119,7 +119,6 @@ docker-py requirements:
     - name: pip {{ docker.pip.version }}
     {%- else %}
     - name: pip == 8.1.1
-    - upgrade: True
     {%- endif %}
 
 docker-py:
