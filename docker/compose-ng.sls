@@ -8,9 +8,9 @@
     {%- set image = container.image.split(':',1) %}
     - name: {{image[0]}}
     - tag: {{image[1]}}
-    {%- else %}
+  {%- else %}
     - name: {{container.image}}
-    {%- endif %}
+  {%- endif %}
 
 {{id}} container:
   {%- if 'dvc' in container and container.dvc %}
