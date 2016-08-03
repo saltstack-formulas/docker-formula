@@ -73,6 +73,7 @@ docker package:
     - name: docker-engine
     - version: {{ docker.version }}
     {%- endif %}
+    - hold: True
   {%- else %}
   pkg.latest:
     {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
