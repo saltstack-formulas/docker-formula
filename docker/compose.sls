@@ -9,4 +9,8 @@ compose-pip:
 
 compose:
   pip.installed:
+    {%- if "version" in compose %}
     - name: docker-compose == {{ compose.version }}
+    {%- else %}
+    - name: docker-compose
+    {%- endif %}
