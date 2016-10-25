@@ -20,6 +20,16 @@ platforms:
 
 suites:
   - name: default
+  - name: version-1.12.2
+    provisioner:
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - docker
+        docker.sls:
+          docker:
+            version: '1.12.2*'
 
 verifier:
   name: shell
