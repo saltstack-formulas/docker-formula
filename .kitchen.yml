@@ -1,0 +1,24 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+  privileged: true
+
+provisioner:
+  name: salt_solo
+  formula: docker
+  state_top:
+    base:
+      '*':
+        - docker
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+
+verifier:
+  name: shell
+  remote_exec: false
+  command: testinfra -vvv --connection=docker --hosts=kitchen@$KITCHEN_CONTAINER_ID --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
