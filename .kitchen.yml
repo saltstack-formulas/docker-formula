@@ -14,6 +14,9 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
+  - name: debian-jessie
+    driver_config:
+      run_command: /sbin/init
 
 suites:
   - name: default
@@ -21,4 +24,4 @@ suites:
 verifier:
   name: shell
   remote_exec: false
-  command: testinfra -vvv --connection=docker --hosts=kitchen@$KITCHEN_CONTAINER_ID --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
+  command: testinfra -vvv --connection=docker --hosts=root@$KITCHEN_CONTAINER_ID --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
