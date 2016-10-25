@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: salt_solo
+  require_chef: false
   formula: docker
   state_top:
     base:
@@ -22,6 +23,7 @@ suites:
   - name: default
   - name: version-1.12.2
     provisioner:
+      log_level: debug
       pillars:
         top.sls:
           base:
