@@ -26,7 +26,7 @@ docker-pkg:
     # pip version is needed to maintain backwards compatibility with the above docker version
     pip_version: '<= 1.2.3'
     # config is only for sysvinit and upstart
-    # use systemd drop-ins in your own states if you need to customize arugments to docker
+    # use systemd drop-ins in your own states if you need to customize arguments to docker
     config: 
       - DOCKER_OPTS="-s btrfs --dns 192.168.0.2"
       - export http_proxy="http://192.168.0.4:3128/"
