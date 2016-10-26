@@ -96,22 +96,6 @@ docker-config:
     - mode: 644
     - user: root
 
-{% if salt['grains.has_value']('systemd') %}
-docker-unit-drop-in:
-  file.managed:
-    - name: /etc/systemd/system/docker.service.d/docker-defaults.conf
-    - source: salt://docker/files/systemd.drop-in
-    - makedirs: True
-    - require:
-      - file: docker-config
-
-reload-systemd:
-  module.wait:
-    - name: service.systemctl_reload
-    - watch:
-      - file: docker-unit-drop-in
-{% endif %}
-
 docker-service:
   service.running:
     - name: docker

@@ -6,6 +6,8 @@ driver:
 
 provisioner:
   name: salt_solo
+  log_level: debug
+  require_chef: false
   formula: docker
   state_top:
     base:
@@ -14,11 +16,24 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
+  - name: debian-jessie
+    driver_config:
+      run_command: /sbin/init
 
 suites:
   - name: default
+  - name: version-1.12.2
+    provisioner:
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - docker
+        docker.sls:
+          docker:
+            version: '1.12.2*'
 
 verifier:
   name: shell
   remote_exec: false
-  command: testinfra -vvv --connection=docker --hosts=kitchen@$KITCHEN_CONTAINER_ID --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
+  command: testinfra -vvv --connection=docker --hosts=root@$KITCHEN_CONTAINER_ID --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
