@@ -20,12 +20,14 @@ docker-pkg:
   lookup:
     pip:
       version: '== 8.1.1'
-    version: 1.6.2
+    version: 1.6.2*
     refresh_repo: false
     process_signature: /usr/bin/docker
     # pip version is needed to maintain backwards compatibility with the above docker version
     pip_version: '<= 1.2.3'
-    config:
+    # config is only for sysvinit and upstart
+    # use systemd drop-ins in your own states if you need to customize arguments to docker
+    config: 
       - DOCKER_OPTS="-s btrfs --dns 192.168.0.2"
       - export http_proxy="http://192.168.0.4:3128/"
 

@@ -10,7 +10,6 @@ docker package dependencies:
       - apt-transport-https
       - iptables
       - ca-certificates
-      - lxc
       - python-apt
 #      - apparmor
 #      - linux-image-extra-{{ grains["kernelrelease"] }}
@@ -76,6 +75,7 @@ docker package:
     - name: docker-engine
     - version: {{ docker.version }}
     {%- endif %}
+    - hold: True
   {%- else %}
   pkg.latest:
     {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
@@ -128,4 +128,5 @@ docker-py:
     {%- else %}
     - name: docker-py
     {%- endif %}
+    - reload_modules: true
 {% endif %}
