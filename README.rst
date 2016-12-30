@@ -71,9 +71,9 @@ In the example pillar above:
 ``docker.compose``
 ------------------
 
-Add support for using `Docker Compose <https://docs.docker.com/compose/>`_
+Installs `Docker Compose <https://docs.docker.com/compose/>`_
 (previously ``fig``) to define groups of containers and their relationships
-with one another.
+with one another. Use `docker.compose-ng` to run `docker-compose`.
 
 ``docker.compose-ng``
 ---------------------
@@ -198,4 +198,3 @@ Requirements
     gem install bundler
     bundle install
     kitchen test
-
