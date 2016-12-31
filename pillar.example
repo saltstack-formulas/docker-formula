@@ -16,6 +16,10 @@ docker-containers:
         - "-p 5000:5000"
         - "--rm"
 
+      # these are default values if not provided
+      remove_on_stop: false
+      pull_image_on_start: true
+
 docker-pkg:
   lookup:
     pip:
