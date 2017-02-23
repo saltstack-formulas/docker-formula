@@ -60,18 +60,18 @@ docker package repository:
     - refresh_db: True
 {%- endif %}
 
-{%- else %}
+{%- elif grains['os_family']|lower == 'redhat' and grains['os']|lower != 'amazon' %}
 docker package repository:
   pkgrepo.managed:
     - name: docker
     - baseurl: https://yum.dockerproject.org/repo/main/centos/$releasever/
     - gpgcheck: 1
     - gpgkey: https://yum.dockerproject.org/gpg
-{%- endif %}
     - require_in:
       - pkg: docker package
     - require:
       - pkg: docker package dependencies
+{%- endif %}
 
 docker package:
   {%- if "version" in docker %}
@@ -82,7 +82,11 @@ docker package:
     {%- elif use_old_repo %}
     - name: lxc-docker-{{ docker.version }}
     {%- else %}
+    {%- if grains['os']|lower == 'amazon' %}
+    - name: docker
+    {%- else %}
     - name: docker-engine
+    {%- endif %}
     - version: {{ docker.version }}
     {%- endif %}
     - hold: True
@@ -91,13 +95,19 @@ docker package:
     {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
     - name: docker.io
     {%- else %}
+    {%- if grains['os']|lower == 'amazon' %}
+    - name: docker
+    {%- else %}
     - name: docker-engine
+    {%- endif %}
     {%- endif %}
   {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker package dependencies
+      {%- if grains['os']|lower != 'amazon' %}
       - pkgrepo: docker package repository
+      {%- endif %}
       - file: docker-config
 
 docker-config:
