@@ -15,7 +15,6 @@ provisioner:
         - docker
 
 platforms:
-  - name: ubuntu-14.04
   - name: debian-jessie
     driver_config:
       run_command: /sbin/init
