@@ -7,11 +7,14 @@ include:
 docker package dependencies:
   pkg.installed:
     - pkgs:
+      {%- if grains['os_family']|lower == 'debian' %}
       - apt-transport-https
+      - python-apt
+      {%- endif %}
       - iptables
       - ca-certificates
-      - python-apt
 
+{%- if grains['os_family']|lower == 'debian' %}
 {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
 docker package repository:
   pkgrepo.managed:
@@ -55,6 +58,15 @@ docker package repository:
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
     - refresh_db: True
+{%- endif %}
+
+{%- else %}
+docker package repository:
+  pkgrepo.managed:
+    - name: docker
+    - baseurl: https://yum.dockerproject.org/repo/main/centos/$releasever/
+    - gpgcheck: 1
+    - gpgkey: https://yum.dockerproject.org/gpg
 {%- endif %}
     - require_in:
       - pkg: docker package
@@ -111,7 +123,7 @@ docker-service:
 {% if docker.install_docker_py %}
 docker-py requirements:
   pkg.installed:
-    - name: python-pip
+    - name: {{ docker.python_pip_package }}
   pip.installed:
     {%- if "pip" in docker and "version" in docker.pip %}
     - name: pip {{ docker.pip.version }}
