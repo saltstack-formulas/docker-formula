@@ -2,7 +2,7 @@
 
 compose-pip:
   pkg.installed:
-    - name: python-pip
+    - name: python2-pip
   pip.installed:
     - name: pip
     - upgrade: True
