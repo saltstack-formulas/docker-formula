@@ -34,4 +34,13 @@ docker-container-service-{{ name }}:
     - enable: True
     - watch:
       - file: docker-container-startup-config-{{ name }}
+
+docker-container-service-reload-{{ name }}:
+  cmd.run:
+    - name: docker stop {{ name }} && docker rm {{ name }} && service docker-{{ name }} start
+    - check_cmd: 
+      - /bin/true
+    - watch:
+      - cmd: docker-image-{{ name }}
+
 {% endfor %}
