@@ -40,6 +40,8 @@ docker-container-service-reload-{{ name }}:
     - name: docker stop {{ name }} && docker rm {{ name }} && service docker-{{ name }} start
     - check_cmd: 
       - /bin/true
+    - require_in:
+      - service: docker-container-service-{{ name }}
     - watch:
       - cmd: docker-image-{{ name }}
 
