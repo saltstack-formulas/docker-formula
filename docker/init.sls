@@ -14,10 +14,15 @@ docker package dependencies:
       - iptables
       - ca-certificates
 
+{% set repo_state = 'absent' %}
+{% if docker.use_upstream_repo %}
+  {% set repo_state = 'managed' %}
+{% endif %}
+
 {%- if grains['os_family']|lower == 'debian' %}
 {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
 docker package repository:
-  pkgrepo.managed:
+  pkgrepo.{{ repo_state }}:
     - name: deb http://http.debian.net/debian jessie-backports main
 {%- else %}
   {%- if "version" in docker %}
@@ -34,7 +39,7 @@ docker package repository:
 
 {%- if "version" in docker and use_old_repo %}
 docker package repository:
-  pkgrepo.managed:
+  pkgrepo.{{ repo_state }}:
     - name: deb https://get.docker.com/ubuntu docker main
     - humanname: Old Docker Package Repository
     - keyid: d8576a8ba88d21e9
@@ -50,7 +55,7 @@ purge old packages:
       - pkgrepo: docker package repository
 
 docker package repository:
-  pkgrepo.managed:
+  pkgrepo.{{ repo_state }}:
     - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
@@ -62,7 +67,7 @@ docker package repository:
 
 {%- elif grains['os_family']|lower == 'redhat' and (grains['os']|lower != 'amazon' and grains['os']|lower != 'fedora') %}
 docker package repository:
-  pkgrepo.managed:
+  pkgrepo.{{ repo_state }}:
     - name: docker
     - baseurl: https://yum.dockerproject.org/repo/main/centos/$releasever/
     - gpgcheck: 1
