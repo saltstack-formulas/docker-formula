@@ -37,7 +37,7 @@ docker-container-service-{{ name }}:
 
 docker-container-service-reload-{{ name }}:
   cmd.run:
-    - name: docker stop {{ name }} && docker rm {{ name }} && service docker-{{ name }} start
+    - name: docker stop {{ name }} && sleep 5 && docker rm {{ name }} && sleep 5 && service docker-{{ name }} start
     - check_cmd: 
       - /bin/true
     - require_in:
