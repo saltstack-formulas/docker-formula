@@ -1,5 +1,8 @@
 {% from "docker/map.jinja" import containers with context %}
 
+include:
+  - docker
+
 {% for name, container in containers.items() %}
 docker-image-{{ name }}:
   cmd.run:
