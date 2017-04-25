@@ -146,7 +146,6 @@ docker-service:
       - file: /etc/docker/daemon.json
     {%- endif %}
       - pkg: docker package
-    }
     {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
     {% endif %}
