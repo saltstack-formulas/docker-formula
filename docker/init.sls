@@ -110,13 +110,30 @@ docker package:
       {%- endif %}
       - file: docker-config
 
+{%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
+
 docker-config:
+{%- if init_system == "upstart" %}
   file.managed:
     - name: /etc/default/docker
     - source: salt://docker/files/config
     - template: jinja
     - mode: 644
     - user: root
+{%- elif init_system == "systemd" %}
+  file.serialize:
+    - name: /etc/docker/daemon.json
+    - formatter: json
+    - merge_if_exists: true
+    - dataset:
+        log-driver: syslog
+        storage-driver: devicemapper
+        storage-opts:
+          dm.thinpooldev: /dev/mapper/docker-thinpool
+          dm.use_deferred_removal: true
+          dm.use_deferred_deletion: true
+{%- endif %}      
+    
 
 docker-service:
   service.running:
