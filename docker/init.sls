@@ -121,17 +121,12 @@ docker-config:
     - mode: 644
     - user: root
 {%- elif init_system == "systemd" %}
-  file.serialize:
+  file.managed:
     - name: /etc/docker/daemon.json
-    - formatter: json
-    - merge_if_exists: true
-    - dataset:
-        log-driver: syslog
-        storage-driver: devicemapper
-        storage-opts:
-          dm.thinpooldev=/dev/mapper/docker-thinpool
-          dm.use_deferred_removal=true
-          dm.use_deferred_deletion=true
+    - source: salt://docker/files/daemon.json
+    - template: jinja
+    - mode: 644
+    - user: root
 {%- endif %}      
     
 
