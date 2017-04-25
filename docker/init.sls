@@ -140,8 +140,13 @@ docker-service:
     - name: docker
     - enable: True
     - watch:
+    {%- if init_system == "upstart" %}
       - file: /etc/default/docker
+    {%- elif init_system == "systemd" %}
+      - file: /etc/docker/daemon.json
+    {%- endif %}
       - pkg: docker package
+    }
     {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
     {% endif %}
