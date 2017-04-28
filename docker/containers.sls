@@ -32,7 +32,7 @@ docker-container-startup-config-{{ name }}:
       - cmd: docker-image-{{ name }}
 
 {%- if init_system == "systemd" %}
-daemon-reload:
+daemon-reload-{{ name }}:
   cmd.run:
     - name: systemctl daemon-reload
     - watch:
@@ -47,6 +47,6 @@ docker-container-service-{{ name }}:
       - file: docker-container-startup-config-{{ name }}
 {%- if init_system == "systemd" %}
     - require:
-      - cmd: daemon-reload
+      - cmd: daemon-reload-{{ name }}
 {%- endif %}
 {% endfor %}
