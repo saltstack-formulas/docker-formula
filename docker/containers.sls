@@ -39,6 +39,14 @@ daemon-reload-{{ name }}:
       - file: docker-container-startup-config-{{ name }}
 {%- endif %}
 
+{%- if init_system == "systemd" %}
+daemon-restart-{{ name }}:
+  cmd.run:
+    - name: service docker-{{ name }} restart
+    - watch:
+      - cmd: daemon-reload-{{ name }}
+{%- endif %}
+
 docker-container-service-{{ name }}:
   service.running:
     - name: docker-{{ name }}
