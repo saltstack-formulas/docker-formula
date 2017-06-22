@@ -146,8 +146,10 @@ docker-service:
     - watch:
     {%- if init_system == "upstart" %}
       - file: /etc/default/docker
-    {%- elif init_system == "systemd" %}
+    {%- elif init_system == "systemd" and storage_driver == "devicemapper" %}
       - file: /etc/docker/daemon.json
+    {%- elif init_system == "systemd" and storage_driver != "devicemapper" %}
+      - file: /etc/default/docker
     {%- endif %}
       - pkg: docker package
     {% if "process_signature" in docker %}
