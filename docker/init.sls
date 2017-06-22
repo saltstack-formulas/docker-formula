@@ -112,6 +112,8 @@ docker package:
 
 {%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
 
+{%- set storage_driver = salt["cmd.run"]("docker info | grep -q overlay2 && echo overlay2 || echo devicemapper") %}
+
 docker-config:
 {%- if init_system == "upstart" %}
   file.managed:
@@ -120,7 +122,7 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
-{%- elif init_system == "systemd" %}
+{%- elif init_system == "systemd" and storage_driver == "devicemapper" %}
   file.managed:
     - name: /etc/docker/daemon.json
     - source: salt://docker/files/daemon.json
