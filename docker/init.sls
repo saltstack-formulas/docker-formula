@@ -131,7 +131,7 @@ docker-config:
     - user: root
 {%- elif init_system == "systemd" and storage_driver != "devicemapper" %}
   file.managed:
-    - name: /etc/docker/daemon.json
+    - name: /etc/default/docker
     - source: salt://docker/files/daemon_overlay2.json
     - template: jinja
     - mode: 644
