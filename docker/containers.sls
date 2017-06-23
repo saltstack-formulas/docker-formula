@@ -18,6 +18,10 @@ docker-container-startup-config-{{ name }}:
 {%- if init_system == "systemd" %}
     - name: /etc/systemd/system/docker-{{ name }}.service
     - source: salt://docker/files/systemd.conf
+    module.run:
+    - name: service.systemctl_reload
+    - onchanges:
+      - file: docker-container-startup-config-{{ name }}
 {%- elif init_system == "upstart" %}
     - name: /etc/init/docker-{{ name }}.conf
     - source: salt://docker/files/upstart.conf
@@ -31,20 +35,12 @@ docker-container-startup-config-{{ name }}:
     - require:
       - cmd: docker-image-{{ name }}
 
-{%- if init_system == "systemd" %}
-daemon-reload-{{ name }}:
-  cmd.run:
-    - name: systemctl daemon-reload
-    - watch:
-      - file: docker-container-startup-config-{{ name }}
-{%- endif %}
-
 #{%- if init_system == "systemd" %}
-#daemon-restart-{{ name }}:
-#  cmd.run:
-#    - name: service docker-{{ name }} restart
+#daemon-reload-{{ name }}:
+#  service.systemctl_reload:
+#    - name: systemctl daemon-reload
 #    - watch:
-#      - cmd: daemon-reload-{{ name }}
+#      - file: docker-container-startup-config-{{ name }}
 #{%- endif %}
 
 docker-container-service-{{ name }}:
@@ -53,9 +49,4 @@ docker-container-service-{{ name }}:
     - enable: True
     - watch:
       - cmd: daemon-reload-{{ name }}
-      - cmd: docker-image-{{ name }}
-#{%- if init_system == "systemd" %}
-#    - watch:
-#      - cmd: daemon-reload-{{ name }}
-#{%- endif %}
-#{% endfor %}
+      - module: docker-docker-container-startup-config-{{ name }}
