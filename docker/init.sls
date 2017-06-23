@@ -148,7 +148,7 @@ docker-service:
     {%- elif init_system == "systemd" and storage_driver == "devicemapper" %}
       - file: /etc/docker/daemon.json
     {%- elif init_system == "systemd" and storage_driver != "devicemapper" %}
-      - file: /etc/default/daemon.json
+      - file: /etc/docker/daemon.json
     {%- endif %}
       - pkg: docker package
     {% if "process_signature" in docker %}
