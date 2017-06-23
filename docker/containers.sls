@@ -35,6 +35,7 @@ docker-container-startup-config-{{ name }}:
     - name: service.systemctl_reload
     - onchanges:
       - file: docker-container-startup-config-{{ name }}
+      - cmd: docker-image-{{ name }}
 {%- endif %}
 
 docker-container-service-{{ name }}:
@@ -42,6 +43,5 @@ docker-container-service-{{ name }}:
     - name: docker-{{ name }}
     - enable: True
     - watch:
-      - cmd: daemon-reload-{{ name }}
       - module: docker-container-startup-config-{{ name }}
 {% endfor %}
