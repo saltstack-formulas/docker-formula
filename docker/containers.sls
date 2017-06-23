@@ -50,3 +50,5 @@ docker-container-service-{{ name }}:
     - watch:
       - cmd: daemon-reload-{{ name }}
       - module: docker-docker-container-startup-config-{{ name }}
+
+{% endfor %}
