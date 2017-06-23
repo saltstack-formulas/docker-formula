@@ -28,14 +28,13 @@ docker-container-startup-config-{{ name }}:
     - defaults:
         name: {{ name | json }}
         container: {{ container | json }}
+    - require:
+      - cmd: docker-image-{{ name }}
 {%- if init_system == "systemd" %}        
-    module.run:
+  module.run:
     - name: service.systemctl_reload
     - onchanges:
       - file: docker-container-startup-config-{{ name }}
-      - cmd: docker-image-{{ name }}
-{%- elif init_system == "upstart" %}
-    - require:
       - cmd: docker-image-{{ name }}
 {%- endif %}
 
