@@ -52,9 +52,10 @@ docker-container-service-{{ name }}:
     - name: docker-{{ name }}
     - enable: True
     - watch:
-      - file: docker-container-startup-config-{{ name }}
-{%- if init_system == "systemd" %}
-    - require:
       - cmd: daemon-reload-{{ name }}
-{%- endif %}
-{% endfor %}
+      - cmd: docker-image-{{ name }}
+#{%- if init_system == "systemd" %}
+#    - watch:
+#      - cmd: daemon-reload-{{ name }}
+#{%- endif %}
+#{% endfor %}
