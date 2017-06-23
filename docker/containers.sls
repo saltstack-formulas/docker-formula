@@ -35,17 +35,7 @@ docker-container-startup-config-{{ name }}:
     - name: service.systemctl_reload
     - onchanges:
       - file: docker-container-startup-config-{{ name }}
-      - cmd: docker-image-{{ name }}
 {%- endif %}
-
-
-#{%- if init_system == "systemd" %}
-#daemon-reload-{{ name }}:
-#  service.systemctl_reload:
-#    - name: systemctl daemon-reload
-#    - watch:
-#      - file: docker-container-startup-config-{{ name }}
-#{%- endif %}
 
 docker-container-service-{{ name }}:
   service.running:
@@ -53,6 +43,5 @@ docker-container-service-{{ name }}:
     - enable: True
     - watch:
       - cmd: daemon-reload-{{ name }}
-      - module: docker-docker-container-startup-config-{{ name }}
-
+      - module: docker-container-startup-config-{{ name }}
 {% endfor %}
