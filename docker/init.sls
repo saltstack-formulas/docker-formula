@@ -111,7 +111,7 @@ docker package:
       - file: docker-config
 
 {%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
-{%- set storage_driver = salt["cmd.run"]("docker info > docker_info && grep -q overlay2 docker_info && echo overlay2 || echo devicemapper") %}
+{%- set datacenter = salt["cmd.run"](" hostname -d | grep -q ec2 && echo aws || echo linode") %}
 
 docker-config:
 {%- if init_system == "upstart" %}
@@ -121,14 +121,14 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
-{%- elif init_system == "systemd" and storage_driver == "devicemapper" %}
+{%- elif init_system == "systemd" and datacenter == "aws" %}
   file.managed:
     - name: /etc/docker/daemon.json
     - source: salt://docker/files/daemon_devicemapper.json
     - template: jinja
     - mode: 644
     - user: root
-{%- elif init_system == "systemd" and storage_driver != "devicemapper" %}
+{%- elif init_system == "systemd" and datacenter == "linode" %}
   file.managed:
     - name: /etc/docker/daemon.json
     - source: salt://docker/files/daemon_overlay2.json
@@ -145,9 +145,9 @@ docker-service:
     - watch:
     {%- if init_system == "upstart" %}
       - file: /etc/default/docker
-    {%- elif init_system == "systemd" and storage_driver == "devicemapper" %}
+    {%- elif init_system == "systemd" and datacenter == "aws" %}
       - file: /etc/docker/daemon.json
-    {%- elif init_system == "systemd" and storage_driver != "devicemapper" %}
+    {%- elif init_system == "systemd" and datacenter == "linode" %}
       - file: /etc/docker/daemon.json
     {%- endif %}
       - pkg: docker package
