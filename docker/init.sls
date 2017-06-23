@@ -111,8 +111,7 @@ docker package:
       - file: docker-config
 
 {%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
-
-{%- set storage_driver = salt["cmd.run"]("docker info | grep -q overlay2 && echo overlay2 || echo devicemapper") %}
+{%- set storage_driver = salt["cmd.run"]("docker info > docker_info && grep -q overlay2 docker_info && echo overlay2 || echo devicemapper") %}
 
 docker-config:
 {%- if init_system == "upstart" %}
