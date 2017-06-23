@@ -129,7 +129,7 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
-{%- elif init_system == "systemd" and storage_driver != "devicemapper" %}
+{%- elif init_system == "systemd" and storage_driver == "overlay2" %}
   file.managed:
     - name: /etc/default/docker
     - source: salt://docker/files/daemon_overlay2.json
