@@ -121,6 +121,7 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
+    - makedirs: True
 {%- elif init_system == "systemd" and datacenter == "aws" %}
   file.managed:
     - name: /etc/docker/daemon.json
@@ -128,6 +129,7 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
+    - makedirs: True
 {%- elif init_system == "systemd" and datacenter == "linode" %}
   file.managed:
     - name: /etc/docker/daemon.json
@@ -135,6 +137,7 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
+    - makedirs: True
 {%- endif %}      
     
 
