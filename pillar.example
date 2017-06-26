@@ -6,6 +6,7 @@ docker-containers:
     registry:
       image: "registry:2"
       cmd:
+      pull_before_start: True # Pull image on service restart (useful if you override the same tag. example: latest)
       runoptions:
         - "-e REGISTRY_LOG_LEVEL=warn"
         - "-e REGISTRY_STORAGE=s3"
