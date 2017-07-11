@@ -51,9 +51,9 @@ purge old packages:
 
 docker package repository:
   pkgrepo.managed:
-    - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
+    - name: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ grains["os"]|lower }}-{{ grains["oscodename"] }} stable
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
-    - keyid: 58118E89F3A912897C070ADBF76221572C52609D
+    - key_url: https://download.docker.com/linux/ubuntu/gpg
 {%- endif %}
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
@@ -98,7 +98,7 @@ docker package:
     {%- if grains['os']|lower == 'amazon' %}
     - name: docker
     {%- else %}
-    - name: docker-engine
+    - name: docker-ce
     {%- endif %}
     {%- endif %}
   {%- endif %}
