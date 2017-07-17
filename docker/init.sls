@@ -122,6 +122,14 @@ docker-config:
     - mode: 644
     - user: root
     - makedirs: True
+{%- elif grains['project'] == "jenkins" and grains['roles'] == "slave" and init_system == "systemd" and datacenter == "aws" %}
+  file.managed:
+    - name: /etc/docker/daemon.json
+    - source: salt://docker/files/daemon_jenkins.json
+    - template: jinja
+    - mode: 644
+    - user: root
+    - makedirs: True
 {%- elif init_system == "systemd" and datacenter == "aws" %}
   file.managed:
     - name: /etc/docker/daemon.json
