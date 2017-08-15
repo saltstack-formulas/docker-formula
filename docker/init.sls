@@ -113,8 +113,8 @@ docker package:
 {%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
 {%- set datacenter = salt["cmd.run"](" hostname -d | grep -q ec2 && echo aws || echo linode") %}
 
-docker-config:
 {%- if init_system == "upstart" %}
+docker-config:
   file.managed:
     - name: /etc/default/docker
     - source: salt://docker/files/config
@@ -123,6 +123,7 @@ docker-config:
     - user: root
     - makedirs: True
 {%- elif grains['project'] == "jenkins" and grains['roles'] == "slave" and init_system == "systemd" and datacenter == "aws" %}
+docker-config:
   file.managed:
     - name: /etc/docker/daemon.json
     - source: salt://docker/files/daemon_jenkins.json
@@ -131,6 +132,7 @@ docker-config:
     - user: root
     - makedirs: True
 {%- elif init_system == "systemd" and datacenter == "aws" %}
+docker-config:
   file.managed:
     - name: /etc/docker/daemon.json
     - source: salt://docker/files/daemon_devicemapper.json
@@ -139,6 +141,7 @@ docker-config:
     - user: root
     - makedirs: True
 {%- elif init_system == "systemd" and datacenter == "linode" %}
+docker-config:
   file.managed:
     - name: /etc/docker/daemon.json
     - source: salt://docker/files/daemon_overlay2.json
