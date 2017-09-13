@@ -7,6 +7,6 @@ services:
   - docker
 
 before_install:
-  - pip install -r requirements.txt
+  - bundle install
 
 script: bundle exec kitchen verify
