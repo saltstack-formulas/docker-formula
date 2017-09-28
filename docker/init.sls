@@ -85,7 +85,7 @@ docker package:
     {%- if grains['os']|lower == 'amazon' %}
     - name: docker
     {%- else %}
-    - name: docker-engine
+    - name: docker-ce
     {%- endif %}
     - version: {{ docker.version }}
     {%- endif %}
