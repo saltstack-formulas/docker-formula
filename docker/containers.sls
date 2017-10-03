@@ -43,5 +43,9 @@ docker-container-service-{{ name }}:
     - name: docker-{{ name }}
     - enable: True
     - watch:
+{%- if init_system == "systemd" %}
       - module: docker-container-startup-config-{{ name }}
+{%- elif init_system == "upstart" %}
+      - file: docker-container-startup-config-{{ name }}
+{%- endif %}
 {% endfor %}
