@@ -110,8 +110,8 @@ docker package:
       {%- endif %}
       - file: docker-config
 
-{%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
-{%- set datacenter = salt["cmd.run"](" hostname -d | grep -q ec2 && echo aws || echo linode") %}
+{%- set init_system = salt["cmd.run"]("bash -c 'ps -p1 | grep -q systemd && echo systemd || echo upstart'") %}
+{%- set datacenter = salt["cmd.run"]("bash -c 'hostname -d | grep -q ec2 && echo aws || echo linode'") %}
 
 docker-config:
 {%- if init_system == "upstart" %}
