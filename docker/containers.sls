@@ -11,7 +11,7 @@ docker-image-{{ name }}:
       - service: docker-service
 
 {# TODO: SysV init script #}
-{%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
+{%- set init_system = salt["cmd.run"]("bash -c 'ps -p1 | grep -q systemd && echo systemd || echo upstart'") %}
 
 docker-container-startup-config-{{ name }}:
   file.managed:
