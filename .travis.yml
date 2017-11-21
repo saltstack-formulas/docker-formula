@@ -1,12 +1,12 @@
 sudo: required
 
 
-language: ruby
+language: python
 
 services:
   - docker
 
 before_install:
-  - pip install -r requirements.txt
+  - bundle install
 
 script: bundle exec kitchen verify

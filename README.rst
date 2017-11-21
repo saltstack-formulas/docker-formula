@@ -71,9 +71,9 @@ In the example pillar above:
 ``docker.compose``
 ------------------
 
-Add support for using `Docker Compose <https://docs.docker.com/compose/>`_
+Installs `Docker Compose <https://docs.docker.com/compose/>`_
 (previously ``fig``) to define groups of containers and their relationships
-with one another.
+with one another. Use `docker.compose-ng` to run `docker-compose`.
 
 ``docker.compose-ng``
 ---------------------
@@ -178,6 +178,11 @@ In this case, extra *docker run* options can be provided in your *"registry:look
 
 By default, the storage backend used by the registry is "filesystem". Use environment variables to override that, for example to use S3 as backend storage.
 
+Development
+===========
+
+Note that some of the internal states such as `docker.running` are references to the internal `dockerio states <https://docs.saltstack.com/en/latest/ref/states/all/salt.states.dockerio.html>`
+
 
 Testing
 =======
@@ -198,4 +203,3 @@ Requirements
     gem install bundler
     bundle install
     kitchen test
-
