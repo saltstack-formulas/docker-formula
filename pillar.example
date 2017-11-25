@@ -1,4 +1,17 @@
 # vi: set ft=yaml:
+# example Prometheus container using command arguments
+docker-containers:
+  lookup:
+    prometheus-server:
+      image: "prom/prometheus:v1.7.1"
+      cmd:
+      args:
+        - '-config.file=/prom-data/prometheus.yml'
+        - '-storage.local.path=/prom-data/data/'
+      runoptions:
+        - '--net="host"'
+        - '-v /mnt/prom-data:/prom-data'
+
 # example docker registry container
 # if you want to your own docker registry, use this
 docker-containers:

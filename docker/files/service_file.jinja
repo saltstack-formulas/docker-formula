@@ -1,0 +1,19 @@
+{#- Ugly, but covers the cases where variable evaluates to false, is empty, or non-existent #}
+{%- set runoptions = container.get("runoptions") or [] %}
+{%- set stopoptions = container.get("stopoptions") or [] %}
+{%- set cmd = container.get("cmd") or "" %}
+{%- set args = container.get("args") or [] %}
+
+{%- set runoptions = runoptions|join(' ') %}
+{%- set stopoptions = stopoptions|join(' ') %}
+{%- set args = args|join(' ') %}
+
+{%- set docker_start_command = "run %s --name=%s %s %s %s"|format(runoptions, name, container.image, cmd, args)  %}
+{%- set docker_stop_command = "stop %s %s"|format(stopoptions, name) %}
+{%- set docker_poststop_command = "rm -f %s"|format(name) %}
+
+{%- if grains['init'] == 'systemd' %}
+{%- include 'docker/files/systemd.conf' %}
+{%- elif grains['init'] == 'upstart' %}
+{%- include 'docker/files/upstart.conf' %}
+{%- endif %}
