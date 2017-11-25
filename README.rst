@@ -51,6 +51,9 @@ To use it, just include *docker.containers* in your *top.sls*, and configure it 
           - "--rm"
       myapp:
         image: "myregistry.com:5000/training/app:3.0"
+	args:
+          - "https://someargument_as_an_url"
+          - "--port 5500"
         cmd:  python app.py
         runoptions:
           - "--log-driver=syslog"
