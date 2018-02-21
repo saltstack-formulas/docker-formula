@@ -57,11 +57,10 @@ docker-pkg:
 
 # Docker compose supported attributes
 docker:
-  compose:
-    # the version of docker compose to install.
-    # if this is omitted, installs the latest version using PIP
-    version: 1.9.0
+  # version of docker-compose to install (defaults to latest)
+  compose_version: 1.9.0
 
+  compose:
     registry-data:
       dvc: True
       image: &registry_image 'library/registry:0.9.1'
