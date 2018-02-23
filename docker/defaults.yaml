@@ -7,3 +7,4 @@ docker:
   refresh_repo: True
   config: []
   use_upstream_repo: True
+  compose_version:
