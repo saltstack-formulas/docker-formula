@@ -2,8 +2,12 @@
 
 docker:
   process_signature: '/usr/bin/docker'
-  install_docker_py: True
+  python_pip_package: 'python-pip'
+  install_docker_py: False
   refresh_repo: True
   config: []
+
   pip:
     upgrade: False
+
+  use_upstream_repo: True

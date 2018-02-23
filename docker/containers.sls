@@ -1,5 +1,8 @@
 {% from "docker/map.jinja" import containers with context %}
 
+include:
+  - docker
+
 {% for name, container in containers.items() %}
 docker-image-{{ name }}:
   cmd.run:
@@ -8,7 +11,8 @@ docker-image-{{ name }}:
       - service: docker-service
 
 {# TODO: SysV init script #}
-{%- set init_system = salt["cmd.run"]("ps -p1 | grep -q systemd && echo systemd || echo upstart") %}
+{# Use grains instead of command to get init system #}
+{%- set init_system = grains['init'] %}
 
 docker-container-startup-config-{{ name }}:
   file.managed:
