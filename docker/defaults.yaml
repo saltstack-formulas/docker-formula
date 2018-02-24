@@ -6,4 +6,8 @@ docker:
   install_docker_py: False
   refresh_repo: True
   config: []
+
+  pip:
+    upgrade: False
+
   use_upstream_repo: True
