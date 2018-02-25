@@ -11,3 +11,4 @@ docker:
     upgrade: False
 
   use_upstream_repo: True
+  compose_version:
