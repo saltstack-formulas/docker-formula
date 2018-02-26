@@ -19,7 +19,7 @@ docker-containers:
 
       # these are default values if not provided
       remove_on_stop: false
-      pull_image_on_start: true
+      pull_before_start: true
 
 docker-pkg:
   lookup:
