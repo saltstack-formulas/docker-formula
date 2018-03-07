@@ -23,7 +23,7 @@ docker-container-startup-config-{{ name }}:
     - name: /etc/init/docker-{{ name }}.conf
     - source: salt://docker/files/upstart.conf
 {%- endif %}
-    - mode: 700
+    - mode: 600
     - user: root
     - template: jinja
     - defaults:
