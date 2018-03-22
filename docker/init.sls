@@ -13,6 +13,7 @@ docker package dependencies:
       {%- endif %}
       - iptables
       - ca-certificates
+    - unless: test "`uname`" = "Darwin"
 
 {% set repo_state = 'absent' %}
 {% if docker.use_upstream_repo %}
