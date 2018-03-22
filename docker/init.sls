@@ -66,7 +66,7 @@ docker package repository:
     - refresh_db: True
 {%- endif %}
 
-{%- elif grains['os_family']|lower == 'redhat' and (grains['os']|lower != 'amazon' and grains['os']|lower != 'fedora') %}
+{%- elif grains['os_family']|lower in ('redhat', 'suse',) and grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
 docker package repository:
   pkgrepo.{{ repo_state }}:
     - name: docker
@@ -88,7 +88,7 @@ docker package:
     {%- elif use_old_repo %}
     - name: lxc-docker-{{ docker.version }}
     {%- else %}
-    {%- if grains['os']|lower == 'amazon' or grains['os']|lower == 'fedora' %}
+    {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
     - name: docker
     {%- else %}
     - name: docker-engine
@@ -101,7 +101,7 @@ docker package:
     {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
     - name: docker.io
     {%- else %}
-    {%- if grains['os']|lower == 'amazon' or grains['os']|lower == 'fedora'%}
+    {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
     - name: docker
     {%- else %}
     - name: docker-engine
@@ -111,7 +111,7 @@ docker package:
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker package dependencies
-      {%- if grains['os']|lower != 'amazon' and grains['os']|lower != 'fedora' %}
+      {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
       - pkgrepo: docker package repository
       {%- endif %}
       - file: docker-config
