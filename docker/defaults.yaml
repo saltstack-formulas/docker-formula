@@ -12,3 +12,8 @@ docker:
 
   use_upstream_repo: True
   compose_version:
+
+  containers:
+    skip_translate: None
+    force_present: False
+    force_running: False
