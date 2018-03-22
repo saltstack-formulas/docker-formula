@@ -9,6 +9,12 @@ docker-image-{{ name }}:
     - name: docker pull {{ container.image }}
     - require:
       - service: docker-service
+    - 
+docker-image-{{ name }}-retry:
+  cmd.run:
+    - name: sleep 20 && docker pull {{ container.image }}
+    - onfail:
+      - cmd: docker-image-{{ container.image }}
 
 {# TODO: SysV init script #}
 {%- set init_system = salt["cmd.run"]("bash -c 'ps -p1 | grep -q systemd && echo systemd || echo upstart'") %}
