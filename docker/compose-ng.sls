@@ -1,9 +1,20 @@
+{%- from "docker/map.jinja" import docker with context %}
 {%- from "docker/map.jinja" import compose with context %}
+
+include:
+  - docker.compose
+
 {%- for name, container in compose.items() %}
   {%- set id = container.container_name|d(name) %}
   {%- set required_containers = [] %}
+    {%- if grains['saltversioninfo'] >= [2017, 7, 0]  %}
+{{id}}:
+  docker_image.present:
+    - force: {{ docker.containers.force_present }}
+    {%- else %}
 {{id}} image:
   docker.pulled:
+    {%- endif %}
   {%- if ':' in container.image %}
     {%- set image = container.image.split(':',1) %}
     - name: {{image[0]}}
@@ -13,11 +24,17 @@
   {%- endif %}
 
 {{id}} container:
-  {%- if 'dvc' in container and container.dvc %}
+     {%- if grains['saltversioninfo'] >= [2017, 7, 0] %}
+  docker_container.running:
+    - skip_translate: {{ docker.containers.skip_translate }}
+    - force: {{ docker.containers.force_running }}
+     {%- else %}
+       {%- if 'dvc' in container and container.dvc %}
   docker.installed:
-  {%- else %}
+       {%- else %}
   docker.running:
-  {%- endif %}
+       {%- endif %}
+     {%- endif %}
     - name: {{id}}
     - image: {{container.image}}
   {%- if 'command' in container %}
@@ -25,7 +42,7 @@
   {%- endif %}
   {%- if 'environment' in container and container.environment is iterable %}
     - environment:
-    {%- for variable, value in container.environment.iteritems() %}
+    {%- for variable, value in container.environment.items() %}
         - {{variable}}: {{value}}
     {%- endfor %}
   {%- endif %}
@@ -76,10 +93,18 @@
     {%- endif %}
   {%- endif %}
     - require:
+         {%- if grains['saltversioninfo'] >= [2017, 7, 0] %}
+      - docker_image: {{id}}
+         {%- else %}
       - docker: {{id}} image
+         {%- endif %}
   {%- if required_containers is defined %}
     {%- for containerid in required_containers %}
+         {%- if grains['saltversioninfo'] >= [2017, 7, 0] %}
+      - docker_image: {{containerid}}
+         {%- else %}
       - docker: {{containerid}}
+         {%- endif %}
     {%- endfor %}
   {%- endif %}
 {% endfor %}
