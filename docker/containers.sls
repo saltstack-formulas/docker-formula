@@ -18,12 +18,11 @@ docker-container-startup-config-{{ name }}:
   file.managed:
 {%- if init_system == "systemd" %}
     - name: /etc/systemd/system/docker-{{ name }}.service
-    - source: salt://docker/files/systemd.conf
 {%- elif init_system == "upstart" %}
     - name: /etc/init/docker-{{ name }}.conf
-    - source: salt://docker/files/upstart.conf
 {%- endif %}
-    - mode: 600
+    - source: salt://docker/files/service_file.jinja
+    - mode: 700
     - user: root
     - template: jinja
     - defaults:

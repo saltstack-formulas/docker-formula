@@ -1,6 +1,7 @@
 # vi: set ft=yaml:
 
-# Docker containers
+# example docker registry container
+# if you want to your own docker registry, use this
 docker-containers:
   lookup:
 
@@ -20,6 +21,17 @@ docker-containers:
         - "--log-driver=syslog"
         - "-p 5000:5000"
         - "--rm"
+        
+    prometheus-server:
+      # example Prometheus container using command arguments
+      image: "prom/prometheus:v1.7.1"
+      cmd:
+      args:
+        - '-config.file=/prom-data/prometheus.yml'
+        - '-storage.local.path=/prom-data/data/'
+      runoptions:
+        - '--net="host"'
+        - '-v /mnt/prom-data:/prom-data'
 
 # Docker service
 docker-pkg:
