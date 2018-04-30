@@ -12,6 +12,8 @@ docker-containers:
       cmd:
       # Pull image on service restart (useful if you override the same tag. example: latest)
       pull_before_start: True
+      # Do not force container removal on stop (unless true)
+      remove_on_stop: false
       runoptions:
         - "-e REGISTRY_LOG_LEVEL=warn"
         - "-e REGISTRY_STORAGE=s3"
@@ -21,6 +23,8 @@ docker-containers:
         - "--log-driver=syslog"
         - "-p 5000:5000"
         - "--rm"
+      stopoptions:
+        - '-t 10'
         
     prometheus-server:
       # example Prometheus container using command arguments
@@ -29,9 +33,15 @@ docker-containers:
       args:
         - '-config.file=/prom-data/prometheus.yml'
         - '-storage.local.path=/prom-data/data/'
+      # Pull image on service restart (useful if you override the same tag. example: latest)
+      pull_before_start: True
+      # Do not force container removal on stop (unless true)
+      remove_on_stop: false
       runoptions:
         - '--net="host"'
         - '-v /mnt/prom-data:/prom-data'
+      stopoptions:
+        - '-t 10'
 
 # Docker service
 docker-pkg:
