@@ -13,6 +13,11 @@ docker package dependencies:
       {%- endif %}
       - iptables
       - ca-certificates
+      {% if docker.kernel.pkgs is defined %}
+        {% for pkg in docker.kernel.pkgs %}
+        - {{ pkg }}
+        {% endfor %}
+      {% endif %}
     - unless: test "`uname`" = "Darwin"
 
 {% set repo_state = 'absent' %}
@@ -27,13 +32,13 @@ docker package repository:
     - name: deb http://http.debian.net/debian jessie-backports main
 {%- else %}
   {%- if "version" in docker %}
-    {%- if (docker.version|string).startswith('1.7.') %}
-      {%- set use_old_repo = docker.version < '1.7.1' %}
+    {%- if (docker.version|string).startswith('1.5.') %}
+      {%- set use_old_repo = docker.version < '1.5.1' %}
     {%- else %}
       {%- set version_major = (docker.version|string).split('.')[0]|int %}
       {%- set version_minor = (docker.version|string).split('.')[1]|int %}
       {%- set old_repo_major = 1 %}
-      {%- set old_repo_minor = 7 %}
+      {%- set old_repo_minor = 5 %}
       {%- set use_old_repo = (version_major < old_repo_major or (version_major == old_repo_major and version_minor < old_repo_minor)) %}
     {%- endif %}
   {%- endif %}
@@ -86,7 +91,7 @@ docker package:
     - name: docker.io
     - version: {{ docker.version }}
     {%- elif use_old_repo %}
-    - name: lxc-docker-{{ docker.version }}
+    - name: lxc-docker
     {%- else %}
     {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
     - name: docker
