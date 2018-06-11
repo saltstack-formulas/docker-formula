@@ -27,13 +27,13 @@ docker package repository:
     - name: deb http://http.debian.net/debian jessie-backports main
 {%- else %}
   {%- if "version" in docker %}
-    {%- if (docker.version|string).startswith('1.7.') %}
-      {%- set use_old_repo = docker.version < '1.7.1' %}
+    {%- if (docker.version|string).startswith('1.5.') %}
+      {%- set use_old_repo = docker.version < '1.5.1' %}
     {%- else %}
       {%- set version_major = (docker.version|string).split('.')[0]|int %}
       {%- set version_minor = (docker.version|string).split('.')[1]|int %}
       {%- set old_repo_major = 1 %}
-      {%- set old_repo_minor = 7 %}
+      {%- set old_repo_minor = 5 %}
       {%- set use_old_repo = (version_major < old_repo_major or (version_major == old_repo_major and version_minor < old_repo_minor)) %}
     {%- endif %}
   {%- endif %}
@@ -140,15 +140,6 @@ docker-service:
 docker-py requirements:
   pkg.installed:
     - name: {{ docker.python_pip_package }}
-  pip.installed:
-    {%- if "pip" in docker and "version" in docker.pip and "version" in docker.pip %}
-    - name: pip {{ docker.pip.version }}
-    {%- else %}
-    - name: pip
-    {%- if "pip" in docker and "upgrade" in docker.pip and docker.pip.upgrade %}
-    - upgrade: True
-    {%- endif %}
-    {%- endif %}
 
 docker-py:
   pip.installed:

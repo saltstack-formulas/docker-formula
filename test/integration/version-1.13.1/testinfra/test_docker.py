@@ -1,10 +1,9 @@
 import testinfra
 
-
 def test_package_is_installed(Package):
     docker = Package('docker-engine')
     assert docker.is_installed
-    assert docker.version.startswith('1.12.2')
+    assert docker.version.startswith('1.13.1')
 
 def test_service_is_running_and_enabled(Service):
     docker = Service('docker')
