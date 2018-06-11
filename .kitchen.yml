@@ -6,7 +6,7 @@ driver:
 
 provisioner:
   name: salt_solo
-  log_level: debug
+  log_level: warning
   require_chef: false
   formula: docker
   state_top:
@@ -15,14 +15,21 @@ provisioner:
         - docker
 
 platforms:
-  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+    driver_config:
+      run_command: /lib/systemd/systemd
   - name: debian-jessie
     driver_config:
+      provision_command:
+        - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
+        - sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen || true
+        - dpkg-reconfigure --frontend=noninteractive locales || true
+        - update-locale LANG=en_US.UTF-8 || true
       run_command: /sbin/init
 
 suites:
   - name: default
-  - name: version-1.12.2
+  - name: version-1.13.1
     provisioner:
       pillars:
         top.sls:
@@ -31,7 +38,22 @@ suites:
               - docker
         docker.sls:
           docker:
-            version: '1.12.2*'
+            version: '1.13.1*'
+    excludes:
+      - debian-jessie
+      
+  - name: version-1.6.2
+    provisioner:
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - docker
+        docker.sls:
+          docker:
+            version: '1.6.2*'
+    excludes:
+      - ubuntu-16.04
 
 verifier:
   name: shell

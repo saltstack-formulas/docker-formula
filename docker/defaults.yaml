@@ -17,3 +17,7 @@ docker:
     skip_translate: None
     force_present: False
     force_running: False
+
+  kernel:
+    pkg:
+      fromrepo: '' 
