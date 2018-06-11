@@ -2,7 +2,7 @@
 
 compose-pip:
   pkg.installed:
-    - name: python-pip
+    - name: {{ docker.pip.pkgname }}
   pip.installed:
     - name: pip
     - upgrade: True
