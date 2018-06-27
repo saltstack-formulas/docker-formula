@@ -1,0 +1,6 @@
+
+CentOS:
+  pip:
+    pkgname: python2-pip
+
+# vim: ft=sls

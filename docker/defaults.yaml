@@ -2,12 +2,12 @@
 
 docker:
   process_signature: '/usr/bin/docker'
-  python_pip_package: 'python-pip'
   install_docker_py: False
   refresh_repo: True
   config: []
 
   pip:
+    pkgname: python-pip
     upgrade: False
 
   use_upstream_repo: True
@@ -17,3 +17,6 @@ docker:
     skip_translate: None
     force_present: False
     force_running: False
+
+  kernel:
+    pkgs: []

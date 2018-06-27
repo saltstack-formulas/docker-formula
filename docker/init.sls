@@ -13,6 +13,11 @@ docker package dependencies:
       {%- endif %}
       - iptables
       - ca-certificates
+      {% if docker.kernel.pkgs is defined %}
+        {% for pkg in docker.kernel.pkgs %}
+        - {{ pkg }}
+        {% endfor %}
+      {% endif %}
     - unless: test "`uname`" = "Darwin"
 
 {% set repo_state = 'absent' %}
@@ -86,7 +91,7 @@ docker package:
     - name: docker.io
     - version: {{ docker.version }}
     {%- elif use_old_repo %}
-    - name: lxc-docker-{{ docker.version }}
+    - name: lxc-docker
     {%- else %}
     {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
     - name: docker
