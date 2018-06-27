@@ -27,7 +27,7 @@ platforms:
     driver_config:
       provision_command:
         - apt-get update
-      run_command: /sbin/init
+      run_command: /lib/systemd/systemd
 
 suites:
   - name: default

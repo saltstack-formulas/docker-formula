@@ -1,13 +1,12 @@
 {% from "docker/map.jinja" import docker with context %}
 
-compose-pip:
+docker-compose-pip:
   pkg.installed:
-    - name: {{ docker.pip.pkgname }}
-  pip.installed:
-    - name: pip
-    - upgrade: True
+    - name: python-pip
+    - require_in:
+      - pkg: docker-compose
 
-compose:
+docker-compose:
   pip.installed:
     {%- if docker.compose_version %}
     - name: docker-compose == {{ docker.compose_version }}
