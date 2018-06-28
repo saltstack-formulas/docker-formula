@@ -26,7 +26,10 @@ platforms:
   - name: debian-jessie
     driver_config:
       provision_command:
-        - apt-get update
+        - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y locales
+        - sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen || true
+        - dpkg-reconfigure --frontend=noninteractive locales || true
+        - update-locale LANG=en_US.UTF-8 || true
       run_command: /lib/systemd/systemd
 
 suites:

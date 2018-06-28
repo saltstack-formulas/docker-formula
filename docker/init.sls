@@ -26,30 +26,30 @@ docker package dependencies:
 {% endif %}
 
 {%- if grains['os_family']|lower == 'debian' %}
-{%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker%}
+  {%- if grains["oscodename"]|lower == 'jessie' %}
 docker package repository:
   pkgrepo.{{ repo_state }}:
     - name: deb http://http.debian.net/debian jessie-backports main
-{%- else %}
-  {%- if "version" in docker %}
-    {%- if (docker.version|string).startswith('1.5.') %}
-      {%- set use_old_repo = docker.version < '1.5.1' %}
-    {%- else %}
-      {%- set version_major = (docker.version|string).split('.')[0]|int %}
-      {%- set version_minor = (docker.version|string).split('.')[1]|int %}
-      {%- set old_repo_major = 1 %}
-      {%- set old_repo_minor = 5 %}
-      {%- set use_old_repo = (version_major < old_repo_major or (version_major == old_repo_major and version_minor < old_repo_minor)) %}
+  {%- else %}
+    {%- if "version" in docker %}
+      {%- if (docker.version|string).startswith('1.5.') %}
+        {%- set use_old_repo = docker.version < '1.5.1' %}
+      {%- else %}
+        {%- set version_major = (docker.version|string).split('.')[0]|int %}
+        {%- set version_minor = (docker.version|string).split('.')[1]|int %}
+        {%- set old_repo_major = 1 %}
+        {%- set old_repo_minor = 5 %}
+        {%- set use_old_repo = (version_major < old_repo_major or (version_major == old_repo_major and version_minor < old_repo_minor)) %}
+      {%- endif %}
     {%- endif %}
-  {%- endif %}
 
-{%- if "version" in docker and use_old_repo %}
+    {%- if "version" in docker and use_old_repo %}
 docker package repository:
   pkgrepo.{{ repo_state }}:
     - name: deb https://get.docker.com/ubuntu docker main
     - humanname: Old Docker Package Repository
     - keyid: d8576a8ba88d21e9
-{%- else %}
+    {%- else %}
 purge old packages:
   pkgrepo.absent:
     - name: deb https://get.docker.com/ubuntu docker main
@@ -65,11 +65,11 @@ docker package repository:
     - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
     - keyid: 58118E89F3A912897C070ADBF76221572C52609D
-{%- endif %}
+    {%- endif %}
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
     - refresh_db: True
-{%- endif %}
+  {%- endif %}
 
 {%- elif grains['os_family']|lower in ('redhat', 'suse',) and grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
 docker package repository:
@@ -87,30 +87,32 @@ docker package repository:
 docker package:
   {%- if "version" in docker %}
   pkg.installed:
-    {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
+    {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
     - version: {{ docker.version }}
+    - fromrepo: {{ docker.kernel.pkg.fromrepo }}
     {%- elif use_old_repo %}
     - name: lxc-docker
     {%- else %}
-    {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
+      {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
     - name: docker
-    {%- else %}
+      {%- else %}
     - name: docker-engine
-    {%- endif %}
+      {%- endif %}
     - version: {{ docker.version }}
     {%- endif %}
     - hold: True
   {%- else %}
   pkg.latest:
-    {%- if grains["oscodename"]|lower == 'jessie' and "version" not in docker %}
+    {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
+    - fromrepo: {{ docker.kernel.pkg.fromrepo }}
     {%- else %}
-    {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
+      {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
     - name: docker
-    {%- else %}
+      {%- else %}
     - name: docker-engine
-    {%- endif %}
+      {%- endif %}
     {%- endif %}
   {%- endif %}
     - refresh: {{ docker.refresh_repo }}
