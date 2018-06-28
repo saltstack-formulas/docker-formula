@@ -119,11 +119,12 @@ docker package:
       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
       - pkgrepo: docker package repository
       {%- endif %}
+    - require_in:
       - file: docker-config
 
 docker-config:
   file.managed:
-    - name: /etc/default/docker
+    - name: {{ docker.configfile }}
     - source: salt://docker/files/config
     - template: jinja
     - mode: 644

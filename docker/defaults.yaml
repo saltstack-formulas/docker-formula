@@ -4,6 +4,7 @@ docker:
   process_signature: '/usr/bin/docker'
   install_docker_py: False
   refresh_repo: True
+  configfile: /etc/default/docker
   config: []
 
   pip:
