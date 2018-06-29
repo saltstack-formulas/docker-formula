@@ -59,6 +59,11 @@ docker:
   #compose_version: 1.9.0
   #configfile: /etc/default/docker
 
+  pkg:
+  # Package handling
+    #version: 1.13.1
+    #allow_updates: True
+
   # Global functions for docker_container states
   containers:
     skip_translate: ports

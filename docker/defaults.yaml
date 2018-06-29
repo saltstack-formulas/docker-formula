@@ -7,6 +7,10 @@ docker:
   configfile: /etc/default/docker
   config: []
 
+  pkg:
+    version:
+    allow_updates: False
+
   pip:
     pkgname: python-pip
     upgrade: False
