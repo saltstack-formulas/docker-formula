@@ -6,6 +6,10 @@ docker:
   refresh_repo: True
   config: []
 
+  pkg:
+    version:
+    allow_updates: False
+
   pip:
     pkgname: python-pip
     upgrade: False

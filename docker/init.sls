@@ -85,8 +85,8 @@ docker package repository:
 {%- endif %}
 
 docker package:
-  {%- if "version" in docker %}
   pkg.installed:
+  {%- if "version" in docker %}
     {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
     - version: {{ docker.version }}
@@ -103,7 +103,6 @@ docker package:
     {%- endif %}
     - hold: True
   {%- else %}
-  pkg.latest:
     {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
     - fromrepo: {{ docker.kernel.pkg.fromrepo }}
@@ -122,6 +121,10 @@ docker package:
       - pkgrepo: docker package repository
       {%- endif %}
       - file: docker-config
+    - allow_updates: {{ docker.pkg.allow_updates }}
+      {% if docker.pkg.version %}
+    - version: {{ docker.pkg.version }}
+      {% endif %}
 
 docker-config:
   file.managed:

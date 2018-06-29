@@ -58,6 +58,11 @@ docker:
   # version of docker-compose to install (defaults to latest)
   #compose_version: 1.9.0
 
+  pkg:
+  # Package handling
+    #version: 1.13.1
+    #allow_updates: True
+
   # Global functions for docker_container states
   containers:
     skip_translate: ports
