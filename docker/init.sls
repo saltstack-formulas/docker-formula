@@ -86,10 +86,8 @@ docker package repository:
 
 docker package:
   pkg.installed:
-  {%- if "version" in docker %}
     {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
-    - version: {{ docker.version }}
     - fromrepo: {{ docker.kernel.pkg.fromrepo }}
     {%- elif use_old_repo %}
     - name: lxc-docker
@@ -99,21 +97,7 @@ docker package:
       {%- else %}
     - name: docker-engine
       {%- endif %}
-    - version: {{ docker.version }}
     {%- endif %}
-    - hold: True
-  {%- else %}
-    {%- if grains["oscodename"]|lower == 'jessie' %}
-    - name: docker.io
-    - fromrepo: {{ docker.kernel.pkg.fromrepo }}
-    {%- else %}
-      {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
-    - name: docker
-      {%- else %}
-    - name: docker-engine
-      {%- endif %}
-    {%- endif %}
-  {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker package dependencies
@@ -125,6 +109,11 @@ docker package:
     - allow_updates: {{ docker.pkg.allow_updates }}
       {% if docker.pkg.version %}
     - version: {{ docker.pkg.version }}
+      {% elif version in docker %}
+    - version: {{ docker.version }}
+      {% endif %}
+      {% if docker.pkg.hold }}
+    - hold: {{ docker.pkg.hold }}
       {% endif %}
 
 docker-config:
