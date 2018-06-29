@@ -57,6 +57,7 @@ docker-pkg:
 docker:
   # version of docker-compose to install (defaults to latest)
   #compose_version: 1.9.0
+  #configfile: /etc/default/docker
 
   # Global functions for docker_container states
   containers:
