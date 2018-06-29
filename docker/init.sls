@@ -109,10 +109,10 @@ docker package:
     - allow_updates: {{ docker.pkg.allow_updates }}
       {% if docker.pkg.version %}
     - version: {{ docker.pkg.version }}
-      {% elif version in docker %}
+      {% elif "version" in docker %}
     - version: {{ docker.version }}
       {% endif %}
-      {% if docker.pkg.hold }}
+      {% if docker.pkg.hold %}
     - hold: {{ docker.pkg.hold }}
       {% endif %}
 
