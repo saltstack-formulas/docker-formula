@@ -89,7 +89,7 @@ docker package:
     {%- if grains["oscodename"]|lower == 'jessie' %}
     - name: docker.io
     - fromrepo: {{ docker.kernel.pkg.fromrepo }}
-    {%- elif use_old_repo %}
+    {%- elif use_old_repo is defined %}
     - name: lxc-docker
     {%- else %}
       {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
