@@ -3,4 +3,8 @@ CentOS:
   pip:
     pkgname: python2-pip
 
+FreeBSD:
+  pip:
+    pkgname: devel/py-pip
+
 # vim: ft=sls
