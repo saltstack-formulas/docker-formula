@@ -40,38 +40,6 @@ docker package:
       {%- endif %}
     - require_in:
 
-# docker package:
-#   pkg.installed:
-#     {%- if grains["oscodename"]|lower == 'jessie' %}
-#     - name: docker.io
-#     - fromrepo: {{ docker.kernel.pkg.fromrepo }}
-#     {%- elif use_old_repo is defined %}
-#     - name: lxc-docker
-#     {%- else %}
-#       {%- if grains['os']|lower in ('amazon', 'fedora', 'suse',) %}
-#     - name: docker
-#       {%- else %}
-#     - name: docker-engine
-#       {%- endif %}
-#     {%- endif %}
-#     - refresh: {{ docker.refresh_repo }}
-#     - require:
-#       - pkg: docker package dependencies
-#       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
-#       - pkgrepo: docker package repository
-#       {%- endif %}
-#     - require_in:
-#       - file: docker-config
-#     - allow_updates: {{ docker.pkg.allow_updates }}
-#       {% if docker.pkg.version %}
-#     - version: {{ docker.pkg.version }}
-#       {% elif "version" in docker %}
-#     - version: {{ docker.version }}
-#       {% endif %}
-#       {% if docker.pkg.hold %}
-#     - hold: {{ docker.pkg.hold }}
-#       {% endif %}
-
 docker-config:
   file.managed:
     - name: {{ docker.configfile }}

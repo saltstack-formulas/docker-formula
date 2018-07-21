@@ -1,6 +1,6 @@
 {% from "docker/map.jinja" import docker with context %}
 
-{%- if docker.kernel is defined %}
+{%- if docker.kernel is defined and grains['os_family']|lower == 'debian' %}
 pkgrepo dependencies:
   pkg.installed:
     - name: python-apt
