@@ -9,4 +9,14 @@ services:
 before_install:
   - bundle install
 
-script: bundle exec kitchen verify
+
+env:
+  matrix:
+    - INSTANCE: default-ubuntu-1804
+    - INSTANCE: default-debian-jessie
+    - INSTANCE: default-centos-7
+    - INSTANCE: version-1131-debian-jessie
+    - INSTANCE: version-1131-centos-7
+
+script:
+  - bundle exec kitchen verify ${INSTANCE}

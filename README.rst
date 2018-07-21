@@ -70,6 +70,11 @@ In the example pillar above:
 - Upstart files are created for each container, so ``service <container_name> stop|start|status`` should just work
 - ``service <container_name> stop`` will wipeout the container completely (ie ``docker stop <container_name> + docker rm <container_name>``)
 
+``docker.repo``
+---------------
+
+Configures the upstream docker's repo (true, by default).
+
 
 ``docker.compose``
 ------------------
