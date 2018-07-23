@@ -7,8 +7,17 @@ docker:
   configfile: /etc/default/docker
   config: []
 
+  use_upstream_repo: True
+  use_old_repo: False
+
+  # Repo parameters are set in docker/osfamilymap.yaml
+
   pkg:
-    version:
+    name: docker-ce
+    old_name: docker-engine
+    # For backward compatibility, this will be overriden by
+    # docker:version, if defined
+    version: latest
     allow_updates: False
     hold: False
 
@@ -16,7 +25,6 @@ docker:
     pkgname: python-pip
     upgrade: False
 
-  use_upstream_repo: True
   compose_version:
 
   containers:
@@ -25,9 +33,6 @@ docker:
     force_running: False
 
   kernel:
-
     pkg:
       fromrepo: '' 
-
     pkgs: []
-
