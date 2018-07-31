@@ -1,0 +1,8 @@
+# vim: sts=2 ts=2 sw=2 et ai
+
+docker:
+  process_signature: '/usr/bin/docker'
+  python_pip_package: 'python-pip'
+  install_docker_py: False
+  refresh_repo: True
+  config: []

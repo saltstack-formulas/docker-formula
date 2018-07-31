@@ -1,0 +1,38 @@
+{# vi: set ft=jinja: #}
+{% set containers = salt['grains.filter_by']({
+        'default': {}
+    },
+    merge=salt['pillar.get']('docker-containers:lookup'))
+%}
+
+{% set registry = salt['grains.filter_by']({
+    'default': {
+        'description': 'Docker Registry',
+        'port': '5000',
+        'version': 'latest',
+        'restart': 'no',
+        'search_backend': 'sqlalchemy',
+        'runoptions': []
+    },
+}, merge=salt['pillar.get']('registry:lookup')) %}
+
+{% set amazon = salt['grains.filter_by']({
+    'default': {
+        'settings_flavor': 's3',
+        'storage_path': '/registry'
+    },
+}, merge=salt['pillar.get']('registry:lookup:amazon')) %}
+
+# Begin migration to new style map.jinja
+{% import_yaml "docker/defaults.yaml" as defaults %}
+{% import_yaml "docker/codenamemap.yaml" as codemap %}
+
+{% set pkg = salt['pillar.get']('docker-pkg:lookup', default={}, merge=True) %}
+{% do defaults.docker.update(pkg) %}
+
+{% set oscode = salt['grains.filter_by'](codemap, grain='oscodename') or {} %}
+{% do defaults.docker.update(oscode) %}
+
+{% set docker = salt['pillar.get']('docker', default=defaults['docker'], merge=True) %}
+
+{% set compose = salt['pillar.get']('docker:compose', default={}, merge=True) %}

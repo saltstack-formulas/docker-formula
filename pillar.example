@@ -1,0 +1,86 @@
+# vi: set ft=yaml:
+# example docker registry container
+# if you want to your own docker registry, use this
+docker-containers:
+  lookup:
+    registry:
+      image: "registry:2"
+      cmd:
+      runoptions:
+        - "-e REGISTRY_LOG_LEVEL=warn"
+        - "-e REGISTRY_STORAGE=s3"
+        - "-e REGISTRY_STORAGE_S3_REGION=us-west-1"
+        - "-e REGISTRY_STORAGE_S3_BUCKET=my-bucket"
+        - "-e REGISTRY_STORAGE_S3_ROOTDIRECTORY=my-folder/my-subfolder/my-sub-subfolder"
+        - "--log-driver=syslog"
+        - "-p 5000:5000"
+        - "--rm"
+
+docker-pkg:
+  lookup:
+    pip:
+      version: '== 8.1.1'
+    python_package: docker==2.1.0
+    version: 1.6.2*
+    refresh_repo: false
+    process_signature: /usr/bin/docker
+    # DEPRECATED use python_package instead
+    # pip version is needed to maintain backwards compatibility with the above docker version
+    pip_version: '<= 1.2.3'
+    # config is only for sysvinit and upstart
+    # use systemd drop-ins in your own states if you need to customize arguments to docker
+    config:
+      - DOCKER_OPTS="-s btrfs --dns 192.168.0.2"
+      - export http_proxy="http://192.168.0.4:3128/"
+
+# docker registry 2.x using the deprecated docker.registry - backwards compatibility
+#registry:
+#  lookup:
+#    version: 2
+#    restart: always
+#    runoptions:
+#      - "-e REGISTRY_LOG_LEVEL=warn"
+#      - "-e REGISTRY_STORAGE=s3"
+#      - "-e REGISTRY_STORAGE_S3_REGION=us-west-1"
+#      - "-e REGISTRY_STORAGE_S3_BUCKET=my-bucket"
+#      - "-e REGISTRY_STORAGE_S3_ROOTDIRECTORY=my-folder/my-subfolder/my-sub-subfolder"
+#      - "--log-driver=syslog"
+
+# docker registry < 1 using the deprecated, even older docker.registry - backwards compatibility
+#registry:
+#  lookup:
+#    restart: 'always'
+#    amazon:
+#      aws_bucket: 'my-registry'
+#      aws_key: 'ABCDEFGHIJK123456789'
+#      aws_secret: 'AbcD+efG-HIjK1+++23456+789'
+
+# Docker compose supported attributes
+docker:
+  compose:
+    registry-data:
+      dvc: True
+      image: &registry_image 'library/registry:0.9.1'
+      container_name: &dvc 'registry-999-99-data'
+      command: echo *dvc data volume container
+      volumes:
+        - &datapath '/registry'
+    registry-service:
+      image: *registry_image
+      container_name: 'registry-999-99-service'
+      restart: 'always'
+      volumes_from:
+        - *dvc
+      environment:
+        SETTINGS_FLAVOR: 'local'
+        STORAGE_PATH: *datapath
+        SEARCH_BACKEND: 'sqlalchemy'
+    nginx:
+      image: 'library/nginx:1.9.0'
+      container_name: 'nginx-999-99'
+      restart: 'always'
+      links:
+        - 'registry-999-99-service:registry'
+      ports:
+        - '80:80'
+        - '443:443'
