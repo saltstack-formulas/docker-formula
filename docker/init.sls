@@ -149,6 +149,14 @@ docker-config:
       - cmd: lvchange
       - cmd: lvs
       - cmd: cleanup-docker
+{%- else %}
+  file.managed:
+    - name: /etc/docker/daemon.json
+    - source: salt://docker/files/daemon_overlay2.json
+    - template: jinja
+    - mode: 644
+    - user: root
+    - makedirs: True
 {%- endif %}      
 
 {%- if init_system == "systemd" and grains['project'] != "jenkins" and grains['roles'] != "slave" %}
