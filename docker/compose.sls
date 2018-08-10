@@ -13,3 +13,6 @@ docker-compose:
     {%- else %}
     - name: docker-compose
     {%- endif %}
+    {%- if docker.proxy %}
+    - proxy: {{ docker.proxy }}
+    {%- endif %}
