@@ -74,4 +74,7 @@ docker-py:
     - name: docker-py
     {%- endif %}
     - reload_modules: true
+    {%- if docker.proxy %}
+    - proxy: {{ docker.proxy }}
+    {%- endif %}
 {% endif %}
