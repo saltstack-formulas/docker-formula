@@ -64,6 +64,9 @@ docker:
     #version: 1.13.1
     #allow_updates: True
 
+  # PIP proxy configuration (defaults to False)
+  # proxy: proxy.com:3128
+
   # Global functions for docker_container states
   containers:
     skip_translate: ports

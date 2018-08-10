@@ -9,6 +9,7 @@ docker:
 
   use_upstream_repo: True
   use_old_repo: False
+  proxy: False
 
   # Repo parameters are set in docker/osfamilymap.yaml
 
