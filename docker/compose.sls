@@ -2,7 +2,7 @@
 
 docker-compose-pip:
   pkg.installed:
-    - name: python-pip
+    - name: {{ docker.pip.pkgname }}
     - require_in:
       - pkg: docker-compose
 
