@@ -1,10 +1,13 @@
 {% from "docker/map.jinja" import docker with context %}
 
+include:
+  - docker
+
 docker-compose-pip:
   pkg.installed:
     - name: {{ docker.pip.pkgname }}
     - require_in:
-      - pkg: docker-compose
+      - pip: docker-compose
 
 docker-compose:
   pip.installed:
