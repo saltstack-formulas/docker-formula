@@ -186,6 +186,11 @@ In this case, extra *docker run* options can be provided in your *"registry:look
 
 By default, the storage backend used by the registry is "filesystem". Use environment variables to override that, for example to use S3 as backend storage.
 
+``docker.remove``
+----------------
+
+Stop Docker daemon. Remove older docker packages (usually called 'docker' and 'docker-engine').
+
 Development
 ===========
 
