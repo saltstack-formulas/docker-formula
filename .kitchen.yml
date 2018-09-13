@@ -12,6 +12,7 @@ provisioner:
   state_top:
     base:
       '*':
+        - docker.remove
         - docker
   pillars:
     top.sls:
@@ -60,6 +61,16 @@ suites:
             use_old_repo: true
     excludes:
       - ubuntu-18.04
+  - name: version-18
+    provisioner:
+      pillars:
+        docker.sls:
+          docker:
+            version: '18.*'
+            use_old_repo: true
+    excludes:
+      - debian-stretch
+      - debian-jessie
 
 verifier:
   name: shell
