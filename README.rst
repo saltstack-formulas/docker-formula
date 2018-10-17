@@ -22,7 +22,7 @@ Install and run Docker daemon
 
 .. note::
 
-    On Ubuntu 12.04 state will also update kernel if needeed
+    On Ubuntu 12.04 state will also update kernel if needed
     (as mentioned in `docker installation docs <https://docs.docker.com/installation/ubuntulinux/>`_).
     You should manually reboot minions for kernel update to take affect.
     
