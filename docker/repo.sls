@@ -10,7 +10,7 @@
 {%- if grains['os']|lower in ('debian', 'ubuntu',) %}
 {% set url = 'https://apt.dockerproject.org/repo ' ~ grains["os"]|lower ~ '-' ~ grains["oscodename"] ~ ' main' if docker.use_old_repo else docker.repo.url_base ~ ' ' ~ docker.repo.version ~ ' stable' %}
 
-docker package repository:
+docker-package-repository:
   pkgrepo.{{ repo_state }}:
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} {{ humanname_old }}Docker Package Repository
     - name: deb {{ url }}
@@ -23,14 +23,14 @@ docker package repository:
     {% endif %}
     - refresh_db: True
     - require_in:
-      - pkg: docker package
+      - pkg: docker-package
     - require:
-      - pkg: docker package dependencies
+      - pkg: docker-package-dependencies
 
 {%- elif grains['os']|lower in ('centos', 'fedora') %}
 {% set url = 'https://yum.dockerproject.org/repo/main/centos/$releasever/' if docker.use_old_repo else docker.repo.url_base %}
 
-docker package repository:
+docker-package-repository:
   pkgrepo.{{ repo_state }}:
     - name: docker-ce-stable
     - humanname: {{ grains['os'] }} {{ grains["oscodename"]|capitalize }} {{ humanname_old }}Docker Package Repository
@@ -43,10 +43,10 @@ docker package repository:
     - gpgkey: {{ docker.repo.key_url }}
     {% endif %}
     - require_in:
-      - pkg: docker package
+      - pkg: docker-package
     - require:
-      - pkg: docker package dependencies
+      - pkg: docker-package-dependencies
 
 {%- else %}
-docker package repository: {}
+docker-package-repository: {}
 {%- endif %}
