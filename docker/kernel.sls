@@ -1,7 +1,7 @@
 {% from "docker/map.jinja" import docker with context %}
 
 {%- if docker.kernel is defined and grains['os_family']|lower == 'debian' %}
-pkgrepo dependencies:
+pkgrepo-dependencies:
   pkg.installed:
     - name: python-apt
 
@@ -23,7 +23,7 @@ docker-dependencies-kernel:
     - {{ key }}: {{ value }}
     {% endfor %}
     - require_in:
-      - pkg: docker package
+      - pkg: docker-package
     - onlyif: dpkg --compare-versions {{ grains["kernelrelease"] }} lt 3.8
   {% endif %}
 {% endif %}
