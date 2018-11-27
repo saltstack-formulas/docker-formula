@@ -7,7 +7,7 @@
 
 {% set humanname_old = 'Old ' if docker.use_old_repo else '' %}
 
-{%- if grains['os']|lower in ('debian', 'ubuntu',) %}
+{%- if grains['os_family']|lower in ('debian',) %}
 {% set url = 'https://apt.dockerproject.org/repo ' ~ grains["os"]|lower ~ '-' ~ grains["oscodename"] ~ ' main' if docker.use_old_repo else docker.repo.url_base ~ ' ' ~ docker.repo.version ~ ' stable' %}
 
 docker-package-repository:
@@ -27,7 +27,7 @@ docker-package-repository:
     - require:
       - pkg: docker-package-dependencies
 
-{%- elif grains['os']|lower in ('centos', 'fedora') %}
+{%- elif grains['os_family']|lower in ('redhat',) %}
 {% set url = 'https://yum.dockerproject.org/repo/main/centos/$releasever/' if docker.use_old_repo else docker.repo.url_base %}
 
 docker-package-repository:
