@@ -22,7 +22,7 @@ Install and run Docker daemon
 
 .. note::
 
-    On Ubuntu 12.04 state will also update kernel if needeed
+    On Ubuntu 12.04 state will also update kernel if needed
     (as mentioned in `docker installation docs <https://docs.docker.com/installation/ubuntulinux/>`_).
     You should manually reboot minions for kernel update to take affect.
     
@@ -185,6 +185,11 @@ If *"registry:lookup:version"* is set to any other version, e.g. *2*, an image w
 In this case, extra *docker run* options can be provided in your *"registry:lookup:runoptions"* pillar to provide environment variables, volumes, or log configuration to the container.
 
 By default, the storage backend used by the registry is "filesystem". Use environment variables to override that, for example to use S3 as backend storage.
+
+``docker.remove``
+----------------
+
+Stop Docker daemon. Remove older docker packages (usually called 'docker' and 'docker-engine').
 
 Development
 ===========

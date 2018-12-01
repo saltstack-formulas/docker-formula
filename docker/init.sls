@@ -6,7 +6,7 @@ include:
   - .kernel
   - .repo
 
-docker package dependencies:
+docker-package-dependencies:
   pkg.installed:
     - pkgs:
       {%- if grains['os_family']|lower == 'debian' %}
@@ -22,21 +22,21 @@ docker package dependencies:
       {% endif %}
     - unless: test "`uname`" = "Darwin"
 
-docker package:
+docker-package:
   pkg.installed:
     - name: {{ docker_pkg_name }}
     - version: {{ docker_pkg_version }}
     - refresh: {{ docker.refresh_repo }}
     - require:
-      - pkg: docker package dependencies
+      - pkg: docker-package-dependencies
       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
-      - pkgrepo: docker package repository
+      - pkgrepo: docker-package-repository
       {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
-      - pkg: docker package dependencies
+      - pkg: docker-package-dependencies
       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
-      - pkgrepo: docker package repository
+      - pkgrepo: docker-package-repository
       {%- endif %}
     - require_in:
 
@@ -54,7 +54,7 @@ docker-service:
     - enable: True
     - watch:
       - file: /etc/default/docker
-      - pkg: docker package
+      - pkg: docker-package
     {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
     {% endif %}
@@ -62,7 +62,7 @@ docker-service:
 {% if docker.install_docker_py %}
 docker-py requirements:
   pkg.installed:
-    - name: {{ docker.python_pip_package }}
+    - name: {{ docker.pip.pkgname }}
 
 docker-py:
   pip.installed:
