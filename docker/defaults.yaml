@@ -21,6 +21,9 @@ docker:
     version: latest
     allow_updates: False
     hold: False
+  pkgs:
+    - python-docker
+    - docker-compose
 
   pip:
     pkgname: python-pip

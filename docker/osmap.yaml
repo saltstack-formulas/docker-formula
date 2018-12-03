@@ -2,6 +2,9 @@
 CentOS:
   pip:
     pkgname: python2-pip
+  pkgs:
+    - epel-release
+    - python2-dockerpty
 
 FreeBSD:
   pip:
