@@ -55,9 +55,12 @@ docker-pkg:
 
 # Docker compose supported attributes
 docker:
+  #install_pypi_pip: True
+  #install_docker_py: True
   # version of docker-compose to install (defaults to latest)
   #compose_version: 1.9.0
   #configfile: /etc/default/docker
+  install_pypi_pip: True
 
   pkg:
   # Package handling
