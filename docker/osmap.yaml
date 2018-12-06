@@ -1,5 +1,8 @@
 
 CentOS:
+  pkgs:
+    - epel-release
+    - python2-dockerpty
   pip:
     pkgname: python2-pip
 
