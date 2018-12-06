@@ -19,3 +19,4 @@ docker-compose:
     {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
     {%- endif %}
+    - reload_modules: True
