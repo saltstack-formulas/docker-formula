@@ -63,6 +63,9 @@ docker-service:
 docker-py requirements:
   pkg.installed:
     - name: {{ docker.pip.pkgname }}
+  ##needed to fix docker_image' __virtual__ returned False
+  pip.installed:
+    - name: pip
 
 docker-py:
   pip.installed:
