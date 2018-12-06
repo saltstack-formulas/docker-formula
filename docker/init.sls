@@ -67,6 +67,10 @@ docker-py requirements:
    {%- for pkgname in docker.pkgs %}
       - {{ pkgname }}
    {%- endfor %}
+    - onlyif: {{ not docker.install_pypi_pip }}
+  pip.installed:
+    - name: pip
+    - onlyif: {{ docker.install_pypi_pip }}
 
 docker-py:
   pip.installed:
