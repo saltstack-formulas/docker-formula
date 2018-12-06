@@ -36,5 +36,6 @@ docker-container-service-{{ name }}:
     - name: docker-{{ name }}
     - enable: True
     - watch:
+      - cmd: docker-image-{{ name }}
       - file: docker-container-startup-config-{{ name }}
 {% endfor %}
