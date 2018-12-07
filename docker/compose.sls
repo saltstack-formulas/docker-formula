@@ -3,12 +3,6 @@
 include:
   - docker
 
-docker-compose-pip:
-  pkg.installed:
-    - name: {{ docker.pip.pkgname }}
-    - require_in:
-      - pip: docker-compose
-
 docker-compose:
   pip.installed:
     {%- if docker.compose_version %}
@@ -19,4 +13,7 @@ docker-compose:
     {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
     {%- endif %}
-    - reload_modules: True
+    - require:
+      - pip: docker-package-dependencies
+      - pkg: docker-package-dependencies
+    - reload_modules: {{ docker.refresh_repo }}

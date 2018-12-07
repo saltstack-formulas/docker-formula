@@ -7,20 +7,19 @@ include:
   - .repo
 
 docker-package-dependencies:
+  pip.installed:
+    - name: pip
+    - onlyif: {{ docker.use_pypi_pip }}
+    - reload_modules: {{ docker.refresh_repo }}
   pkg.installed:
-    - pkgs:
-      {%- if grains['os_family']|lower == 'debian' %}
-      - apt-transport-https
-      - python-apt
-      {%- endif %}
-      - iptables
-      - ca-certificates
-      {% if docker.kernel.pkgs is defined %}
-        {% for pkg in docker.kernel.pkgs %}
-        - {{ pkg }}
-        {% endfor %}
-      {% endif %}
+    {% for pkgname in [docker.kernel.pkgs] + [docker.pkgs] %}
+    - name: {{ pkgname }}
+    {%- endfor %}
+    {%- if "pkgname" in docker.pip %}
+    - {{ docker.pip.pkgname }}
+    {%- endif %}
     - unless: test "`uname`" = "Darwin"
+    - refresh: {{ docker.refresh_repo }}
 
 docker-package:
   pkg.installed:
@@ -60,18 +59,6 @@ docker-service:
     {% endif %}
 
 {% if docker.install_docker_py %}
-docker-py requirements:
-  pkg.installed:
-    - names:
-      - {{ docker.pip.pkgname }}
-   {%- for pkgname in docker.pkgs %}
-      - {{ pkgname }}
-   {%- endfor %}
-    - onlyif: {{ not docker.install_pypi_pip }}
-  pip.installed:
-    - name: pip
-    - onlyif: {{ docker.install_pypi_pip }}
-
 docker-py:
   pip.installed:
     {%- if "python_package" in docker %}
@@ -81,8 +68,11 @@ docker-py:
     {%- else %}
     - name: docker-py
     {%- endif %}
-    - reload_modules: true
+    - reload_modules: {{ docker.refresh_repo }}
     {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
     {%- endif %}
+    - require:
+      - pip: docker-package-dependencies
+      - pkg: docker-package-dependencies
 {% endif %}
