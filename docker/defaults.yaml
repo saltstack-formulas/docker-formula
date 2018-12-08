@@ -3,7 +3,8 @@
 docker:
   process_signature: '/usr/bin/docker'
   install_pypi_pip: False
-  install_docker_py: False
+  install_docker_py: True
+  python_package: docker
   refresh_repo: True
   configfile: /etc/default/docker
   config: []
