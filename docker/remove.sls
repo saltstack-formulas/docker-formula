@@ -25,9 +25,6 @@ docker-packages-cleaned:
       - docker-selinux
       - docker-engine-selinux
       - docker-engine
-   {%- for pkgname in docker.pkgs %}
-      - {{ pkgname }}
-   {%- endfor %}
 
 {# remove pip packages installed by formula #}
 

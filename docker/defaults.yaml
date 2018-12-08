@@ -7,12 +7,18 @@ docker:
   refresh_repo: True
   configfile: /etc/default/docker
   config: []
+  pip: []
 
   use_upstream_repo: True
   use_old_repo: False
   proxy: False
 
   # Repo parameters are set in docker/osfamilymap.yaml
+  pkgs:
+    - iptables
+    - ca-certificates
+    - python-docker
+    - docker-compose
 
   pkg:
     name: docker-ce
@@ -22,10 +28,6 @@ docker:
     version: latest
     allow_updates: False
     hold: False
-
-  pip:
-    pkgname: python-pip
-    upgrade: False
 
   compose_version:
 

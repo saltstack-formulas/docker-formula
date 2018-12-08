@@ -3,12 +3,6 @@
 include:
   - docker
 
-docker-compose-pip:
-  pkg.installed:
-    - name: {{ docker.pip.pkgname }}
-    - require_in:
-      - pip: docker-compose
-
 docker-compose:
   pip.installed:
     {%- if docker.compose_version %}

@@ -2,6 +2,7 @@
 
 {% set docker_pkg_name = docker.pkg.old_name if docker.use_old_repo else docker.pkg.name %}
 {% set docker_pkg_version = docker.version | default(docker.pkg.version) %}
+{%- set docker_packages = docker.kernel.pkgs + docker.pkgs %}
 include:
   - .kernel
   - .repo
@@ -9,18 +10,14 @@ include:
 docker-package-dependencies:
   pkg.installed:
     - pkgs:
-      {%- if grains['os_family']|lower == 'debian' %}
-      - apt-transport-https
-      - python-apt
-      {%- endif %}
-      - iptables
-      - ca-certificates
-      {% if docker.kernel.pkgs is defined %}
-        {% for pkg in docker.kernel.pkgs %}
-        - {{ pkg }}
-        {% endfor %}
-      {% endif %}
+       {%- for pkgname in docker_packages %}
+      - {{ pkgname }}
+       {%- endfor %}
+       {%- if "pkgname" in docker.pip %}
+      - {{ docker.pip.pkgname }}
+       {%- endif %}
     - unless: test "`uname`" = "Darwin"
+    - refresh: {{ docker.refresh_repo }}
 
 docker-package:
   pkg.installed:
@@ -29,16 +26,19 @@ docker-package:
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker-package-dependencies
-      {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
+         {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
       - pkgrepo: docker-package-repository
-      {%- endif %}
+         {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker-package-dependencies
-      {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
+         {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
       - pkgrepo: docker-package-repository
-      {%- endif %}
-    - require_in:
+         {%- endif %}
+  pip.installed:
+    - name: pip
+    - onlyif: {{ docker.install_pypi_pip }}
+    - reload_modules: true
 
 docker-config:
   file.managed:
@@ -60,14 +60,6 @@ docker-service:
     {% endif %}
 
 {% if docker.install_docker_py %}
-docker-py requirements:
-  pkg.installed:
-    - name: {{ docker.pip.pkgname }}
-    - onlyif: {{ not docker.install_pypi_pip }}
-  pip.installed:
-    - name: pip
-    - onlyif: {{ docker.install_pypi_pip }}
-
 docker-py:
   pip.installed:
     {%- if "python_package" in docker %}
