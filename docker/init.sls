@@ -48,6 +48,25 @@ docker-config:
     - mode: 644
     - user: root
 
+{% if docker.daemon_config %}
+docker-daemon-dir:
+  file.directory:
+    - name: /etc/docker
+    - user: root
+    - group: root
+    - mode: 755
+
+docker-daemon-config:
+  file.serialize:
+    - name: /etc/docker/daemon.json
+    - user: root
+    - group: root
+    - mode: 644
+    - dataset:
+        {{ docker.daemon_config | yaml() | indent(8) }}
+    - formatter: json
+{% endif %}
+
 docker-service:
   service.running:
     - name: docker
@@ -55,6 +74,9 @@ docker-service:
     - watch:
       - file: /etc/default/docker
       - pkg: docker-package
+      {% if docker.daemon_config %}
+      - file: /etc/docker/daemon.json
+      {% endif %}
     {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
     {% endif %}
