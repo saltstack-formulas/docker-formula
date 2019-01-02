@@ -72,10 +72,10 @@ docker-service:
     - name: docker
     - enable: True
     - watch:
-      - file: /etc/default/docker
+      - file: docker-config
       - pkg: docker-package
       {% if docker.daemon_config %}
-      - file: /etc/docker/daemon.json
+      - file: docker-daemon-config
       {% endif %}
     {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
