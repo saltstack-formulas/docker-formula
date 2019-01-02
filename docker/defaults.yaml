@@ -7,6 +7,7 @@ docker:
   refresh_repo: True
   configfile: /etc/default/docker
   config: []
+  daemon_config: {}
 
   use_upstream_repo: True
   use_old_repo: False
@@ -37,5 +38,5 @@ docker:
 
   kernel:
     pkg:
-      fromrepo: '' 
+      fromrepo: ''
     pkgs: []
