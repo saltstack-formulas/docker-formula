@@ -9,6 +9,7 @@ wheezy:
       name: deb http://http.debian.net/debian wheezy-backports main
       humanname: Wheezy Backports
       dist: wheezy-backports
+    pkgs: []
 
 jessie:
   kernel:
@@ -19,16 +20,17 @@ jessie:
       name: deb http://http.debian.net/debian jessie-backports main
       humanname: Jessie Backports
       dist: jessie-backports
+    pkgs: []
 
 trusty:
   kernel:
-    packages:
+    pkgs:
       - linux-image-extra-virtual
       - linux-image-extra-{{ grains.kernelrelease }}
 
 precise:
   kernel:
-    packages:
+    pkgs:
       - linux-image-generic-lts-raring
       - linux-headers-generic-lts-raring
 

@@ -16,7 +16,7 @@ docker:
   proxy: False
 
   # Repo parameters are set in docker/osfamilymap.yaml
-  packages:
+  pkgs:
     - iptables
     - ca-certificates
     - python-docker
@@ -30,7 +30,6 @@ docker:
     version: latest
     allow_updates: False
     hold: False
-  pkgs: []
 
   compose_version:
 
@@ -42,4 +41,4 @@ docker:
   kernel:
     pkg:
       fromrepo: '' 
-    packages: []
+    pkgs: []
