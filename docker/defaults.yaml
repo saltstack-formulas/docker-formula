@@ -8,6 +8,7 @@ docker:
   refresh_repo: True
   configfile: /etc/default/docker
   config: []
+  daemon_config: {}
   pip: []
 
   use_upstream_repo: True
@@ -15,7 +16,7 @@ docker:
   proxy: False
 
   # Repo parameters are set in docker/osfamilymap.yaml
-  pkgs:
+  packages:
     - iptables
     - ca-certificates
     - python-docker
@@ -40,4 +41,4 @@ docker:
   kernel:
     pkg:
       fromrepo: '' 
-    pkgs: []
+    packages: []

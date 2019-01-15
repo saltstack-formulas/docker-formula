@@ -1,5 +1,5 @@
 Debian:
-  pkgs:
+  packages:
     - apt-transport-https
     - python-apt
     - python-pip

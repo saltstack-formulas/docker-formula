@@ -22,13 +22,13 @@ jessie:
 
 trusty:
   kernel:
-    pkgs:
+    packages:
       - linux-image-extra-virtual
       - linux-image-extra-{{ grains.kernelrelease }}
 
 precise:
   kernel:
-    pkgs:
+    packages:
       - linux-image-generic-lts-raring
       - linux-headers-generic-lts-raring
 

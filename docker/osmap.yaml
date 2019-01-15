@@ -1,10 +1,10 @@
 
 CentOS:
-  pkgs:
+  packages:
     - python2-pip
 
 FreeBSD:
-  pkgs:
+  packages:
     - devel/py-pip
 
 # vim: ft=sls
