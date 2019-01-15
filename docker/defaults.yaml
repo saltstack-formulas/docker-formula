@@ -30,6 +30,7 @@ docker:
     version: latest
     allow_updates: False
     hold: False
+  pkgs: []
 
   compose_version:
 

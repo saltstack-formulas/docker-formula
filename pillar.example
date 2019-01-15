@@ -61,6 +61,15 @@ docker:
   #compose_version: 1.9.0
   #configfile: /etc/default/docker
   install_pypi_pip: True
+  
+  ### https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
+  #daemon_config:
+  #  metrics-addr: '0.0.0.0:9323'
+  #  experimental: true
+  #  registry-mirror: 'https://proxy-docker.local:5000'
+  #  live-restore: true
+  #  insecure-registries:
+  #    - harbor.local
 
   pkg:
   # Package handling
