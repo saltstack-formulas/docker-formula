@@ -41,6 +41,8 @@ docker-package:
     - name: pip
     - onlyif: {{ docker.install_pypi_pip }}
     - reload_modules: true
+    - require:
+      - pkg: docker-package-dependencies
 
 docker-config:
   file.managed:
@@ -97,4 +99,6 @@ docker-py:
     {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
     {%- endif %}
+    - require:
+      - pkg: docker-package-dependencies
 {% endif %}

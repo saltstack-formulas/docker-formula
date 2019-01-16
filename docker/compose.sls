@@ -14,3 +14,5 @@ docker-compose:
     - proxy: {{ docker.proxy }}
     {%- endif %}
     - reload_modules: True
+    - require:
+      - pkg: docker-package-dependencies
