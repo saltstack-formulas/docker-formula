@@ -6,7 +6,8 @@ include:
 {% for name, container in containers.items() %}
 docker-image-{{ name }}:
   cmd.run:
-    - name: docker pull {{ container.image }}
+    - name: docker pull {{ container.image }} | grep "Image is up to date" >/dev/null 2>&1 || echo "changed=yes comment='Image updated'"
+    - stateful: True
     - require:
       - service: docker-service
 
