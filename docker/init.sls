@@ -33,8 +33,8 @@ docker-package:
       - pkgrepo: docker-package-repository
       {%- endif %}
     - refresh: {{ docker.refresh_repo }}
-    - allow_updates: {{ docker.allow_updates }}
-    - hold: {{ docker.hold }}
+    - allow_updates: {{ docker.pkg.allow_updates }}
+    - hold: {{ docker.pkg.hold }}
     - require:
       - pkg: docker-package-dependencies
       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
