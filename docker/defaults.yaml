@@ -3,7 +3,8 @@
 docker:
   process_signature: '/usr/bin/docker'
   install_pypi_pip: False
-  install_docker_py: False
+  install_docker_py: True
+  python_package: docker
   refresh_repo: True
   configfile: /etc/default/docker
   config: []
@@ -13,7 +14,8 @@ docker:
   use_old_repo: False
   proxy: False
 
-  # Repo parameters are set in docker/osfamilymap.yaml
+  # pkgs set in osfamilymap.yaml
+  pkgs: []
 
   pkg:
     name: docker-ce
@@ -23,7 +25,6 @@ docker:
     version: latest
     allow_updates: False
     hold: False
-  pkgs: []
 
   pip:
     pkgname: python-pip

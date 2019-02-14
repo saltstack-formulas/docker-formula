@@ -9,6 +9,7 @@ wheezy:
       name: deb http://http.debian.net/debian wheezy-backports main
       humanname: Wheezy Backports
       dist: wheezy-backports
+    pkgs: []
 
 jessie:
   kernel:
@@ -19,6 +20,7 @@ jessie:
       name: deb http://http.debian.net/debian jessie-backports main
       humanname: Jessie Backports
       dist: jessie-backports
+    pkgs: []
 
 trusty:
   kernel:
