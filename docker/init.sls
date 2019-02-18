@@ -26,9 +26,6 @@ docker-package:
   pkg.installed:
     - name: {{ docker_pkg_name }}
     - version: {{ docker_pkg_version }}
-    - refresh: {{ docker.refresh_repo }}
-    - require:
-      - pkg: docker-package-dependencies
       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
       - pkgrepo: docker-package-repository
       {%- endif %}
@@ -39,6 +36,7 @@ docker-package:
       - pkgrepo: docker-package-repository
       {%- endif %}
     - require_in:
+      - file: docker-config
 
 docker-config:
   file.managed:
