@@ -26,6 +26,9 @@ docker-containers:
       stopoptions:
         - '-t 10'
         
+    #pip:
+    #  pkgname: python-pip
+
     prometheus-server:
       # example Prometheus container using command arguments
       image: "prom/prometheus:v1.7.1"

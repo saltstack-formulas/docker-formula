@@ -10,3 +10,9 @@ RedHat:
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
     version: {{ grains['oscodename'] |lower }}
     file: /etc/yum.repos.d/docker-ce.repo
+Suse:
+  pkg:
+    name: docker
+    version: latest
+  pip:
+    pkgname: python2-pip
