@@ -11,34 +11,34 @@ include:
 docker-package-dependencies:
   pkg.installed:
     - pkgs:
-      {%- if grains['os_family']|lower == 'debian' %}
-      - apt-transport-https
-      - python-apt
-      {%- endif %}
-      - iptables
-      - ca-certificates
-      {% if docker.kernel.pkgs is defined %}
-        {% for pkg in docker.kernel.pkgs %}
-        - {{ pkg }}
-        {% endfor %}
-      {% endif %}
+       {%- for pkgname in docker_packages %}
+      - {{ pkgname }}
+       {%- endfor %}
+       {%- if "pip" in docker and "pkgname" in docker.pip %}
+      - {{ docker.pip.pkgname }}
+       {%- endif %}
     - unless: test "`uname`" = "Darwin"
+    - refresh: {{ docker.refresh_repo }}
 
 docker-package:
   pkg.installed:
     - name: {{ docker_pkg_name }}
     - version: {{ docker_pkg_version }}
-      {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
-      - pkgrepo: docker-package-repository
-      {%- endif %}
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker-package-dependencies
       {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
-      - pkgrepo: docker-package-repository
+    - pkgrepo: docker-package-repository
       {%- endif %}
     - require_in:
       - file: docker-config
+  pip.installed:
+    - name: pip
+    - reload_modules: true
+    - upgrade: {{ docker.pip.upgrade }}
+    - onlyif: {{ docker.pip.install_pypi_pip }}  #### onlyif you really need pypi pip instead of using official distro pip.
+    - require:
+      - pkg: docker-package-dependencies
 
 docker-config:
   file.managed:
@@ -82,14 +82,6 @@ docker-service:
     {% endif %}
 
 {% if docker.install_docker_py %}
-docker-py requirements:
-  pkg.installed:
-    - name: {{ docker.pip.pkgname }}
-    - onlyif: {{ not docker.install_pypi_pip }}
-  pip.installed:
-    - name: pip
-    - onlyif: {{ docker.install_pypi_pip }}
-
 docker-py:
   pip.installed:
     {%- if "python_package" in docker %}
@@ -103,4 +95,6 @@ docker-py:
     {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
     {%- endif %}
+    - require:
+      - pkg: docker-package-dependencies
 {% endif %}
