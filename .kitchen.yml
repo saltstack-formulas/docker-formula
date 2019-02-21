@@ -24,7 +24,7 @@ platforms:
   - name: ubuntu-18.04
     driver_config:
       provision_command:
-        - apt-get update && apt-get install -y locales ifupdown python-yaml
+        - apt-get update && apt-get install -y locales ifupdown
         - locale-gen en_US.UTF-8
         - update-locale LANG=en_US.UTF-8
         - mkdir -p /run/sshd
@@ -32,20 +32,18 @@ platforms:
   - name: debian-stretch
     driver_config:
       provision_command:
-        - apt-get update && apt-get install -y locales ifupdown python-yaml
+        - apt-get update && apt-get install -y locales ifupdown
         - locale-gen en_US.UTF-8
       run_command: /lib/systemd/systemd
   - name: debian-jessie
     driver_config:
       provision_command:
-        - apt-get update && apt-get install -y locales ifupdown python-yaml
+        - apt-get update && apt-get install -y locales ifupdown
         - locale-gen en_US.UTF-8
       run_command: /lib/systemd/systemd
-  - name: centos-7
-    driver_config:
-      provision_command:
-        - yum install -y python-yaml
-      run_command: /lib/systemd/systemd
+#   - name: centos-7
+#     driver_config:
+#       run_command: /lib/systemd/systemd
 
 suites:
   - name: default

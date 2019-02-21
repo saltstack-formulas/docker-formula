@@ -23,7 +23,7 @@ docker-package-dependencies:
 docker-package:
   pkg.installed:
     - name: {{ docker_pkg_name }}
-    - version: {{ docker_pkg_version }}
+    - version: {{ docker_pkg_version or 'latest' }}
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker-package-dependencies
@@ -32,10 +32,15 @@ docker-package:
       {%- endif %}
     - require_in:
       - file: docker-config
+       {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
+  cmd.run:
+    - name: /usr/bin/pip install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
+       {%- else %}
   pip.installed:
     - name: pip
     - reload_modules: true
     - upgrade: {{ docker.pip.upgrade }}
+       {%- endif %}
     - onlyif: {{ docker.pip.install_pypi_pip }}  #### onlyif you really need pypi pip instead of using official distro pip.
     - require:
       - pkg: docker-package-dependencies
@@ -83,18 +88,23 @@ docker-service:
 
 {% if docker.install_docker_py %}
 docker-py:
+       {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
+  cmd.run:
+    - name: /usr/bin/pip install {{ docker.python_package }}
+       {%- else %}
   pip.installed:
-    {%- if "python_package" in docker %}
+          {%- if "python_package" in docker %}
     - name: {{ docker.python_package }}
-    {%- elif "pip_version" in docker %}
+          {%- elif "pip_version" in docker %}
     - name: docker-py {{ docker.pip_version }}
-    {%- else %}
+          {%- else %}
     - name: docker-py
-    {%- endif %}
+          {%- endif %}
     - reload_modules: true
-    {%- if docker.proxy %}
+          {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
-    {%- endif %}
+          {%- endif %}
     - require:
       - pkg: docker-package-dependencies
+       {%- endif %}
 {% endif %}
