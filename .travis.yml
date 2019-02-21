@@ -13,10 +13,10 @@ before_install:
 env:
   matrix:
     - INSTANCE: default-ubuntu-1804
-    - INSTANCE: default-debian-jessie
     - INSTANCE: default-debian-stretch
+    - INSTANCE: default-centos-7
     - INSTANCE: version-1131-debian-jessie
-    - INSTANCE: version-1131-debian-stretch
+    - INSTANCE: version-1131-centos-7
 
 script:
   - bundle exec kitchen verify ${INSTANCE}
