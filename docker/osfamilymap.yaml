@@ -22,5 +22,5 @@ Suse:
   pkg:
     name: docker
   pkgs:
-    - python2-pip
+    - python3-pip      #python 3 is default on OpenSUSE 15.0
 
