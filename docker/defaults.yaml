@@ -8,7 +8,7 @@ docker:
   configfile: /etc/default/docker
   config: []
   daemon_config: {}
-  version:
+  version: ''
 
   use_upstream_repo: True
   use_old_repo: False
@@ -31,7 +31,7 @@ docker:
     install_pypi_pip: False
     upgrade: False
 
-  compose_version:
+  compose_version: ''
 
   containers:
     skip_translate: None

@@ -1,7 +1,7 @@
 {% from "docker/map.jinja" import docker with context %}
 
-{% set docker_pkg_name = docker.pkg.old_name if docker.use_old_repo else docker.pkg.name %}
-{% set docker_pkg_version = docker.version | default(docker.pkg.version) %}
+{%- set docker_pkg_name = docker.pkg.old_name if docker.use_old_repo else docker.pkg.name %}
+{%- set docker_pkg_version = docker.version | default(docker.pkg.version) %}
 {%- set docker_packages = docker.kernel.pkgs + docker.pkgs %}
 
 include:
@@ -11,12 +11,12 @@ include:
 docker-package-dependencies:
   pkg.installed:
     - pkgs:
-       {%- for pkgname in docker_packages %}
+        {%- for pkgname in docker_packages %}
       - {{ pkgname }}
-       {%- endfor %}
-       {%- if "pip" in docker and "pkgname" in docker.pip %}
+        {%- endfor %}
+        {%- if "pip" in docker and "pkgname" in docker.pip %}
       - {{ docker.pip.pkgname }}
-       {%- endif %}
+        {%- endif %}
     - unless: test "`uname`" = "Darwin"
     - refresh: {{ docker.refresh_repo }}
 
@@ -27,20 +27,20 @@ docker-package:
     - refresh: {{ docker.refresh_repo }}
     - require:
       - pkg: docker-package-dependencies
-      {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
+        {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
     - pkgrepo: docker-package-repository
-      {%- endif %}
+        {%- endif %}
     - require_in:
       - file: docker-config
-       {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
+        {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
     - name: /usr/bin/pip install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
-       {%- else %}
+        {%- else %}
   pip.installed:
     - name: pip
     - reload_modules: true
     - upgrade: {{ docker.pip.upgrade }}
-       {%- endif %}
+        {%- endif %}
     - onlyif: {{ docker.pip.install_pypi_pip }}  #### onlyif you really need pypi pip instead of using official distro pip.
     - require:
       - pkg: docker-package-dependencies
@@ -53,7 +53,7 @@ docker-config:
     - mode: 644
     - user: root
 
-{% if docker.daemon_config %}
+  {% if docker.daemon_config %}
 docker-daemon-dir:
   file.directory:
     - name: /etc/docker
@@ -70,7 +70,7 @@ docker-daemon-config:
     - dataset:
         {{ docker.daemon_config | yaml() | indent(8) }}
     - formatter: json
-{% endif %}
+  {% endif %}
 
 docker-service:
   service.running:
@@ -79,32 +79,32 @@ docker-service:
     - watch:
       - file: docker-config
       - pkg: docker-package
-      {% if docker.daemon_config %}
+        {% if docker.daemon_config %}
       - file: docker-daemon-config
-      {% endif %}
-    {% if "process_signature" in docker %}
+        {% endif %}
+        {% if "process_signature" in docker %}
     - sig: {{ docker.process_signature }}
-    {% endif %}
+        {% endif %}
 
 {% if docker.install_docker_py %}
 docker-py:
-       {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
+        {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
     - name: /usr/bin/pip install {{ docker.python_package }}
-       {%- else %}
+        {%- else %}
   pip.installed:
-          {%- if "python_package" in docker %}
+            {%- if "python_package" in docker %}
     - name: {{ docker.python_package }}
-          {%- elif "pip_version" in docker %}
+            {%- elif "pip_version" in docker %}
     - name: docker-py {{ docker.pip_version }}
-          {%- else %}
+            {%- else %}
     - name: docker-py
-          {%- endif %}
+            {%- endif %}
     - reload_modules: true
-          {%- if docker.proxy %}
+            {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
-          {%- endif %}
+            {%- endif %}
     - require:
       - pkg: docker-package-dependencies
-       {%- endif %}
+        {%- endif %}
 {% endif %}
