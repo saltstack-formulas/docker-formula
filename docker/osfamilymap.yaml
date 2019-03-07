@@ -1,18 +1,8 @@
-Default:
-  pkgs:
-    - iptables
-    - ca-certificates
-    - python-pip
-    - python-docker
-
 Debian:
   pkgs:
     - apt-transport-https
-    - python-pip
     - python-apt
-    - iptables
-    - ca-certificates
-    - python-docker
+    - python-pip
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
@@ -21,18 +11,16 @@ Debian:
 
 RedHat:
   pkgs:
-    - iptables
-    - ca-certificates
-    - python-docker
     - python2-pip
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}/{{ grains['osmajorrelease'] }}/$basearch/stable/
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
     version: {{ grains['oscodename'] |lower }}
     file: /etc/yum.repos.d/docker-ce.repo
+
 Suse:
   pkg:
     name: docker
-    version: latest
-  pip:
-    pkgname: python2-pip
+  pkgs:
+    - python3-pip      #python 3 is default on OpenSUSE 15.0
+
