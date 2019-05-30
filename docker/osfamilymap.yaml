@@ -6,7 +6,7 @@ Debian:
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
-    version: {{ grains['oscodename'] |lower }}
+    version: {{ grains['oscodename']|lower if 'oscodename' in grains else '' }}
     file: /etc/apt/sources.list.d/docker.list
 
 RedHat:
@@ -15,7 +15,7 @@ RedHat:
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}/{{ grains['osmajorrelease'] }}/$basearch/stable/
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
-    version: {{ grains['oscodename'] |lower }}
+    version: {{ grains['oscodename']|lower if 'oscodename' in grains else '' }}
     file: /etc/yum.repos.d/docker-ce.repo
 
 Suse:
@@ -23,4 +23,3 @@ Suse:
     name: docker
   pkgs:
     - python3-pip      #python 3 is default on OpenSUSE 15.0
-
