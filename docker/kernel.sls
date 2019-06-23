@@ -6,7 +6,7 @@ pkgrepo-dependencies:
     - name: python-apt
 
   {% if "pkgrepo" in docker.kernel %}
-{{ grains["oscodename"] }}-backports-repo:
+{{ grains["oscodename"]|lower }}-backports-repo:
   pkgrepo.managed:
     {% for key, value in docker.kernel.pkgrepo.items() %}
     - {{ key }}: {{ value }}
