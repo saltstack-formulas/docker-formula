@@ -30,6 +30,10 @@ docker-package:
         {%- if grains['os']|lower not in ('amazon', 'fedora', 'suse',) %}
     - pkgrepo: docker-package-repository
         {%- endif %}
+        {%- if grains['os']|lower not in ('suse',) %}
+    - allow_updates: {{ docker.pkg.allow_updates }}
+    - hold: {{ docker.pkg.hold }}
+        {%- endif %}
     - require_in:
       - file: docker-config
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
