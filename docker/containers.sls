@@ -6,7 +6,8 @@ include:
 {% for name, container in containers.items() %}
 docker-image-{{ name }}:
   cmd.run:
-    - name: docker pull {{ container.image }}
+    - name: docker pull {{ container.image }} | grep "Image is up to date" >/dev/null 2>&1 || echo "changed=yes comment='Image updated'"
+    - stateful: True
     - require:
       - service: docker-service
 
@@ -18,11 +19,12 @@ docker-container-startup-config-{{ name }}:
   file.managed:
 {%- if init_system == "systemd" %}
     - name: /etc/systemd/system/docker-{{ name }}.service
+    - mode: 644
 {%- elif init_system == "upstart" %}
     - name: /etc/init/docker-{{ name }}.conf
+    - mode: 700
 {%- endif %}
     - source: salt://docker/files/service_file.jinja
-    - mode: 700
     - user: root
     - template: jinja
     - defaults:
