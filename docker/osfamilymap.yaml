@@ -1,8 +1,8 @@
 Debian:
   pkgs:
     - apt-transport-https
-    - python-apt
-    - python-pip
+    - python3-apt
+    - python3-pip
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
@@ -11,7 +11,7 @@ Debian:
 
 RedHat:
   pkgs:
-    - python2-pip
+    - python3-pip
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}/{{ grains['osmajorrelease'] }}/$basearch/stable/
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg

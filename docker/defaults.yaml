@@ -17,7 +17,7 @@ docker:
   pkgs:
     - iptables
     - ca-certificates
-    - python-docker
+    - python3-docker
 
   pkg:
     name: docker-ce
