@@ -2,13 +2,20 @@ sudo: required
 
 
 language: python
+python:
+  - "3.6"
+  # PyPy versions
+  - "pypy3.5"
 
 services:
   - docker
 
+dist: bionic
+
 before_install:
   - bundle install
-
+  - sudo apt-get update
+  - sudo apt-get install python3
 
 env:
   matrix:
