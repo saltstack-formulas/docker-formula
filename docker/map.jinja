@@ -23,11 +23,11 @@
     },
 }, merge=salt['pillar.get']('registry:lookup:amazon')) %}
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{% import_yaml tplroot ~ "/defaults.yaml" or {} as defaults %}
-{% import_yaml tplroot ~ "/osfamilymap.yaml" or {} as osfamilymap %}
-{% import_yaml tplroot ~ "/codenamemap.yaml" or {} as codemap %}
-{% import_yaml tplroot ~ "/osmap.yaml" or {} as osmap %}
+# Begin migration to new style map.jinja
+{% import_yaml "docker/defaults.yaml" as defaults %}
+{% import_yaml 'docker/osfamilymap.yaml' as osfamilymap %}
+{% import_yaml "docker/codenamemap.yaml" as codemap %}
+{% import_yaml "docker/osmap.yaml" as osmap %}
 
 {% set pkg = salt['pillar.get']('docker-pkg:lookup', default={}, merge=True) %}
 {% do defaults.docker.update(pkg) %}
