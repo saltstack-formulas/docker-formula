@@ -1,4 +1,6 @@
-{% from "docker/map.jinja" import docker with context %}
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import docker with context %}
 
 {%- set docker_pkg_name = docker.pkg.old_name if docker.use_old_repo else docker.pkg.name %}
 {%- set docker_pkg_version = docker.version | default(docker.pkg.version) %}
@@ -61,6 +63,8 @@ docker-config:
       - pkg: docker-package
     - watch_in:
       - service: docker-service
+    - context:
+        config: {{ docker.config }}
   {%- endif %}
 
   {% if docker.daemon_config %}
