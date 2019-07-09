@@ -85,6 +85,7 @@ docker-service:
     - name: docker
     - enable: True
     - watch:
+      - file: docker-config
       - pkg: docker-package
         {% if docker.daemon_config %}
       - file: docker-daemon-config
