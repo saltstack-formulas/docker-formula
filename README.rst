@@ -73,7 +73,11 @@ In the example pillar above:
 ``docker.clean``
 ----------------
 
+<<<<<<< HEAD
 Stop Docker daemon and remove older docker packages (usually called 'docker' and 'docker-engine'). Linux only.
+=======
+Stop Docker daemon. Remove older docker packages (usually called 'docker' and 'docker-engine').
+>>>>>>> b0ce436... doc(clean): make remove alias for clean
 
 ``docker.repo``
 ---------------
