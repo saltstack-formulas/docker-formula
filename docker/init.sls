@@ -49,6 +49,7 @@ docker-package:
     - require:
       - pkg: docker-package-dependencies
 
+  {%- if grains.os != 'MacOS' %}
 docker-config:
   file.managed:
     - name: {{ docker.configfile }}
@@ -56,6 +57,11 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
+    - require:
+      - pkg: docker-package
+    - watch_in:
+      - service: docker-service
+  {%- endif %}
 
   {% if docker.daemon_config %}
 docker-daemon-dir:
@@ -81,7 +87,6 @@ docker-service:
     - name: docker
     - enable: True
     - watch:
-      - file: docker-config
       - pkg: docker-package
         {% if docker.daemon_config %}
       - file: docker-daemon-config
