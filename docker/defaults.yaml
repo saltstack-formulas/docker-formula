@@ -9,6 +9,7 @@ docker:
   config: []
   daemon_config: {}
   version: ''
+  rootuser: root
 
   use_upstream_repo: True
   use_old_repo: False
@@ -26,6 +27,7 @@ docker:
     version: latest
     allow_updates: False
     hold: False
+    use_upstream_app: False      #macos
 
   pip:
     install_pypi_pip: False

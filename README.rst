@@ -70,11 +70,20 @@ In the example pillar above:
 - Upstart files are created for each container, so ``service <container_name> stop|start|status`` should just work
 - ``service <container_name> stop`` will wipeout the container completely (ie ``docker stop <container_name> + docker rm <container_name>``)
 
+``docker.clean``
+----------------
+
+Stop Docker daemon and remove older docker packages (usually called 'docker' and 'docker-engine'). Linux only.
+
 ``docker.repo``
 ---------------
 
 Configures the upstream docker's repo (true, by default).
 
+``docker.macosapp``
+-------------------
+
+Installs Docker Desktop for Mac.
 
 ``docker.compose``
 ------------------
