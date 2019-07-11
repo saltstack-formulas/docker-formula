@@ -21,7 +21,11 @@ docker-package-repository:
     {% else %}
     - key_url: {{ docker.repo.key_url }}
     {% endif %}
+        {%- if grains['saltversioninfo'] >= [2018, 3, 0] %}
+    - refresh: True
+        {%- else %}
     - refresh_db: True
+        {%- endif %}
     - require_in:
       - pkg: docker-package
     - require:
