@@ -66,7 +66,8 @@ docker:
   #daemon_config:
   #  metrics-addr: '0.0.0.0:9323'
   #  experimental: true
-  #  registry-mirror: 'https://proxy-docker.local:5000'
+  #  registry-mirrors:
+  #    - 'https://proxy-docker.local:5000'
   #  live-restore: true
   #  insecure-registries:
   #    - harbor.local
