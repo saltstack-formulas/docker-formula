@@ -27,6 +27,7 @@ docker:
     version: latest
     allow_updates: False
     hold: False
+    use_upstream_app: False      #macos
 
   pip:
     install_pypi_pip: False

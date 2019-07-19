@@ -73,13 +73,22 @@ In the example pillar above:
 ``docker.clean``
 ----------------
 
-Stop Docker daemon. Remove older docker packages (usually called 'docker' and 'docker-engine').
+Stop Docker daemon and remove older docker packages (usually called 'docker' and 'docker-engine'). Linux only.
 
 ``docker.repo``
 ---------------
 
 Configures the upstream docker's repo (true, by default).
 
+``docker.macosapp``
+-------------------
+
+Installs Docker Desktop for Mac.
+
+``docker.macosapp``
+-------------------
+
+Installs Docker Desktop for Mac.
 
 ``docker.compose``
 ------------------

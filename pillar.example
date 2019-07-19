@@ -75,6 +75,7 @@ docker:
   # Package handling
     #version: 1.13.1
     #allow_updates: True
+    use_upstream_app: False
 
   # PIP proxy configuration (defaults to False)
   # proxy: proxy.com:3128

@@ -34,8 +34,6 @@ docker-package:
     - allow_updates: {{ docker.pkg.allow_updates }}
     - hold: {{ docker.pkg.hold }}
         {%- endif %}
-    - require_in:
-      - file: docker-config
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
     - name: /usr/bin/pip install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
@@ -49,6 +47,7 @@ docker-package:
     - require:
       - pkg: docker-package-dependencies
 
+  {%- if grains.os != 'MacOS' %}
 docker-config:
   file.managed:
     - name: {{ docker.configfile }}
@@ -56,6 +55,11 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
+    - require:
+      - pkg: docker-package
+    - watch_in:
+      - service: docker-service
+  {%- endif %}
 
   {% if docker.daemon_config %}
 docker-daemon-dir:
@@ -81,7 +85,6 @@ docker-service:
     - name: docker
     - enable: True
     - watch:
-      - file: docker-config
       - pkg: docker-package
         {% if docker.daemon_config %}
       - file: docker-daemon-config
