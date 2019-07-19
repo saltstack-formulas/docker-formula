@@ -1,8 +1,24 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os_family'] based logic.
+# You just need to add the key:values for an `os_family` that differ
+# from `defaults.yaml`.
+# Only add an `os_family` which is/will be supported by the formula
+#
+# If you do not need to provide defaults via the `os_family` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfamilymap: {}
+---
+{%- if grains.os == 'MacOS' %}
+  {% set macos_user = salt['cmd.run']("stat -f '%Su' /dev/console") %}
+{%- endif %}
+
 Debian:
   pkgs:
     - apt-transport-https
-    - python-apt
-    - python-pip
+    - python3-apt
+    - python3-pip
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
@@ -11,7 +27,7 @@ Debian:
 
 RedHat:
   pkgs:
-    - python2-pip
+    - python3-pip
   repo:
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}/{{ grains['osmajorrelease'] }}/$basearch/stable/
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
@@ -22,8 +38,16 @@ Suse:
   pkg:
     name: docker
   pkgs:
-    - python3-pip      #python 3 is default on OpenSUSE 15.0
+    - python3-pip
 
 MacOS:
+  rootuser: {{ macos_user | d('') }}
   pkg:
-    name: docker
+    name: docker              #homebrew
+    allow_updates: False
+    hold: False
+    use_upstream_app: True    #docker desktop for mac
+    app:
+      name: Docker
+      source: https://download.docker.com/mac/stable/Docker.dmg
+      source_hash: a55462f153284ff212f8857945a69d4e128afb6753f5572984877f7b6fc3fc25
