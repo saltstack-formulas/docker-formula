@@ -27,3 +27,5 @@ Suse:
 MacOS:
   pkg:
     name: docker
+    allow_updates: False
+    hold: False
