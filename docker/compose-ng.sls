@@ -1,5 +1,7 @@
-{%- from "docker/map.jinja" import docker with context %}
-{%- from "docker/map.jinja" import compose with context %}
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import docker with context %}
+{%- from tplroot ~ "/map.jinja" import compose with context %}
 
 include:
   - docker.compose

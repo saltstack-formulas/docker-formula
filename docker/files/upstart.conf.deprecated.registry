@@ -1,5 +1,7 @@
-{% from "docker/map.jinja" import registry with context %}
-{% from "docker/map.jinja" import amazon with context %}
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import registry with context %}
+{%- from tplroot ~ "/map.jinja" import amazon with context %}
 
 description "{{ registry.description }}"
 start on runlevel [2345]

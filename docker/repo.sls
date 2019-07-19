@@ -1,4 +1,7 @@
-{% from "docker/map.jinja" import docker with context %}
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import docker with context %}
 
 {% set repo_state = 'absent' %}
 {% if docker.use_upstream_repo or docker.use_old_repo %}
@@ -13,7 +16,7 @@
 docker-package-repository:
   pkgrepo.{{ repo_state }}:
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} {{ humanname_old }}Docker Package Repository
-    - name: deb {{ url }}
+    - name: deb [arch={{ grains["osarch"] }}] {{ url }}
     - file: {{ docker.repo.file }}
     {% if docker.use_old_repo %}
     - keyserver: keyserver.ubuntu.com
