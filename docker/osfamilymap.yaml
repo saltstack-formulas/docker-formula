@@ -1,3 +1,19 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os_family'] based logic.
+# You just need to add the key:values for an `os_family` that differ
+# from `defaults.yaml`.
+# Only add an `os_family` which is/will be supported by the formula
+#
+# If you do not need to provide defaults via the `os_family` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfamilymap: {}
+---
+{%- if grains.os == 'MacOS' %}
+  {% set macos_user = salt['cmd.run']("stat -f '%Su' /dev/console") %}
+{%- endif %}
+
 Debian:
   pkgs:
     - apt-transport-https
@@ -25,6 +41,7 @@ Suse:
     - python3-pip      #python 3 is default on OpenSUSE 15.0
 
 MacOS:
+  rootuser: {{ macos_user | d('') }}
   pkg:
     name: docker
     allow_updates: False

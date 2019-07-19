@@ -9,6 +9,7 @@ docker:
   config: []
   daemon_config: {}
   version: ''
+  rootuser: root
 
   use_upstream_repo: True
   use_old_repo: False
