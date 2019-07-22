@@ -38,7 +38,7 @@ docker-package:
         {%- endif %}
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
-    - name: /usr/bin/pip{{ python:major }}.{{ python_minor }} install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
+    - name: /usr/bin/pip{{ python_major }}.{{ python_minor }} install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
         {%- else %}
   pip.installed:
     - name: pip
