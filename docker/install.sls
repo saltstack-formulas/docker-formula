@@ -55,6 +55,8 @@ docker-config:
     - template: jinja
     - mode: 644
     - user: root
+    - context:
+        config: {{ docker.config | json }}
     - require:
       - pkg: docker-package
     - watch_in:
