@@ -100,7 +100,7 @@ docker-service:
 docker-py:
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
-    - name: {{ python }} -m pip install {{ docker.python_package }}
+    - name: /usr/bin/pip{{ python_major }}.{{ python_minor }} install {{ docker.python_package }}
         {%- else %}
   pip.installed:
             {%- if "python_package" in docker %}
