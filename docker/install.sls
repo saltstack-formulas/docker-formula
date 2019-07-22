@@ -3,6 +3,7 @@
 {%- set docker_pkg_name = docker.pkg.old_name if docker.use_old_repo else docker.pkg.name %}
 {%- set docker_pkg_version = docker.version | default(docker.pkg.version) %}
 {%- set docker_packages = docker.kernel.pkgs + docker.pkgs %}
+{%- set python = grains['pythonexecutable'] %}
 
 include:
   - .kernel
@@ -36,7 +37,7 @@ docker-package:
         {%- endif %}
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
-    - name: /usr/bin/pip install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
+    - name: {{ python }} -m pip install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
         {%- else %}
   pip.installed:
     - name: pip
@@ -97,7 +98,7 @@ docker-service:
 docker-py:
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
-    - name: /usr/bin/pip install {{ docker.python_package }}
+    - name: {{ python }} -m pip install {{ docker.python_package }}
         {%- else %}
   pip.installed:
             {%- if "python_package" in docker %}
@@ -107,6 +108,7 @@ docker-py:
             {%- else %}
     - name: docker-py
             {%- endif %}
+    - bin_env: {{ python }} -m pip
     - reload_modules: true
             {%- if docker.proxy %}
     - proxy: {{ docker.proxy }}
