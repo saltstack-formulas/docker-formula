@@ -11,7 +11,7 @@ docker-compose:
     - name: /usr/bin/pip install docker-compose
       {%- else %}
   pip.installed:
-         {%- if docker.compose_version %}
+         {%- if 'compose_version' in docker and docker.compose_version %}
     - name: docker-compose == {{ docker.compose_version }}
          {%- else %}
     - name: docker-compose
