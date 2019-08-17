@@ -37,13 +37,12 @@ docker-package:
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
   cmd.run:
     - name: /usr/bin/pip install {{ '--upgrade' if docker.pip.upgrade else '' }} pip
-        {%- else %}
+        {%- elif docker.pip.install_pypi_pip %}   ##onlyif you really need pypi pip instead of using official distro pip
   pip.installed:
     - name: pip
     - reload_modules: true
     - upgrade: {{ docker.pip.upgrade }}
         {%- endif %}
-    - onlyif: {{ docker.pip.install_pypi_pip }}  #### onlyif you really need pypi pip instead of using official distro pip.
     - require:
       - pkg: docker-package-dependencies
 
@@ -95,6 +94,22 @@ docker-service:
     - sig: {{ docker.process_signature }}
         {% endif %}
 
+docker-install-docker-service-not-running-notify:
+  test.show_notification:
+    - text: |
+        In certain circumstances the docker service will not start.
+        Your kernel is missing some modules, or not in ideal state.
+        See https://github.com/moby/moby/blob/master/contrib/check-config.sh
+        Rebooting your host may fix docker service failure!
+    - onfail:
+      - service: docker-service
+    - unless: {{ grains.os_family in ('MacOS', 'Windows') }}   #maybe not needed?
+  service.enabled:
+    - name: docker
+    - onfail:
+      - service: docker-service
+    - unless: {{ grains.os_family in ('MacOS', 'Windows') }}   #maybe not needed?
+
 {% if docker.install_docker_py %}
 docker-py:
         {%- if grains.os_family in ('Suse',) %}   ##workaround https://github.com/saltstack-formulas/docker-formula/issues/198
@@ -102,9 +117,9 @@ docker-py:
     - name: /usr/bin/pip install {{ docker.python_package }}
         {%- else %}
   pip.installed:
-            {%- if "python_package" in docker %}
+            {%- if "python_package" in docker and docker.python_package %}
     - name: {{ docker.python_package }}
-            {%- elif "pip_version" in docker %}
+            {%- elif "pip_version" in docker and docker.pip_version %}
     - name: docker-py {{ docker.pip_version }}
             {%- else %}
     - name: docker-py
