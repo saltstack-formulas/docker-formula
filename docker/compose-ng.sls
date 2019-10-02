@@ -49,7 +49,7 @@ include:
     {%- endfor %}
   {%- endif %}
   {%- if 'ports' in container and container.ports is iterable %}
-    - ports:
+    - port_bindings:
     {%- for port_mapping in container.ports %}
       {%- if port_mapping is string %}
         {%- set mapping = port_mapping.split(':',2) %}
@@ -69,6 +69,12 @@ include:
     - volumes:
     {%- for volume in container.volumes %}
       - {{volume}}
+    {%- endfor %}
+  {%- endif %}
+  {%- if 'binds' in container %}
+    - binds:
+    {%- for bind in container.binds %}
+      - {{bind}}
     {%- endfor %}
   {%- endif %}
   {%- if 'volumes_from' in container %}
