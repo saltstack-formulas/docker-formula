@@ -51,11 +51,6 @@ docker-pkg:
   lookup:
     process_signature: /usr/bin/docker
 
-    # config for sysvinit/upstart (for systemd, use drop-ins in your own states)
-    config:
-      - DOCKER_OPTS="-s btrfs --dns 8.8.8.8"
-      - export http_proxy="http://172.17.42.1:3128"
-
 # Docker compose supported attributes
 docker:
   # install_pypi_pip: true
@@ -81,6 +76,11 @@ docker:
     # version: 1.13.1
     # allow_updates: true
     use_upstream_app: false
+
+  # config for sysvinit/upstart (for systemd, use drop-ins in your own states)
+  config:
+    - DOCKER_OPTS="-s btrfs --dns 8.8.8.8"
+    - export http_proxy="http://172.17.42.1:3128"
 
   # PIP proxy configuration (defaults to false)
   # proxy: proxy.com:3128
