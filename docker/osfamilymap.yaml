@@ -15,20 +15,20 @@
 {%- endif %}
 
 Arch:
-  python_package:
+  python_package: ~
   pkgs:
     - python-docker
     - python-pip
-    - python2-pip     ##see https://github.com/saltstack/salt/issues/48632
+    - python2-pip  # see https://github.com/saltstack/salt/issues/48632
   pkg:
     name: docker
     # workaround https://github.com/saltstack-formulas/docker-formula/issues/219
-    allow_updates: False
-    hold: False
-    use_upstream_app: False
+    allow_updates: false
+    hold: false
+    use_upstream_app: false
   pip:
-    install_pypi_pip: False
-    upgrade: False
+    install_pypi_pip: false
+    upgrade: false
 
 Debian:
   pkgs:
@@ -47,6 +47,7 @@ RedHat:
     - python3-pip
     - python3-docker
   repo:
+    # yamllint disable-line rule:line-length
     url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}/{{ '' if not 'osmajorrelease' in grains else grains['osmajorrelease'] }}/$basearch/stable/
     key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
     version: {{ grains['oscodename']|lower if 'oscodename' in grains else '' }}
@@ -66,9 +67,9 @@ MacOS:
   pkg:
     name: docker              #homebrew
     # workaround https://github.com/saltstack-formulas/docker-formula/issues/219
-    allow_updates: False
-    hold: False
-    use_upstream_app: True    #docker desktop for mac
+    allow_updates: false
+    hold: false
+    use_upstream_app: true    #docker desktop for mac
     app:
       name: Docker
       source: https://download.docker.com/mac/stable/Docker.dmg

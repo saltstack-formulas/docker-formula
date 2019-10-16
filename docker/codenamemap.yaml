@@ -1,5 +1,6 @@
-# vim: sts=2 ts=2 sw=2 et ai
-
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 wheezy:
   kernel:
     pkg:
@@ -33,4 +34,3 @@ precise:
     pkgs:
       - linux-image-generic-lts-raring
       - linux-headers-generic-lts-raring
-

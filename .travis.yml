@@ -1,22 +1,104 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+## Machine config
+dist: bionic
 sudo: required
-
-
-language: python
-
 services:
   - docker
 
-before_install:
-  - bundle install
+## Language and cache config
+language: ruby
+cache: bundler
 
-
-env:
-  matrix:
-    - INSTANCE: default-ubuntu-1804
-    - INSTANCE: default-debian-jessie
-    - INSTANCE: default-debian-stretch
-    - INSTANCE: version-1131-debian-jessie
-    - INSTANCE: version-1131-debian-stretch
-
+## Script to run for the test stage
 script:
-  - bundle exec kitchen verify ${INSTANCE}
+  - bin/kitchen verify "${INSTANCE}"
+
+## Stages and jobs matrix
+stages:
+  - test
+  - name: release
+    if: branch = master AND type != pull_request
+jobs:
+  include:
+    ## Define the test stage that runs the linters (and testing matrix, if applicable)
+
+    # Run all of the linters in a single job
+    - language: node_js
+      node_js: lts/*
+      env: Lint
+      name: 'Lint: salt-lint, yamllint, rubocop & commitlint'
+      before_install: skip
+      script:
+        # Install and run `salt-lint`
+        - pip install --user salt-lint
+        - git ls-files | grep '\.sls$\|\.jinja$\|\.j2$\|\.tmpl$'
+                       | xargs -I {} salt-lint {}
+        # Install and run `yamllint`
+        # Need at least `v1.17.0` for the `yaml-files` setting
+        - pip install --user yamllint>=1.17.0
+        - yamllint -s .
+        # Install and run `rubocop`
+        - gem install rubocop
+        - rubocop -d
+        # Install and run `commitlint`
+        - npm install @commitlint/config-conventional -D
+        - npm install @commitlint/travis-cli -D
+        - commitlint-travis
+
+    ## Define the rest of the matrix based on Kitchen testing
+    # Make sure the instances listed below match up with
+    # the `platforms` defined in `kitchen.yml`
+    - env: INSTANCE=default-debian-10-develop-py3
+    # - env: INSTANCE=default-ubuntu-1804-develop-py3
+    # - env: INSTANCE=default-centos-7-develop-py3
+    # - env: INSTANCE=default-fedora-30-develop-py3
+    # - env: INSTANCE=default-opensuse-leap-15-develop-py3
+    # - env: INSTANCE=default-amazonlinux-2-develop-py2
+    # - env: INSTANCE=default-arch-base-latest-develop-py2
+    - env: INSTANCE=default-debian-9-2019-2-py3
+    - env: INSTANCE=default-ubuntu-1804-2019-2-py3
+    # - env: INSTANCE=default-centos-7-2019-2-py3
+    # - env: INSTANCE=default-fedora-30-2019-2-py3
+    # - env: INSTANCE=default-opensuse-leap-15-2019-2-py3
+    # - env: INSTANCE=default-amazonlinux-2-2019-2-py2
+    - env: INSTANCE=default-arch-base-latest-2019-2-py2
+    - env: INSTANCE=default-debian-9-2018-3-py2
+    # - env: INSTANCE=default-ubuntu-1604-2018-3-py2
+    # - env: INSTANCE=default-centos-7-2018-3-py2
+    # - env: INSTANCE=default-fedora-29-2018-3-py2
+    # - env: INSTANCE=default-opensuse-leap-15-2018-3-py2
+    # - env: INSTANCE=default-amazonlinux-2-2018-3-py2
+    # - env: INSTANCE=default-arch-base-latest-2018-3-py2
+    # - env: INSTANCE=default-debian-8-2017-7-py2
+    - env: INSTANCE=default-ubuntu-1604-2017-7-py2
+    # - env: INSTANCE=default-centos-6-2017-7-py2
+    # - env: INSTANCE=default-fedora-29-2017-7-py2
+    # - env: INSTANCE=default-opensuse-leap-15-2017-7-py2
+    # - env: INSTANCE=default-amazonlinux-2-2017-7-py2
+    # - env: INSTANCE=default-arch-base-latest-2017-7-py2
+
+    ## Define the release stage that runs `semantic-release`
+    - stage: release
+      language: node_js
+      node_js: lts/*
+      env: Release
+      name: 'Run semantic-release inc. file updates to AUTHORS, CHANGELOG & FORMULA'
+      before_install: skip
+      script:
+        # Update `AUTHORS.md`
+        - export MAINTAINER_TOKEN=${GH_TOKEN}
+        - go get github.com/myii/maintainer
+        - maintainer contributor
+
+        # Install all dependencies required for `semantic-release`
+        - npm install @semantic-release/changelog@3 -D
+        - npm install @semantic-release/exec@3 -D
+        - npm install @semantic-release/git@7 -D
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          # Run `semantic-release`
+          - npx semantic-release@15

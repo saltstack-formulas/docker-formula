@@ -1,19 +1,20 @@
-# vim: sts=2 ts=2 sw=2 et ai
-
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 docker:
   process_signature: '/usr/bin/docker'
-  install_docker_py: True
+  install_docker_py: true
   python_package: docker
-  refresh_repo: True
+  refresh_repo: true
   configfile: /etc/default/docker
   config: []
   daemon_config: {}
   version: ''
   rootuser: root
 
-  use_upstream_repo: True
-  use_old_repo: False
-  proxy: False
+  use_upstream_repo: true
+  use_old_repo: false
+  proxy: false
 
   pkgs:
     - iptables
@@ -24,23 +25,22 @@ docker:
     old_name: docker-engine
     # For backward compatibility, this will be overriden by docker:version, if defined
     version: latest
-    allow_updates: False
-    hold: False
-    use_upstream_app: False      #macos
+    allow_updates: false
+    hold: false
+    use_upstream_app: false  # macos
 
   pip:
-    install_pypi_pip: False
-    upgrade: False
+    install_pypi_pip: false
+    upgrade: false
 
   compose_version: ''
 
   containers:
     skip_translate: None
-    force_present: False
-    force_running: False
+    force_present: false
+    force_running: false
 
   kernel:
     pkg:
       fromrepo: ''
     pkgs: []
-
