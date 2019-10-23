@@ -1,22 +1,52 @@
-======
+.. _readme:
+
 Docker
 ======
 
+|img_travis| |img_sr|
+
+.. |img_travis| image:: https://travis-ci.com/saltstack-formulas/docker-formula.svg?branch=master
+   :alt: Travis CI Build Status
+   :scale: 100%
+   :target: https://travis-ci.com/saltstack-formulas/docker-formula
+.. |img_sr| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
+   :alt: Semantic Release
+   :scale: 100%
+   :target: https://github.com/semantic-release/semantic-release
+
 Formulas for working with Docker
 
-.. note::
+.. contents:: **Table of Contents**
 
-    See the full `Salt Formulas installation and usage instructions
-    <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
+General notes
+-------------
+
+See the full `SaltStack Formulas installation and usage instructions
+<https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_.
+
+If you are interested in writing or contributing to formulas, please pay attention to the `Writing Formula Section
+<https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html#writing-formulas>`_.
+
+If you want to use this formula, please pay attention to the ``FORMULA`` file and/or ``git tag``,
+which contains the currently released version. This formula is versioned according to `Semantic Versioning <http://semver.org/>`_.
+
+See `Formula Versioning Section <https://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html#versioning>`_ for more details.
+
+Contributing to this repo
+-------------------------
+
+**Commit message formatting is significant!!**
+
+Please see `How to contribute <https://github.com/saltstack-formulas/.github/blob/master/CONTRIBUTING.rst>`_ for more details.
 
 Available states
-================
+----------------
 
 .. contents::
     :local:
 
 ``docker``
-----------
+^^^^^^^^^^
 
 Install and run Docker daemon
 
@@ -30,7 +60,7 @@ Install and run Docker daemon
 
 
 ``docker.containers``
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 Pulls and runs a number of docker containers with arbitrary *run* options all configurable via pillars.
 Salt includes *dockerio* and *dockerng* states, but both depend on *docker-py* library, which not always implements the latest *docker run* options. This gives the user more control over the docker run options, but it doesn't try to implement all the other docker commands, such as build, ps, inspect, etc. It just pulls an image and runs it.
@@ -71,34 +101,34 @@ In the example pillar above:
 - ``service <container_name> stop`` will wipeout the container completely (ie ``docker stop <container_name> + docker rm <container_name>``)
 
 ``docker.clean``
-----------------
+^^^^^^^^^^^^^^^^
 
 Stop Docker daemon and remove older docker packages (usually called 'docker' and 'docker-engine'). Linux only.
 
 ``docker.repo``
----------------
+^^^^^^^^^^^^^^^
 
 Configures the upstream docker's repo (true, by default).
 
 ``docker.macosapp``
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 Installs Docker Desktop for Mac.
 
 ``docker.macosapp``
--------------------
+^^^^^^^^^^^^^^^^^^^
 
 Installs Docker Desktop for Mac.
 
 ``docker.compose``
-------------------
+^^^^^^^^^^^^^^^^^^
 
 Installs `Docker Compose <https://docs.docker.com/compose/>`_
 (previously ``fig``) to define groups of containers and their relationships
 with one another. Use `docker.compose-ng` to run `docker-compose`.
 
 ``docker.compose-ng``
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 The intent is to provide an interface similar to the `specification <https://docs.docker.com/compose/compose-file/>`_
 provided by docker-compose. The hope is that you may provide pillar data
@@ -162,7 +192,7 @@ Then you would target a host with the following states:
 
 
 ``docker.registry (DEPRECATED)``
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 NEW:
 
@@ -201,32 +231,57 @@ In this case, extra *docker run* options can be provided in your *"registry:look
 By default, the storage backend used by the registry is "filesystem". Use environment variables to override that, for example to use S3 as backend storage.
 
 ``docker.remove``
-----------------
+^^^^^^^^^^^^^^^^^
 
 Stop Docker daemon. Remove older docker packages (usually called 'docker' and 'docker-engine').
 
 Development
-===========
+-----------
 
 Note that some of the internal states such as `docker.running` are references to the internal `dockerio states <https://docs.saltstack.com/en/latest/ref/states/all/salt.states.dockerio.html>`_
 
 
 Testing
-=======
+-------
 
-Testing is done with `Test Kitchen <http://kitchen.ci/>`_
-for machine setup and `testinfra <https://testinfra.readthedocs.io/en/latest/>`_
-for integration tests.
+Linux testing is done with ``kitchen-salt``.
 
 Requirements
-------------
+^^^^^^^^^^^^
 
-* Python
 * Ruby
 * Docker
 
-::
+.. code-block:: bash
 
-    gem install bundler
-    bundle install
-    kitchen test
+   $ gem install bundler
+   $ bundle install
+   $ bin/kitchen test [platform]
+
+Where ``[platform]`` is the platform name defined in ``kitchen.yml``,
+e.g. ``debian-9-2019-2-py3``.
+
+``bin/kitchen converge``
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Creates the docker instance and runs the ``template`` main state, ready for testing.
+
+``bin/kitchen verify``
+^^^^^^^^^^^^^^^^^^^^^^
+
+Runs the ``inspec`` tests on the actual instance.
+
+``bin/kitchen destroy``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Removes the docker instance.
+
+``bin/kitchen test``
+^^^^^^^^^^^^^^^^^^^^
+
+Runs all of the stages above in one go: i.e. ``destroy`` + ``converge`` + ``verify`` + ``destroy``.
+
+``bin/kitchen login``
+^^^^^^^^^^^^^^^^^^^^^
+
+Gives you SSH access to the instance for manual testing.
