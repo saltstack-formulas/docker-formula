@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-exclude_paths:
-  # Violation: [204] Lines should be no longer that 160 chars
-  - docker/repo.sls
+exclude_paths: []
+rules:
+  204:  # Lines should be no longer that 160 chars
+    ignore: |
+      docker/repo.sls
 skip_list:
   # Using `salt-lint` for linting other files as well, such as Jinja macros/templates
   - 205  # Use ".sls" as a Salt State file extension
