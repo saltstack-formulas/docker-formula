@@ -43,8 +43,8 @@ jobs:
         - gem install rubocop
         - rubocop -d
         # Install and run `commitlint`
-        - npm install @commitlint/config-conventional -D
-        - npm install @commitlint/travis-cli -D
+        - npm i -D @commitlint/config-conventional
+                   @commitlint/travis-cli
         - commitlint-travis
 
     ## Define the rest of the matrix based on Kitchen testing
@@ -95,9 +95,9 @@ jobs:
         - maintainer contributor
 
         # Install all dependencies required for `semantic-release`
-        - npm install @semantic-release/changelog@3 -D
-        - npm install @semantic-release/exec@3 -D
-        - npm install @semantic-release/git@7 -D
+        - npm i -D @semantic-release/changelog@3
+                   @semantic-release/exec@3
+                   @semantic-release/git@7
       deploy:
         provider: script
         skip_cleanup: true
