@@ -50,10 +50,10 @@ purge old packages:
       - pkgrepo: docker package repository
 
 docker package repository:
-  pkgrepo.managed:
-    - name: deb https://apt.dockerproject.org/repo {{ grains["os"]|lower }}-{{ grains["oscodename"] }} main
+  pkgrepo.managed:  
+    - name: deb https://download.docker.com/linux/ubuntu/ {{ grains["oscodename"] }} main
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
-    - keyid: 58118E89F3A912897C070ADBF76221572C52609D
+    - keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 {%- endif %}
     - keyserver: hkp://p80.pool.sks-keyservers.net:80
     - file: /etc/apt/sources.list.d/docker.list
