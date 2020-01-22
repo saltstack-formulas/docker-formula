@@ -8,6 +8,7 @@
 {%- set stopoptions = stopoptions|join(' ') %}
 {%- set args = args|join(' ') %}
 
+{%- set docker_prestart_remove_command = "rm -f %s"|format(name) %}
 {%- set docker_start_command = "run %s --name=%s %s %s %s"|format(runoptions, name, container.image, cmd, args)  %}
 {%- set docker_stop_command = "stop %s %s"|format(stopoptions, name) %}
 {%- set docker_poststop_command = "rm -f %s"|format(name) %}
