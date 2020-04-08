@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.43.1](https://github.com/saltstack-formulas/docker-formula/compare/v0.43.0...v0.43.1) (2020-04-08)
+
+
+### Bug Fixes
+
+* **compose-ng:** fix ports, volumes, restart policy, add privileged mode ([f62a45c](https://github.com/saltstack-formulas/docker-formula/commit/f62a45cd0e1aea91eed27dac1724090ef18aceea))
+* avoid setting multiple pre-start stanzas in upstart ([80a2a98](https://github.com/saltstack-formulas/docker-formula/commit/80a2a985e96b2d7c9867660f15a5e7a9808ee156))
+
+
+### Continuous Integration
+
+* **kitchen:** avoid using bootstrap for `master` instances [skip ci] ([27b509e](https://github.com/saltstack-formulas/docker-formula/commit/27b509e696e06b9ea244170608f348f841ebb36c))
+
 # [0.43.0](https://github.com/saltstack-formulas/docker-formula/compare/v0.42.0...v0.43.0) (2020-01-22)
 
 
