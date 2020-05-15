@@ -178,6 +178,10 @@ To use this formula, you might target a host with the following pillar:
           restart: 'always'
           links:
             - 'registry-999-99-service:registry'
+          working_dir: '/var/www/html'
+          volume_driver: 'foobar'
+          userns_mode: 'host'
+          user: 'nginx'
           ports:
             - '80:80'
             - '443:443'

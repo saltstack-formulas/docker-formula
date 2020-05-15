@@ -137,6 +137,10 @@ docker:
         - /srv/docker-registry/nginx/:/etc/nginx/conf.d
         - /srv/docker-registry/auth/:/etc/nginx/conf.d/auth
         - /srv/docker-registry/certs/:/etc/nginx/conf.d/certs
+      working_dir: '/var/www/html'
+      volume_driver: 'foobar'
+      userns_mode: 'host'
+      user: 'nginx'
       # restart: 'always'    # compose v1.9
       deploy:                # compose v3
         restart_policy:
