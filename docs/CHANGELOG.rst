@@ -2,6 +2,23 @@
 Changelog
 =========
 
+`0.44.0 <https://github.com/saltstack-formulas/docker-formula/compare/v0.43.1...v0.44.0>`_ (2020-05-15)
+-----------------------------------------------------------------------------------------------------------
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **gemfile.lock:** add to repo with updated ``Gemfile`` [skip ci] (\ `c3dd00a <https://github.com/saltstack-formulas/docker-formula/commit/c3dd00a2472eb092761419a88eeb0fa29117d97a>`_\ )
+* **kitchen+travis:** remove ``master-py2-arch-base-latest`` [skip ci] (\ `df90212 <https://github.com/saltstack-formulas/docker-formula/commit/df9021232563c8fe4583c2faee48f8f1d17c3562>`_\ )
+* **workflows/commitlint:** add to repo [skip ci] (\ `87a62cd <https://github.com/saltstack-formulas/docker-formula/commit/87a62cd8fb42b5561ad2ec12cfdba7b342f81359>`_\ )
+
+Features
+^^^^^^^^
+
+
+* **compose-ng:** support working_dir, volume_driver, userns_mode & user (\ `30ec6ab <https://github.com/saltstack-formulas/docker-formula/commit/30ec6ab02bd0265e90b12bcc367b7334bf536a4a>`_\ )
+
 `0.43.1 <https://github.com/saltstack-formulas/docker-formula/compare/v0.43.0...v0.43.1>`_ (2020-04-08)
 -----------------------------------------------------------------------------------------------------------
 
