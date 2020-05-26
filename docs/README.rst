@@ -115,10 +115,10 @@ Configures the upstream docker's repo (true, by default).
 
 Installs Docker Desktop for Mac.
 
-``docker.macosapp``
-^^^^^^^^^^^^^^^^^^^
+``docker.macosapp.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Installs Docker Desktop for Mac.
+Removes Docker Desktop from Mac.
 
 ``docker.compose``
 ^^^^^^^^^^^^^^^^^^
