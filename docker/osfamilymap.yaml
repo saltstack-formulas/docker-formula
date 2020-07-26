@@ -73,4 +73,4 @@ MacOS:
     app:
       name: Docker
       source: https://download.docker.com/mac/stable/Docker.dmg
-      source_hash: a55462f153284ff212f8857945a69d4e128afb6753f5572984877f7b6fc3fc25
+      source_hash: f69bd8f9d0863497819b998d27da4825b65884519f3f6a0e2ce1d4c5cdd26f5e

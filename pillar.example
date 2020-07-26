@@ -79,7 +79,10 @@ docker:
     # Package handling
     # version: 1.13.1
     # allow_updates: true
-    use_upstream_app: false
+    use_upstream_app: false  #docker desktop for mac
+    app:
+      source: https://download.docker.com/mac/stable/Docker.dmg
+      source_hash: f69bd8f9d0863497819b998d27da4825b65884519f3f6a0e2ce1d4c5cdd26f5e
 
   # config for sysvinit/upstart (for systemd, use drop-ins in your own states)
   config:
@@ -148,38 +151,3 @@ docker:
           delay: 5s
           max_attempts: 3
           window: 120s
-
-
-### DEPRECIATED PILLAR EXAMPLES
-
-# additional pillars supporting backwards compatibility only
-
-# docker-pkg:
-#   lookup:
-#     docker-py backwards compatibility
-#     install_docker_py: true
-#     python_package: docker==2.1.0
-#     pip:
-#       version: '== 8.1.1'
-#
-#     Old docker repositories (docker.io, lxc-docker<=1.7) backwards compatibility
-#     version: '1.6.2'
-#     pip_version: '<= 1.2.3'
-#
-# registry:
-#  lookup:
-#      docker registry 2.x backwards compatibility
-#    version: 2
-#    restart: always
-#    runoptions:
-#      - "-e REGISTRY_LOG_LEVEL=warn"
-#      - "-e REGISTRY_STORAGE=s3"
-#      - "-e REGISTRY_STORAGE_S3_REGION=us-west-1"
-#      - "-e REGISTRY_STORAGE_S3_BUCKET=my-bucket"
-#      - "-e REGISTRY_STORAGE_S3_ROOTDIRECTORY=my-folder/my-subfolder/my-sub-subfolder"
-#      - "--log-driver=syslog"
-#      docker registry < 1, even older backwards compatibility
-#    amazon:
-#      aws_bucket: 'my-registry'
-#      aws_key: 'ABCDEFGHIJK123456789'
-#      aws_secret: 'AbcD+efG-HIjK1+++23456+789'
