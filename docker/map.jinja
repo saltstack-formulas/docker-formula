@@ -47,3 +47,5 @@
 {% set docker = salt['pillar.get']('docker', default=defaults['docker'], merge=True) %}
 
 {% set compose = salt['pillar.get']('docker:compose', default={}, merge=True) %}
+
+{% set networks = salt['pillar.get']('docker:networks', default={}, merge=True) %}

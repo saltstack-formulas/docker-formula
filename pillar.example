@@ -75,6 +75,9 @@ docker:
   #  insecure-registries:
   #    - harbor.local
 
+  networks:
+    - nginxnet
+
   pkg:
     # Package handling
     # version: 1.13.1
@@ -110,6 +113,8 @@ docker:
     registry-service:
       image: *registry_image
       container_name: 'registry-service'
+      networks:
+        - nginxnet
       volumes_from:
         - *dvc
       environment:
@@ -131,8 +136,11 @@ docker:
       # image: 'docker.io/nginx:latest'  ##Fedora
       image: 'nginx:latest'
       container_name: 'nginx-latest'
-      links:
-        - 'registry-service:registry'
+      #links:
+      #  - 'registry-service:registry'
+      # Legacy feature
+      networks:
+        - nginxnet
       ports:
         - '80:80'
         - '443:443'

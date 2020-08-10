@@ -2,13 +2,16 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import docker with context %}
 {%- from tplroot ~ "/map.jinja" import compose with context %}
+{%- from tplroot ~ "/map.jinja" import networks with context %}
 
 include:
   - docker.compose
+  - docker.networks
 
 {%- for name, container in compose.items() %}
   {%- set id = container.container_name|d(name) %}
   {%- set required_containers = [] %}
+  {%- set required_networks = [] %}
     {%- if grains['saltversioninfo'] >= [2017, 7, 0]  %}
 {{ id }}:
   docker_image.present:
@@ -104,6 +107,13 @@ include:
         {{ name }}: {{ alias }}
     {%- endfor %}
   {%- endif %}
+  {%- if 'networks' in container %}
+    - networks:
+    {%- for network in container.networks %}
+      {%- do required_networks.append(network) %}
+      - {{ network }}
+    {%- endfor %}
+  {%- endif %}
   {%- if 'restart' in container %}
     {%- set policy = container.restart.split(':',1) %}
     {%- if policy|length < 2 %}
@@ -127,4 +137,9 @@ include:
          {%- endif %}
     {%- endfor %}
   {%- endif %}
-{% endfor %}
+  {%- if required_networks is defined %}
+    {%- for networkid in required_networks %}
+      - docker_network: {{ networkid }}
+    {%- endfor %}
+  {%- endif %}
+{%- endfor %}
