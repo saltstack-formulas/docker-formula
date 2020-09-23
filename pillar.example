@@ -79,7 +79,7 @@ docker:
     # Package handling
     # version: 1.13.1
     # allow_updates: true
-    use_upstream_app: false  #docker desktop for mac
+    use_upstream_app: false  # docker desktop for mac
     app:
       source: https://download.docker.com/mac/stable/Docker.dmg
       source_hash: f69bd8f9d0863497819b998d27da4825b65884519f3f6a0e2ce1d4c5cdd26f5e
