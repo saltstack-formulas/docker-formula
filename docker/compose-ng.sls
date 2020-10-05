@@ -31,6 +31,8 @@ include:
     - skip_translate: {{ docker.containers.skip_translate }}
     - force: {{ docker.containers.force_running }}
     - privileged: {{ container.privileged|default(False) }}
+    - interactive: {{ container.stdin_open|default(False) }}
+    - tty: {{ container.tty|default(False) }}
      {%- else %}
        {%- if 'dvc' in container and container.dvc %}
   docker.installed:
