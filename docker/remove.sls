@@ -5,4 +5,4 @@
 {%- from tplroot ~ "/map.jinja" import docker with context %}
 
 include:
-  - clean
+  - .clean

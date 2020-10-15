@@ -103,7 +103,7 @@ In the example pillar above:
 ``docker.clean``
 ^^^^^^^^^^^^^^^^
 
-Stop Docker daemon and remove older docker packages (usually called 'docker' and 'docker-engine'). Linux only.
+Stop Docker daemon and remove docker packages ('docker', 'docker-engine', 'docker-ce', etc) on Linux. To protect OS integrity, this state won't remove packages listed as dependencies (i.e. python is kept).
 
 ``docker.repo``
 ^^^^^^^^^^^^^^^
