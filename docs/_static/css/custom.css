@@ -1,0 +1,21 @@
+/*
+    Override styles for in-use Sphinx theme
+*/
+
+/* The next two `.wy`-based rules are specifically needed for the dealing with */
+/* the `sphinx_rtd_theme` bug where long lines do not wrap in tables */
+
+/* override table width restrictions */
+.wy-table-responsive table th
+, .wy-table-responsive table td
+{
+    /* !important prevents the common CSS stylesheets from
+       overriding this as on RTD they are loaded after this stylesheet */
+    white-space: normal !important;
+}
+
+.wy-table-responsive
+{
+    overflow: visible !important;
+}
+

@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['cuparch'] based logic.
+# You just need to add the key:values for an `osarch` that differ
+# from `defaults.yaml` + `os_family.yaml`.
+# Only add an `cpuarch` which is/will be supported by the formula
+#
+# If you do not need to provide defaults via the `cpuarch` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# cpuarch: {}
+---
+# Windows has no 'osarch' grain
+Default:
+  dingdong: null
+
+AMD64:
+  arch: amd64

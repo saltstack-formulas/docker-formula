@@ -3,151 +3,169 @@
 ---
 # example docker registry container
 # if you want to your own docker registry, use this
-docker-containers:
-  lookup:
+docker:
+  wanted:
+    - docker
+    - compose
 
-    # example docker registry container (if you want your own docker registry, use this)
+  pkg:
+    docker:
+      environ:
+        # yamllint disable-line rule:line-length
+        - OPTIONS='-s devicemapper --storage-opt dm.fs=xfs --exec-opt native.cgroupdriver=cgroupfs --selinux-enabled'
+        # yamllint enable-line rule:line-length
+        - DOCKER_OPTS="-s btrfs --dns 8.8.8.8"
+        - export http_proxy="http://172.17.42.1:3128"
+
+  networks:
+    - nginxnet
+
+  containers:
+    running:
+      - nginx
+      - prometheus
+
+    nginx:
+      image: "nginx:latest"
+
+    prometheus:
+      image: "prom/prometheus:v1.7.1"
+      env:
+        - a=b
+        - ping=pong
+        - ding=dong
+      command:
+        - ls
+        - ls -l
+      auto_remove: true
+      blkio_weight: 1000
+      cap_add: ["SYS_ADMIN", "MKNOD"]
+      dns:
+        - 8.8.8.8
+        - 8.8.4.4
+      dns_search:
+        - EXAMPLE.COM
+      domainname:
+        - EXAMPLE.COM
+      entrypoint:
+        - ls
+        - ls -l
+        - ls -last
+        - sleep 100
+      init: false
+      labels:
+        - label1
+        - label2
+        - label3
+      mem_limit: 1g
+      mem_swappiness: 50
+      name: prometheus
+      network_disabled: false
+      network_mode: host  # bridge or none or container:netcontainer or host
+      oom_kill_disable: true
+      oom_score_adj: 100
+      pid_mode: host
+      pids_limit: -1
+      privileged: false
+      publish_all_ports: true
+      read_only: false
+      stdin_open: false
+      tty: true
+      volume_driver: local
+
     registry:
-      # image: 'docker.io/registry:latest'  ##Fedora
       image: "registry:latest"
-      cmd: ~
-      # Pull image on service restart
-      # (useful if you override the same tag.  example: latest)
-      pull_before_start: true
-      # Remove container on service start
-      remove_before_start: false
-      # Do not force container removal on stop (unless true)
-      remove_on_stop: false
-      runoptions:
-        - "-e REGISTRY_LOG_LEVEL=warn"
-        - "-e REGISTRY_STORAGE=s3"
-        - "-e REGISTRY_STORAGE_S3_REGION=us-west-1"
-        - "-e REGISTRY_STORAGE_S3_BUCKET=my-bucket"
-        - "-e REGISTRY_STORAGE_S3_ROOTDIRECTORY=/registry"
+      env:
+        - REGISTRY_LOG_LEVEL=warn
+        - REGISTRY_STORAGE=s3
+        - REGISTRY_STORAGE_S3_REGION=us-west-1
+        - REGISTRY_STORAGE_S3_BUCKET=my-bucket
+        - REGISTRY_STORAGE_S3_ROOTDIRECTORY=/registry
+      networks:
+        - nginxnet
+      command:
         - "--log-driver=syslog"
         - "-p 5000:5000"
         - "--rm"
-      stopoptions:
-        - '-t 10'
 
-    prometheus-server:
-      # example Prometheus container using command arguments
-      image: "prom/prometheus:v1.7.1"
-      cmd: ~
-      args:
-        - '-config.file=/prom-data/prometheus.yml'
-        - '-storage.local.path=/prom-data/data/'
-      # Pull image on service restart
-      # (useful if you override the same tag. example: latest)
-      pull_before_start: true
-      # Remove container on service start
-      remove_before_start: false
-      # Do not force container removal on stop (unless true)
-      remove_on_stop: false
-      runoptions:
-        - '--net="host"'
-        - '-v /mnt/prom-data:/prom-data'
-      stopoptions:
-        - '-t 10'
+  compose:
+    ## salt dockercompose module ##
+    applications:
+      - composetest
+    composetest:
+      path: /srv/salt/docker/files/composetest/docker-compose.yml
 
-# Docker service
-docker-pkg:
-  lookup:
-    process_signature: /usr/bin/docker
+    ## formerly compose-ng state ##
+    ng:
+      registry-datastore:
+        dvc: true
+        # image: &registry_image 'docker.io/registry:latest' ## Fedora
+        image: &registry_image 'registry:latest'
+        container_name: &dvc 'registry-datastore'
+        command: echo *dvc data volume container
+        volumes:
+          - &datapath '/registry'
+      registry-service:
+        image: *registry_image
+        container_name: 'registry-service'
+        volumes_from:
+          - *dvc
+        environment:
+          SETTINGS_FLAVOR: 'local'
+          STORAGE_PATH: *datapath
+          SEARCH_BACKEND: 'sqlalchemy'
+          REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: '/registry'
+        ports:
+          - 127.0.0.1:5000:5000
+        # restart: 'always'    # compose v1.9
+        deploy:                # compose v3
+          restart_policy:
+            condition: on-failure
+            delay: 5s
+            max_attempts: 3
+            window: 120s
+      nginx-latest:
+        # image: 'docker.io/nginx:latest'  ##Fedora
+        image: 'nginx:latest'
+        container_name: 'nginx-latest'
+        networks:
+          - nginxnet
+        ports:
+          - '80:80'
+          - '443:443'
+        volumes:
+          - /srv/docker-registry/nginx/:/etc/nginx/conf.d
+          - /srv/docker-registry/auth/:/etc/nginx/conf.d/auth
+          - /srv/docker-registry/certs/:/etc/nginx/conf.d/certs
+        working_dir: '/var/www/html'
+        volume_driver: 'local'
+        userns_mode: 'host'
+        user: 'nginx'
+        # restart: 'always'    # compose v1.9
+        deploy:                # compose v3
+          restart_policy:
+            condition: on-failure
+            delay: 5s
+            max_attempts: 3
+            window: 120s
 
-# Docker compose supported attributes
-docker:
-  # install_pypi_pip: true
-  # install_docker_py: true
-  # version of docker-compose to install (defaults to latest)
-  # compose_version: 1.9.0
-  # configfile: /etc/default/docker
-  install_pypi_pip: true
+  swarm:
+    # Per https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.swarm.html
+    joinswarm: {}
+    leave_swarm: false
+    node_ls: {}
+    remove_node: {}
+    remove_service: {}
+    service_create: {}
+    swarm_init:
+      advertise_addr: 127.0.0.1
+      listen_addr: 0.0.0.0
+      force_new_cluster: true
+    service_info: {}
+    swarm_tokens: true
+    update_node: {}
 
-  # yamllint disable-line rule:line-length
-  ### https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file
-  # daemon_config:
-  #  metrics-addr: '0.0.0.0:9323'
-  #  experimental: true
-  #  registry-mirrors:
-  #    - 'https://proxy-docker.local:5000'
-  #  live-restore: true
-  #  insecure-registries:
-  #    - harbor.local
-
-  pkg:
-    # Package handling
-    # version: 1.13.1
-    # allow_updates: true
-    use_upstream_app: false  # docker desktop for mac
-    app:
-      source: https://download.docker.com/mac/stable/Docker.dmg
-      source_hash: f69bd8f9d0863497819b998d27da4825b65884519f3f6a0e2ce1d4c5cdd26f5e
-
-  # config for sysvinit/upstart (for systemd, use drop-ins in your own states)
-  config:
-    - DOCKER_OPTS="-s btrfs --dns 8.8.8.8"
-    - export http_proxy="http://172.17.42.1:3128"
-
-  # PIP proxy configuration (defaults to false)
-  # proxy: proxy.com:3128
-
-  # Global functions for docker_container states
-  containers:
+  misc:
     skip_translate: ports
     force_present: false
     force_running: true
-
-  compose:
-    registry-datastore:
-      dvc: true
-      # image: &registry_image 'docker.io/registry:latest' ## Fedora
-      image: &registry_image 'registry:latest'
-      container_name: &dvc 'registry-datastore'
-      command: echo *dvc data volume container
-      volumes:
-        - &datapath '/registry'
-    registry-service:
-      image: *registry_image
-      container_name: 'registry-service'
-      volumes_from:
-        - *dvc
-      environment:
-        SETTINGS_FLAVOR: 'local'
-        STORAGE_PATH: *datapath
-        SEARCH_BACKEND: 'sqlalchemy'
-        REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: '/registry'
-      ports:
-        - 127.0.0.1:5000:5000
-      # restart: 'always'    # compose v1.9
-      deploy:                # compose v3
-        restart_policy:
-          condition: on-failure
-          delay: 5s
-          max_attempts: 3
-          window: 120s
-
-    nginx-latest:
-      # image: 'docker.io/nginx:latest'  ##Fedora
-      image: 'nginx:latest'
-      container_name: 'nginx-latest'
-      links:
-        - 'registry-service:registry'
-      ports:
-        - '80:80'
-        - '443:443'
-      volumes:
-        - /srv/docker-registry/nginx/:/etc/nginx/conf.d
-        - /srv/docker-registry/auth/:/etc/nginx/conf.d/auth
-        - /srv/docker-registry/certs/:/etc/nginx/conf.d/certs
-      working_dir: '/var/www/html'
-      volume_driver: 'foobar'
-      userns_mode: 'host'
-      user: 'nginx'
-      # restart: 'always'    # compose v1.9
-      deploy:                # compose v3
-        restart_policy:
-          condition: on-failure
-          delay: 5s
-          max_attempts: 3
-          window: 120s

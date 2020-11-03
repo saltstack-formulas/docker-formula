@@ -2,45 +2,134 @@
 # vim: ft=yaml
 ---
 docker:
-  process_signature: '/usr/bin/docker'
-  install_docker_py: true
-  python_package: docker
-  refresh_repo: true
-  configfile: /etc/default/docker
-  config: []
-  daemon_config: {}
-  version: ''
-  rootuser: root
-
-  use_upstream_repo: true
-  use_old_repo: false
-  proxy: false
-
-  pkgs:
-    - iptables
-    - ca-certificates
+  div: '/'
+  formula: docker
+  supported:
+    - docker
+    - compose
+    - swarm
+  wanted:
+    - docker
+    - compose
 
   pkg:
+    version: 'latest'  # linux native package version
     name: docker-ce
-    old_name: docker-engine
-    # For backward compatibility, this will be overriden by docker:version, if defined
-    version: latest
-    allow_updates: false
-    hold: false
-    use_upstream_app: false  # macos
+    old:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+      - docker.io
+      - containerd
+      - runc
+      - docker-selinux
+      - docker-engine-selinux
 
-  pip:
-    install_pypi_pip: false
-    upgrade: false
+    docker:
+      version: '19.03.9'  # archive package version
+      config_file: /etc/default/docker   # /etc/docker/daemon.json
+      config: {}
+      environ_file: /etc/default/docker
+      environ: {}
 
-  compose_version: ''
+      name: docker-ce
+      service:
+        name: dockerd
+      suffix: tgz
+      commands:
+        - docker
+        - docker-init
+        - runc
+        - docker-proxy
+        - containerd
+        - ctr
+        - dockerd
+        - containerd-shim
+      use_upstream: archive
+      uri_a: 'https://download.docker.com/linux/static/stable'
+      archive:
+        options: '--strip-components=1'
+        source_hash: '1c03c78be198d9085e7dd6806fc5d93264baaf0c7ea17f584d00af48eae508ee'
+      desktop: {}   # macos/windows
+      repo:
+        comments:
+          - installed by salt
+        enabled: 1
+        gpgcheck: 1
+      firewall:
+        ports:
+          - 2375
+          - 2376
 
+    compose:
+      version: 'latest'
+      name: docker-compose
+      suffix: ''
+      commands:
+        - docker-compose
+      use_upstream: binary
+      binary:
+        options: ''
+        # yamllint disable-line rule:line-length
+        source: 'https://dl.bintray.com/docker-compose/master/docker-compose-Linux-x86_64'
+        source_hash: '3c96b57ea8e0027aee7e1a3023f7599bcecae54e77bcfd5f4e65a59672637e54'
+
+  networks: {}
   containers:
-    skip_translate: None
+    running: []
+  compose:
+    applications: []
+    ng: {}
+  swarm:
+    joinswarm: {}
+    leave_swarm: false
+    node_ls: {}
+    remove_node: {}
+    remove_service: {}
+    service_create: {}
+    swarm_init: {}
+    service_info: {}
+    swarm_tokens: true
+    update_node: {}
+
+  dir:
+    base: /usr/local
+    source: /usr/local/src/docker/libs
+    service: /usr/lib/systemd/system
+    tmp: /tmp/saltstack-formulas-docker-tmp
+    lib: /var/lib/docker
+  linux:
+    altpriority: 0
+  identity:
+    rootuser: root
+    rootgroup: root
+  arch: ''
+
+  misc:
+    force_absent: false
     force_present: false
     force_running: false
+    skip_translate: None
+    clean: false
+    reload: true
+    refresh: true
+    firewall: false
+    hold: false
+    selinux: false
 
-  kernel:
-    pkg:
-      fromrepo: ''
-    pkgs: []
+  retry_option:
+    # https://docs.saltstack.com/en/latest/ref/states/requisites.html#retrying-states
+    attempts: 3
+    until: true
+    interval: 60
+    splay: 10
+
+  # Just here for testing
+  added_in_defaults: defaults_value
+  winner: defaults
+  version: ''
