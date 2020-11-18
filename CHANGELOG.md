@@ -1,5 +1,44 @@
 # Changelog
 
+# [1.0.0](https://github.com/saltstack-formulas/docker-formula/compare/v0.44.0...v1.0.0) (2020-11-18)
+
+
+### Bug Fixes
+
+* **cent7:** install yum-plugin-versionlock too ([3b2e237](https://github.com/saltstack-formulas/docker-formula/commit/3b2e2377a5f1160ca6dcfdf3bfca344f9d596b1f))
+* **clean:** do not remove python package ([e7ee880](https://github.com/saltstack-formulas/docker-formula/commit/e7ee8809c94a56b06b7829b221a930c1bf5d7718))
+* **pillar.example:** fix `yamllint` violation [skip ci] ([31087af](https://github.com/saltstack-formulas/docker-formula/commit/31087afced764593b5758363d2e5b5f6382c68ea)), closes [#250](https://github.com/saltstack-formulas/docker-formula/issues/250)
+* **state:** corrected remove state ([e178243](https://github.com/saltstack-formulas/docker-formula/commit/e1782434e37778e365302c6c304bc357a54bd4b2))
+
+
+### Code Refactoring
+
+* **rewrite:** modernize formula and fresh start ([1e48667](https://github.com/saltstack-formulas/docker-formula/commit/1e48667188cbaac5497fcdb5c652f0a6dd3257ee)), closes [#252](https://github.com/saltstack-formulas/docker-formula/issues/252) [#249](https://github.com/saltstack-formulas/docker-formula/issues/249) [#243](https://github.com/saltstack-formulas/docker-formula/issues/243) [#236](https://github.com/saltstack-formulas/docker-formula/issues/236) [#234](https://github.com/saltstack-formulas/docker-formula/issues/234) [#219](https://github.com/saltstack-formulas/docker-formula/issues/219) [#202](https://github.com/saltstack-formulas/docker-formula/issues/202) [#191](https://github.com/saltstack-formulas/docker-formula/issues/191) [#190](https://github.com/saltstack-formulas/docker-formula/issues/190) [#160](https://github.com/saltstack-formulas/docker-formula/issues/160) [#95](https://github.com/saltstack-formulas/docker-formula/issues/95) [#85](https://github.com/saltstack-formulas/docker-formula/issues/85) [#74](https://github.com/saltstack-formulas/docker-formula/issues/74) [#251](https://github.com/saltstack-formulas/docker-formula/issues/251) [#253](https://github.com/saltstack-formulas/docker-formula/issues/253)
+
+
+### Continuous Integration
+
+* **kitchen:** use `saltimages` Docker Hub where available [skip ci] ([1755f38](https://github.com/saltstack-formulas/docker-formula/commit/1755f38fd9d8b895bfe8eac429fa62e48ed51697))
+* **pre-commit:** add to formula [skip ci] ([d04e24a](https://github.com/saltstack-formulas/docker-formula/commit/d04e24a6e8f819c5d808e6c30f8fac3356ad1d0b))
+* **pre-commit:** enable/disable `rstcheck` as relevant [skip ci] ([8454e4a](https://github.com/saltstack-formulas/docker-formula/commit/8454e4ad4476c8e7e6dd7af4197f787fb9d987ad))
+* **pre-commit:** finalise `rstcheck` configuration [skip ci] ([87c737c](https://github.com/saltstack-formulas/docker-formula/commit/87c737cb6fc2c7d7d4268f23f1fb074a580c653b))
+* **travis:** add notifications => zulip [skip ci] ([6222d60](https://github.com/saltstack-formulas/docker-formula/commit/6222d60ad2883b89f901198947f5061e4a10ab43))
+
+
+### Documentation
+
+* **macos:** updated pillar.example & macos hash ([fc011b3](https://github.com/saltstack-formulas/docker-formula/commit/fc011b38fa44e441586961cc7c051c008bfe66e5))
+* **readme:** fix macos clean state ([fca7fea](https://github.com/saltstack-formulas/docker-formula/commit/fca7fea55aba95e0f139128cde97ca2f5c133919))
+
+
+### BREAKING CHANGES
+
+* **rewrite:** This version is not backwards compatible. Update
+ your states and pillar data to align with new formula.
+
+ - MacOS was not tested in this PR but hopefully no regression.
+ - docker.containers: sls was simplified (raise PR if regression)
+
 # [0.44.0](https://github.com/saltstack-formulas/docker-formula/compare/v0.43.1...v0.44.0) (2020-05-15)
 
 
