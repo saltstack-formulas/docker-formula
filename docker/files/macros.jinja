@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+#
+# Collection of common macros
+
+{%- macro format_kwargs(kwarg) -%}
+  {%- if kwarg and kwarg is mapping %}
+
+  {%- filter indent(4) %}
+    {%- for k, v in kwarg|dictsort() %}
+- {{ k }}: {{ v }}
+    {%- endfor %}
+  {%- endfilter %}
+
+  {%- endif %}
+{%- endmacro %}

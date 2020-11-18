@@ -11,66 +11,111 @@
 # osfamilymap: {}
 ---
 {%- if grains.os == 'MacOS' %}
-  {% set macos_user = salt['cmd.run']("stat -f '%Su' /dev/console") %}
+    {%- set rootuser = salt['cmd.run']("stat -f '%Su' /dev/console") %}
+    {%- set rootgroup = salt['cmd.run']("stat -f '%Sg' /dev/console") %}
+{%- elif grains.os == 'Windows' %}
+    {%- set rootuser = salt['cmd.run']("id -un") %}
 {%- endif %}
 
 Arch:
-  python_package: ~
-  pkgs:
-    - python-docker
-    - python-pip
-    - python2-pip  # see https://github.com/saltstack/salt/issues/48632
   pkg:
-    name: docker
-    # workaround https://github.com/saltstack-formulas/docker-formula/issues/219
-    allow_updates: false
-    hold: false
-    use_upstream_app: false
-  pip:
-    install_pypi_pip: false
-    upgrade: false
+    docker:
+      name: docker
+    deps:
+      - python-docker
+      - python-pip
+      # python2-pip  # see https://github.com/saltstack/salt/issues/48632
 
 Debian:
-  pkgs:
-    - apt-transport-https
-    - python3-apt
-    - python3-pip
-    - python3-docker
-  repo:
-    url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}
-    key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
-    version: {{ grains['oscodename']|lower if 'oscodename' in grains else '' }}
-    file: /etc/apt/sources.list.d/docker.list
+  pkg:
+    deps:
+      - python3-apt
+      - python3-pip
+      - python3-docker
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - iptables
+      - git
+      - procps
+    docker:
+      repo:
+                {%- if 'oscodename' in grains %}
+        name: deb [arch=amd64] https://download.docker.com/linux/{{ grains.os|lower }} {{ grains.oscodename }} stable
+                {%- endif %}
+        file: /etc/apt/sources.list.d/docker.list
+        key_url: "https://download.docker.com/linux/{{ grains.os|lower }}/gpg"
 
 RedHat:
-  pkgs:
-    - python3-pip
-    - python3-docker
-  repo:
-    # yamllint disable-line rule:line-length
-    url_base: https://download.docker.com/linux/{{ grains['os'] |lower }}/{{ '' if not 'osmajorrelease' in grains else grains['osmajorrelease'] }}/$basearch/stable/
-    key_url: https://download.docker.com/linux/{{ grains['os'] |lower }}/gpg
-    version: {{ grains['oscodename']|lower if 'oscodename' in grains else '' }}
-    file: /etc/yum.repos.d/docker-ce.repo
+  pkg:
+    deps:
+      - python3-pip
+      # python3-docker
+      - iptables
+      - git
+      - tar
+    docker:
+      # environ_file: /etc/sysconfig/docker
+      repo:
+        baseurl: 'https://download.docker.com/linux/{{ grains.os|lower }}/$releasever/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/{{ grains.os|lower }}/gpg'
 
 Suse:
   pkg:
-    name: docker
-  pkgs:
-    - python3-pip
-    - python3-docker
+    deps:
+      - python3-pip
+      - python3-docker
+      - tar
+      - gzip
+    docker:
+      name: docker
 
 MacOS:
-  rootuser: {{ macos_user | d('') }}
-  pkgs:
-    - python3-docker
+  identity:
+    rootuser: {{ rootuser | d('') }}
   pkg:
-    name: docker              #homebrew
-    # workaround https://github.com/saltstack-formulas/docker-formula/issues/219
-    allow_updates: false
-    hold: false
-    use_upstream_app: true    #docker desktop for mac
-    app:
-      name: Docker
-      source: https://download.docker.com/mac/stable/Docker.dmg
-      source_hash: f69bd8f9d0863497819b998d27da4825b65884519f3f6a0e2ce1d4c5cdd26f5e
+    deps:
+      - python3-docker        # homebrew
+      - docker-machine        # homebrew
+    docker:
+      name: Docker            # Docker Desktop (docker=homebrew)
+      environ_file: /etc/defaults/docker
+      use_upstream: desktop   # package or desktop (archive=docker client)
+      uri_a: 'https://download.docker.com/mac/static/stable/'
+      archive:
+        source_hash: '487bb7179873e4b5f06b70f521a806d84edf7dddbeb4153dfc38b508faef5ab2'
+      uri_d: 'https://desktop.docker.com/mac/stable/Docker'
+      desktop:
+        source_hash: 'db78429815fd571bbed319ece03fbe227a3d497b7d1d37c87b0e5a3600b9a23b'
+      suffix: '.dmg'
+    compose:
+      name: docker-compose   # homebrew
+      use_upstream: package   # Docker Desktop
+      archive:
+        source: 'https://dl.bintray.com/docker-compose/master/docker-compose-Darwin-x86_64'
+        source_hash: 'c5e326611efa45cbaf5b338bf352cbf27e9eb7dff0619f77639cae1158f6571f'
+
+Windows:
+  div: '\'
+  dir:
+    base: C:\\docker
+    source: C:\\docker\src\libs
+    operators: C:\\docker\src
+    tmp: C:\\temp\docker
+  identity:
+    rootuser: {{ rootuser | d('') }}
+  pkg:
+    deps:
+      - docker-cli
+    docker:
+      name: Docker-Desktop     # choco=docker-machine
+      use_upstream: desktop    # choco or desktop
+      uri_d: 'https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer'
+      desktop:
+        source_hash: 'b81b399ec34505981f9f2b0b68d6eec81bfd706b9376350f4ee93c24fa4e2729'
+      suffix: '.exe'
+    compose:
+      use_upstream: null    # included in docker-desktop

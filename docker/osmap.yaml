@@ -1,10 +1,26 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-CentOS:
-  pkgs:
-    - python2-pip
-
 FreeBSD:
-  pkgs:
-    - devel/py-pip
+  # https://reviews.freebsd.org/D21570
+  pkg:
+    deps:
+      - devel/py-pip
+
+Centos:
+  pkg:
+    deps:
+      - procps
+      - yum-utils
+
+Amazon:
+  pkg:
+    docker:
+      name: docker
+      repo: null
+
+Fedora:
+  pkg:
+    deps:
+      - selinux-policy-minimum
+      - python3-dnf-plugin-versionlock

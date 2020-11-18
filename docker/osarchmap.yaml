@@ -1,0 +1,72 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['osarch'] based logic.
+# You just need to add the key:values for an `osarch` that differ
+# from `defaults.yaml` + `os_family.yaml`.
+# Only add an `osarch` which is/will be supported by the formula
+#
+# If you do not need to provide defaults via the `osarch` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osarch: {}
+---
+aarch64:
+  arch: aarch64
+  pkg:
+    docker:
+      use_upstream: archive
+      archive:
+        source_hash: '5d6ede3368eac8e74ead70489aa7e4e663fe1ccfbb9763a6ac55991d55b70354'
+      suffix: tgz
+
+armel:
+  arch: armel
+  pkg:
+    docker:
+      use_upstream: archive
+      archive:
+        source_hash: '16e633ee6615432e5f5942f3a8cf588db1a6958521e12c3eca585ad3113d3de9'
+      suffix: tgz
+
+armhf:
+  arch: armhf
+  pkg:
+    docker:
+      use_upstream: archive
+      archive:
+        source_hash: '5e757cf65d99b0326f49cabbfc3b9a65151cb569f04fcb64a7a0c7424772c7cf'
+      suffix: tgz
+
+ppc64le:
+  arch: ppc64le
+  pkg:
+    docker:
+      version: '18.06.3-ce'
+      use_upstream: archive
+      archive:
+        source_hash: '8fee410bc25628fa5310b33af1b362edcfe39533294a8325f3ed2cefac97c005'
+      suffix: tgz
+
+s390x:
+  arch: s390x
+  pkg:
+    docker:
+      use_upstream: archive
+      archive:
+        source_hash: '9b37def0df53ebbeb78cc85c0aaeed89fc61261cf90380d374af6c8865775c84'
+      suffix: tgz
+
+amd64:
+  arch: x86_64  # for archive
+
+x86_64:
+  arch: x86_64  # amd64
+
+386:
+  arch: '386'
+
+armv6l:
+  arch: armv6l
+
+armv7l:
+  arch: armv7l

@@ -1,0 +1,10 @@
+########################################################################
+# File managed by Salt at <{{ source }}>.
+# Your changes may be overwritten.
+########################################################################
+
+{%- if config %}
+    {%- for line in config|unique %}
+{{ line }}
+    {%- endfor %}
+{%- endif %}

@@ -2,42 +2,31 @@
 # vim: ft=yaml
 ---
 wheezy:
-  kernel:
-    pkg:
+  pkg:
+    deps:
       name: linux-image-amd64
-      fromrepo: wheezy-backports
-    pkgrepo:
-      name: deb http://http.debian.net/debian wheezy-backports main
-      humanname: Wheezy Backports
-      dist: wheezy-backports
-    pkgs: []
 
 jessie:
-  kernel:
-    pkg:
+  pkg:
+    deps:
       name: linux-image-amd64
-      fromrepo: jessie-backports
-    pkgrepo:
-      name: deb http://http.debian.net/debian jessie-backports main
-      humanname: Jessie Backports
-      dist: jessie-backports
-    pkgs: []
 
 trusty:
-  kernel:
-    pkgs:
+  pkg:
+    deps:
       - linux-image-extra-virtual
       - linux-image-extra-{{ grains.kernelrelease }}
 
 precise:
-  kernel:
-    pkgs:
+  pkg:
+    deps:
       - linux-image-generic-lts-raring
       - linux-headers-generic-lts-raring
 
 CentOS Linux 7 (Core):
-  pkgs:
-    - yum-plugin-versionlock
-    - python2-pip
-    # python-docker
-    - rpmdevtools
+  pkg:
+    deps:
+      - yum-plugin-versionlock
+      - python2-pip
+      # python-docker-py https://github.com/saltstack/salt/issues/58920
+      - rpmdevtools

@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['osfinger'] based logic.
+# You just need to add the key:values for an `osfinger` that differ
+# from `defaults.yaml` + `osarch.yaml` + `os_family.yaml` + `osmap.yaml`.
+# Only add an `osfinger` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os_finger` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfingermap: {}
+---
+Amazon Linux-2:
+  pkg:
+    docker:
+      use_upstream: 'archive'
+
+CentOS Linux-8:
+  pkg:
+    deps:
+      # selinux-policy
+      - selinux-policy-minimum
+      - python3-dnf-plugin-versionlock
+
+CentOS Linux-7:
+  pkg:
+    deps:
+      - selinux-policy-minimum
+      - yum-plugin-versionlock
+
+CentOS-6:
+  pkg:
+    deps:
+      - selinux-policy-minimum
+      - yum-plugin-versionlock

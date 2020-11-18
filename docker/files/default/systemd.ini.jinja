@@ -1,0 +1,19 @@
+#########################################################
+# File managed by Salt. Changes risk being overwritten.
+#########################################################
+[Unit]
+Description={{ desc }}
+Wants=network-online.target
+After=
+Documentation=https://github.com/saltstack-formulas/prometheus-formula
+
+[Service]
+User={{ user }}
+Group={{ group }}
+WorkingDirectory={{ workdir }}
+ExecStart={{ start }}
+ExecStop={{ stop }}
+PIDFile=/var/run/{{ name }}.pid
+
+[Install]
+WantedBy=multi-user.target

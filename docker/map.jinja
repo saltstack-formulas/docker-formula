@@ -1,49 +1,91 @@
-{# vi: set ft=jinja: #}
-{% set containers = salt['grains.filter_by']({
-        'default': {}
-    },
-    merge=salt['pillar.get']('docker-containers:lookup'))
-%}
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
 
-{% set registry = salt['grains.filter_by']({
-    'default': {
-        'description': 'Docker Registry',
-        'port': '5000',
-        'version': 'latest',
-        'restart': 'no',
-        'search_backend': 'sqlalchemy',
-        'runoptions': []
-    },
-}, merge=salt['pillar.get']('registry:lookup')) %}
-
-{% set amazon = salt['grains.filter_by']({
-    'default': {
-        'settings_flavor': 's3',
-        'storage_path': '/registry'
-    },
-}, merge=salt['pillar.get']('registry:lookup:amazon')) %}
-
-{#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+{%- import_yaml tplroot ~ "/codenamemap.yaml" as codenamemap %}
+{%- import_yaml tplroot ~ "/osarchmap.yaml" as osarchmap %}
+{%- import_yaml tplroot ~ "/cpuarchmap.yaml" as cpuarchmap %}
 
-{# Begin migration to new style map.jinja using tplroot for portability #}
-{% import_yaml tplroot ~ "/defaults.yaml" or {} as defaults %}
-{% import_yaml tplroot ~ "/osfamilymap.yaml" or {} as osfamilymap %}
-{% import_yaml tplroot ~ "/codenamemap.yaml" or {} as codemap %}
-{% import_yaml tplroot ~ "/osmap.yaml" or {} as osmap %}
+{%- set _config = salt['config.get'](tplroot, default={}) %}
+{%- set defaults = salt['grains.filter_by'](
+      default_settings,
+      default=tplroot,
+      merge=salt['grains.filter_by']( osfamilymap, grain='os_family',
+        merge=salt['grains.filter_by']( osmap, grain='os',
+          merge=salt['grains.filter_by']( osfingermap, grain='osfinger',
+            merge=salt['grains.filter_by']( codenamemap, grain='oscodename',
+              merge=salt['grains.filter_by']( osarchmap, grain='osarch',
+                merge=salt['grains.filter_by']( cpuarchmap, grain='cpuarch',
+                  merge=salt['grains.filter_by']( _config, default='lookup'
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+ %}
+{%- set d = salt['grains.filter_by']( {'defaults': defaults}, default='defaults', merge=_config) %}
 
-{% set pkg = salt['pillar.get']('docker-pkg:lookup', default={}, merge=True) %}
-{% do defaults.docker.pkg.update(pkg) %}
+{%- if 'wanted' in d and d.wanted and 'supported' in d and d.supported %}
+    {%- for c in d.wanted %}
 
-{% set osfamily = salt['grains.filter_by'](osfamilymap, grain='os_family') or {} %}
-{% do defaults.docker.update(osfamily) %}
+        {%- if c in d.supported %}
+            {%- set path = d.dir.base %}
+            {%- set url = False %}
 
-{% set os = salt['grains.filter_by'](osmap, grain='os') or {} %}
-{% do defaults.docker.update(os) %}
+            {%- if c in ('docker', 'compose') and c in d.pkg and d.pkg[c] %}
+                {%- set p = d.pkg[c] %}
+                {%- if grains.os == 'Windows' %}
+                    {%- do p.update({'path': '%s%sbin%s'|format(d.dir.base, d.div, d.div)}) %}
+                {%- else %}
+                    {%- do p.update({ 'path': '%s/%s%s-%s/bin/'|format(d.dir.base, '' if c == 'docker' else 'docker-', c, p.version) }) %}
+                {%- endif %}
 
-{% set oscode = salt['grains.filter_by'](codemap, grain='oscodename') or {} %}
-{% do defaults.docker.update(oscode) %}
+                {%- if p.use_upstream == 'archive' %}
+                    {%- if c == 'docker' %}
+                        {%- set url = '%s/%s/%s-%s.%s'|format(p.uri_a, d.arch, c, p.version, p.suffix) %}
+                        {%- do p.archive.update({ 'source': url }) %}
+                    {%- endif %}
+                    {%- if 'source_hash' in p.archive and p.archive.source_hash %}
+                        {%- do p.archive.update({'name': p.path, 'source_hash': p.archive.source_hash}) %}
+                    {%- else %}
+                        {%- do p.archive.update({'name': p.path, 'source_hash': url ~ '.sha256'}) %}
+                    {%- endif %}
 
-{% set docker = salt['pillar.get']('docker', default=defaults['docker'], merge=True) %}
+                {%- elif p.use_upstream == 'binary' %}
+                    {%- if 'source_hash' in p.binary and p.binary.source_hash %}
+                        {%- do p.binary.update({'name': p.path, 'source_hash': p.binary.source_hash}) %}
+                    {%- else %}
+                        {%- do p.binary.update({'name': p.path, 'source_hash': url ~ '.sha256'}) %}
+                    {%- endif %}
 
-{% set compose = salt['pillar.get']('docker:compose', default={}, merge=True) %}
+                {%- elif p.use_upstream == 'desktop' %}
+                    {%- if c == 'docker' %}
+                        {%- set url = '%s%s'|format(p.uri_d, p.suffix) %}
+                        {%- do p.desktop.update({ 'source': url }) %}
+                    {%- endif %}
+                    {%- if 'source_hash' in p.desktop and p.desktop.source_hash %}
+                        {%- do p.desktop.update({'name': p.path, 'source_hash': p.desktop.source_hash}) %}
+                    {%- else %}
+                        {%- do p.desktop.update({'name': p.path, 'source_hash': url ~ '.sha256'}) %}
+                    {%- endif %}
+
+                {%- endif %}
+                ## Persistance
+                {%- do d.pkg.update({ c: p }) %}
+
+            {%- endif %}
+        {%- endif %}
+    {%- endfor %}
+{%- endif %}
+
+{%- if 'formula' not in d %}
+    {%- do d.update({'formula': 'docker'}) %}
+{%- endif %}
+{%- set data = d %}

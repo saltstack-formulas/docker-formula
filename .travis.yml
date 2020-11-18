@@ -11,12 +11,22 @@ version: '~> 1.0'
 language: 'ruby'
 cache: 'bundler'
 
+env:
+  global:
+    - CHANGE_MINIKUBE_NONE_USER=true
+    - MINIKUBE_WANTUPDATENOTIFICATION=false
+    - MINIKUBE_WANTREPORTERRORPROMPT=false
+    - MINIKUBE_HOME=$HOME
+    - CHANGE_MINIKUBE_NONE_USER=true
+    - KUBECONFIG=$HOME/.kube/config
+
 ## Services config
 services:
   - docker
 
 ## Script to run for the test stage
 script:
+  - env
   - bin/kitchen verify "${INSTANCE}"
 
 ## Stages and jobs matrix
@@ -72,35 +82,43 @@ jobs:
     ## Define the rest of the matrix based on Kitchen testing
     # Make sure the instances listed below match up with
     # the `platforms` defined in `kitchen.yml`
-    - env: INSTANCE=default-debian-10-master-py3
-    # - env: INSTANCE=default-ubuntu-1804-master-py3
-    # - env: INSTANCE=default-centos-8-master-py3
-    # - env: INSTANCE=default-fedora-31-master-py3
-    # - env: INSTANCE=default-opensuse-leap-151-master-py3
-    # - env: INSTANCE=default-amazonlinux-2-master-py3
-    # - env: INSTANCE=default-debian-10-2019-2-py3
-    - env: INSTANCE=default-debian-9-2019-2-py3
-    - env: INSTANCE=default-ubuntu-1804-2019-2-py3
-    # - env: INSTANCE=default-centos-8-2019-2-py3
-    # - env: INSTANCE=default-fedora-31-2019-2-py3
-    # - env: INSTANCE=default-opensuse-leap-151-2019-2-py3
-    # - env: INSTANCE=default-centos-7-2019-2-py2
-    # - env: INSTANCE=default-amazonlinux-2-2019-2-py3
-    - env: INSTANCE=default-arch-base-latest-2019-2-py2
-    # - env: INSTANCE=default-fedora-30-2018-3-py3
-    - env: INSTANCE=default-debian-9-2018-3-py2
-    # - env: INSTANCE=default-ubuntu-1604-2018-3-py2
-    # - env: INSTANCE=default-centos-7-2018-3-py2
-    # - env: INSTANCE=default-opensuse-leap-151-2018-3-py2
-    # - env: INSTANCE=default-amazonlinux-1-2018-3-py2
-    # - env: INSTANCE=default-arch-base-latest-2018-3-py2
-    # - env: INSTANCE=default-debian-8-2017-7-py2
-    - env: INSTANCE=default-ubuntu-1604-2017-7-py2
-    # - env: INSTANCE=default-centos-6-2017-7-py2
-    # - env: INSTANCE=default-fedora-30-2017-7-py2
-    # - env: INSTANCE=default-opensuse-leap-151-2017-7-py2
-    # - env: INSTANCE=default-amazonlinux-1-2017-7-py2
-    # - env: INSTANCE=default-arch-base-latest-2017-7-py2
+    # env: INSTANCE=archive-debian-10-master-py3
+    - env: INSTANCE=package-debian-10-master-py3
+    - env: INSTANCE=archive-ubuntu-1804-master-py3
+    - env: INSTANCE=clean-ubuntu-1804-master-py3
+    - env: INSTANCE=package-ubuntu-1804-master-py3
+    - env: INSTANCE=archive-centos-8-master-py3
+    - env: INSTANCE=package-centos-8-master-py3
+    # env: INSTANCE=archive-fedora-31-master-py3
+    - env: INSTANCE=package-fedora-31-master-py3
+    - env: INSTANCE=archive-opensuse-leap-151-master-py3
+    - env: INSTANCE=package-opensuse-leap-151-master-py3
+    - env: INSTANCE=archive-amazonlinux-2-master-py3
+    # env: INSTANCE=package-amazonlinux-2-master-py3
+    # - env: INSTANCE=archive-debian-10-3000-2-py3
+    # - env: INSTANCE=archive-debian-9-3000-2-py3
+    # - env: INSTANCE=archive-ubuntu-1804-3000-2-py3
+    # - env: INSTANCE=archive-centos-8-3000-2-py3
+    # - env: INSTANCE=archive-centos-7-3000-2-py3
+    # - env: INSTANCE=archive-fedora-31-3000-2-py3
+    # - env: INSTANCE=archive-opensuse-leap-151-3000-2-py3
+    # - env: INSTANCE=archive-amazonlinux-2-3000-2-py3
+    # - env: INSTANCE=archive-ubuntu-1804-3000-2-py2
+    # - env: INSTANCE=archive-ubuntu-1604-3000-2-py2
+    # - env: INSTANCE=archive-archive-base-latest-3000-2-py2
+    # - env: INSTANCE=archive-debian-10-2019-2-py3
+    # - env: INSTANCE=archive-debian-9-2019-2-py3
+    # - env: INSTANCE=archive-ubuntu-1804-2019-2-py3
+    # - env: INSTANCE=archive-ubuntu-1604-2019-2-py3
+    # - env: INSTANCE=archive-centos-8-2019-2-py3
+    # - env: INSTANCE=archive-centos-7-2019-2-py3
+    # - env: INSTANCE=archive-fedora-31-2019-2-py3
+    # env: INSTANCE=archive-opensuse-leap-151-2019-2-py3
+    # - env: INSTANCE=archive-amazonlinux-2-2019-2-py3
+    # - env: INSTANCE=archive-centos-6-2019-2-py2
+    # - env: INSTANCE=archive-amazonlinux-1-2019-2-py2
+    - env: INSTANCE=archive-arch-base-latest-2019-2-py2
+    - env: INSTANCE=package-arch-base-latest-2019-2-py2
 
     ## Define the release stage that runs `semantic-release`
     - stage: 'release'
