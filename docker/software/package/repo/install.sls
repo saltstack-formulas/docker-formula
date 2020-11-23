@@ -12,8 +12,7 @@
   pkgrepo.managed:
     {{- format_kwargs(d.pkg.docker.repo) }}
     - humanname: {{ grains["os"] }} {{ grains["oscodename"]|capitalize }} Docker Package Repository
-    - refesh: {{ d.misc.refresh }}
-    - onlyif:
-      - {{ d.pkg.docker.repo }}
+    - refresh: {{ d.misc.refresh }}
+    - onlyif: {{ d.pkg.docker.repo != null }}
 
     {%- endif %}
