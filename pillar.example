@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-# example docker registry container
-# if you want to your own docker registry, use this
 docker:
   wanted:
     - docker
@@ -73,6 +71,7 @@ docker:
       tty: true
       volume_driver: local
 
+    # if you want to your own docker registry, use this
     registry:
       image: "registry:latest"
       env:
