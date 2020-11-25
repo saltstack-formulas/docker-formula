@@ -14,8 +14,8 @@ include:
 
 {{ formula }}-software-package-clean-pkg:
   pkg.removed:
-    - name: kubectl
-    - reload_modules: true
+    - name: {{ d.pkg.docker.name }}
+    - reload_modules: {{ d.misc.reload|default(true, true) }}
             {%- if d.pkg.docker.use_upstream == 'repo' %}
     - require:
       - pkgrepo: {{ formula }}-package-repo-absent
