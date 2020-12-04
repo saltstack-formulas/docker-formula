@@ -30,6 +30,8 @@
 {{ formula }}-software-desktop-install:
 
             {%- if grains.os|lower == 'windows' %}
+  pip.installed:
+    - name: docker
   cmd.run:
     - name: {{ d.dir.tmp }}{{ d.div }}Docker-Desktop{{ d.pkg.docker.suffix }} || true
     - require:
