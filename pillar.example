@@ -8,6 +8,8 @@ docker:
 
   pkg:
     docker:
+      service:
+        env: HTTP_PROXY=http://YOUR_PROXY_IP_ADDRESS:PROXY_PORT
       environ:
         # yamllint disable-line rule:line-length
         - OPTIONS='-s devicemapper --storage-opt dm.fs=xfs --exec-opt native.cgroupdriver=cgroupfs --selinux-enabled'

@@ -92,6 +92,7 @@
         user: {{ d.identity.rootuser }}
         group: {{ d.identity.rootgroup }}
         workdir: {{ d.dir.lib }}
+        env: {{ d.pkg.docker.service.env }}
         stop: ''
         start: {{ d.pkg.docker.path }}/{{ d.pkg.docker.service.name }}
   cmd.run:

@@ -14,6 +14,7 @@ WorkingDirectory={{ workdir }}
 ExecStart={{ start }}
 ExecStop={{ stop }}
 PIDFile=/var/run/{{ name }}.pid
+Environment={{ '' if not env else env }}
 
 [Install]
 WantedBy=multi-user.target
