@@ -1,16 +1,16 @@
-# InSpec Profile: `archive`
+# InSpec Profile: `clean`
 
-This shows the implementation of the `archive` InSpec [profile](https://github.com/inspec/inspec/blob/master/docs/profiles.md).
+This shows the implementation of the `clean` InSpec [profile](https://github.com/inspec/inspec/blob/master/docs/profiles.md).
 
 ## Verify a profile
 
 InSpec ships with built-in features to verify a profile structure.
 
 ```bash
-$ inspec check archive
+$ inspec check clean
 Summary
 -------
-Location: archive
+Location: clean
 Profile: profile
 Controls: 4
 Timestamp: 2019-06-24T23:09:01+00:00
@@ -28,7 +28,7 @@ Warnings
 To run all **supported** controls on a local machine use `inspec exec /path/to/profile`.
 
 ```bash
-$ inspec exec archive
+$ inspec exec clean
 ..
 
 Finished in 0.0025 seconds (files took 0.12449 seconds to load)
@@ -40,7 +40,7 @@ Finished in 0.0025 seconds (files took 0.12449 seconds to load)
 To run one control from the profile use `inspec exec /path/to/profile --controls name`.
 
 ```bash
-$ inspec exec archive --controls package
+$ inspec exec clean --controls package
 .
 
 Finished in 0.0025 seconds (files took 0.12449 seconds to load)
