@@ -126,6 +126,17 @@ include:
     - restart_policy: {{ policy[0] }}:{{ policy[-1] }}
             {%- endif %}
         {%- endif %}
+        {%- if 'devices' in container %}
+    - devices:
+            {%- for device in container.devices %}
+                {%- set mapping = device.rsplit(':', 1) %}
+                {%- if mapping|length > 1 %}
+        - "{{ mapping[0] }}:{{ mapping[-1] }}"
+                {%- else %}
+        - "{{ mapping[0] }}"
+                {%- endif %}
+            {%- endfor %}
+        {%- endif %}
     - require:
       - docker_image: {{ formula }}-compose-ng-{{ id }}-present
         {%- if required_containers is defined %}
