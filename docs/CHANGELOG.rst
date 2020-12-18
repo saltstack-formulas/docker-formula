@@ -2,6 +2,31 @@
 Changelog
 =========
 
+`1.1.0 <https://github.com/saltstack-formulas/docker-formula/compare/v1.0.0...v1.1.0>`_ (2020-12-18)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **clean:** correct package name (\ `58efc33 <https://github.com/saltstack-formulas/docker-formula/commit/58efc33adb4f9ca0bee8b33b8c9ba7da6b787b40>`_\ )
+* **repo:** correct typo and explicit null-check `#258 <https://github.com/saltstack-formulas/docker-formula/issues/258>`_ (\ `f5ec911 <https://github.com/saltstack-formulas/docker-formula/commit/f5ec91120eb1dbdc121c2b0faa54f0dfb81ecaea>`_\ )
+* **typo:** refresh not refrsh (\ `f823af2 <https://github.com/saltstack-formulas/docker-formula/commit/f823af2ae91dd35237539bb953263e23a129a020>`_\ )
+* **windows:** pip install docker (\ `b74bc08 <https://github.com/saltstack-formulas/docker-formula/commit/b74bc086864c1889de50da3d8a6376e104257ab2>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **gitlab-ci:** use GitLab CI as Travis CI replacement (\ `ab48dcd <https://github.com/saltstack-formulas/docker-formula/commit/ab48dcdf0a8943941e7cf2044fef099d6bc1b29b>`_\ )
+
+Features
+^^^^^^^^
+
+
+* **arm64:** add support for Raspberry Pi 4 running Ubuntu 20.04 (\ `228ca07 <https://github.com/saltstack-formulas/docker-formula/commit/228ca0739711bdc280ed32a76e12501ccd4ea46b>`_\ )
+* **proxy:** allow setting proxy in systemd (\ `ebeb2fe <https://github.com/saltstack-formulas/docker-formula/commit/ebeb2fe0332d91234f0bf78ae8b800ad694604b9>`_\ )
+
 `1.0.0 <https://github.com/saltstack-formulas/docker-formula/compare/v0.44.0...v1.0.0>`_ (2020-11-18)
 ---------------------------------------------------------------------------------------------------------
 
