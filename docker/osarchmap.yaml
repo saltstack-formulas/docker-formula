@@ -19,6 +19,15 @@ aarch64:
         source_hash: '5d6ede3368eac8e74ead70489aa7e4e663fe1ccfbb9763a6ac55991d55b70354'
       suffix: tgz
 
+arm64:
+  arch: aarch64
+  pkg:
+    docker:
+      use_upstream: archive
+      archive:
+        source_hash: '5d6ede3368eac8e74ead70489aa7e4e663fe1ccfbb9763a6ac55991d55b70354'
+      suffix: tgz
+
 armel:
   arch: armel
   pkg:
