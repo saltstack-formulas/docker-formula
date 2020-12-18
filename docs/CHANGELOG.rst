@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`1.1.1 <https://github.com/saltstack-formulas/docker-formula/compare/v1.1.0...v1.1.1>`_ (2020-12-18)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **compose-ng:** add support for setting container devices (\ `2b04ee7 <https://github.com/saltstack-formulas/docker-formula/commit/2b04ee788e047a5283703199afea9e007f9d9c1e>`_\ )
+
 `1.1.0 <https://github.com/saltstack-formulas/docker-formula/compare/v1.0.0...v1.1.0>`_ (2020-12-18)
 --------------------------------------------------------------------------------------------------------
 

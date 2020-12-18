@@ -18,7 +18,7 @@ This list is sorted by the number of commits per contributor in *descending* ord
      - 111
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars2.githubusercontent.com/u/10231489?v=4' width='36' height='36' alt='@myii'>`
      - `@myii <https://github.com/myii>`_
-     - 51
+     - 52
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars3.githubusercontent.com/u/1121702?v=4' width='36' height='36' alt='@cdarwin'>`
      - `@cdarwin <https://github.com/cdarwin>`_
      - 25
@@ -55,6 +55,9 @@ This list is sorted by the number of commits per contributor in *descending* ord
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars1.githubusercontent.com/u/34718107?v=4' width='36' height='36' alt='@VBH-Jenkins'>`
      - `@VBH-Jenkins <https://github.com/VBH-Jenkins>`_
      - 5
+   * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars2.githubusercontent.com/u/16061886?v=4' width='36' height='36' alt='@japtain-cack'>`
+     - `@japtain-cack <https://github.com/japtain-cack>`_
+     - 3
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars1.githubusercontent.com/u/117961?v=4' width='36' height='36' alt='@babilen5'>`
      - `@babilen5 <https://github.com/babilen5>`_
      - 3
@@ -72,9 +75,6 @@ This list is sorted by the number of commits per contributor in *descending* ord
      - 2
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars1.githubusercontent.com/u/821695?v=4' width='36' height='36' alt='@mingfang'>`
      - `@mingfang <https://github.com/mingfang>`_
-     - 2
-   * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars2.githubusercontent.com/u/16061886?v=4' width='36' height='36' alt='@japtain-cack'>`
-     - `@japtain-cack <https://github.com/japtain-cack>`_
      - 2
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars0.githubusercontent.com/u/534313?v=4' width='36' height='36' alt='@Poil'>`
      - `@Poil <https://github.com/Poil>`_
