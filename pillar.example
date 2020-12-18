@@ -149,6 +149,23 @@ docker:
             delay: 5s
             max_attempts: 3
             window: 120s
+      mycroft01:
+        image: "mycroftai/docker-mycroft"
+        container_name: "mycroft01"
+        ports:
+          - "8181:8181/tcp"
+          - "8181:8181/udp"
+        environment:
+          "PULSE_SERVER": "unix:${XDG_RUNTIME_DIR}/pulse/native"
+        volumes:
+          - "/opt/mycroft/mycroft01:/root/.mycroft"
+          - "/run/user/1001/pulse/native:/run/user/1001/pulse/native"
+          - "/var/run/pulse/.config/pulse/cookie:/root/.config/pulse/cookie"
+        devices:
+          - "/dev/snd"
+        restart: "always"
+        tty: true
+        stdin_open: true
 
   swarm:
     # Per https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.swarm.html
