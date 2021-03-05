@@ -13,11 +13,21 @@ Centos:
       - procps
       - yum-utils
 
+OEL:
+  pkg:
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
+
 Amazon:
   pkg:
     docker:
-      name: docker
-      repo: null
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/7/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
 
 Fedora:
   pkg:
