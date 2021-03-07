@@ -27,7 +27,7 @@ stages:
   - *stage_release
 
 ###############################################################################
-# `lint` stage: `commitlint` & `pre-commit`
+# `lint` stage: `commitlint`, `pre-commit` & `rubocop` (latest, failure allowed)
 ###############################################################################
 commitlint:
   stage: *stage_lint

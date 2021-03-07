@@ -17,6 +17,7 @@ ignore: |
   test/**/states/**/*.sls
   .kitchen/
   docker/osfamilymap.yaml
+  docker/osmap.yaml
 
 yaml-files:
   # Default settings
