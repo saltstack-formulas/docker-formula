@@ -39,7 +39,7 @@ docker:
 
       name: docker-ce
       service:
-        name: dockerd
+        name: docker
         env: ''
       suffix: tgz
       commands:

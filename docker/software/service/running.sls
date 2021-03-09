@@ -44,12 +44,13 @@ include:
         {%- endif %}
     - enable: True
         {%- if grains.kernel|lower == 'linux' %}
-    - onlyif: systemctl list-unit-files | grep {{ d.pkg.docker.service.name }} >/dev/null 2>&1
 
 {{ formula }}-software-service-running-docker-fail-notify:
-  test.show_notification:
-    - text: |
-        * Rebooting your host is recommended!
+  test.fail_without_changes:
+    - comment: |
+        Formula is trying to start '{{ d.pkg.docker.service.name }}' service
+        but failed, is it a correct name for Docker service in your OS?
+
         In certain circumstances the docker service will not start.
         Your kernel is missing some modules, or not in ideal state.
         See https://github.com/moby/moby/blob/master/contrib/check-config.sh
