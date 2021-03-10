@@ -18,15 +18,22 @@ Amazon Linux-2:
 CentOS Linux-8:
   pkg:
     deps:
-      # selinux-policy
       - selinux-policy-minimum
       - python3-dnf-plugin-versionlock
+      - python3-pip
+      - iptables
+      - git
+      - tar
 
 CentOS Linux-7:
   pkg:
     deps:
       - selinux-policy-minimum
       - yum-plugin-versionlock
+      - python3-pip
+      - iptables
+      - git
+      - tar
 
 CentOS-6:
   pkg:
