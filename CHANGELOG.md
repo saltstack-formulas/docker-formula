@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.1.2](https://github.com/saltstack-formulas/docker-formula/compare/v1.1.1...v1.1.2) (2021-03-10)
+
+
+### Bug Fixes
+
+* **osmap:** use CentOS settings as basis for Oracle & Amazon Linux ([28d40b3](https://github.com/saltstack-formulas/docker-formula/commit/28d40b3082f8309f828aa60224c715024bbe53af))
+
+
+### Code Refactoring
+
+* **map files:** cleanup and small fixes ([f839b06](https://github.com/saltstack-formulas/docker-formula/commit/f839b0664c82c544359ec367a7379cf2d6085aa4))
+
+
+### Continuous Integration
+
+* **commitlint:** ensure `upstream/master` uses main repo URL [skip ci] ([648666d](https://github.com/saltstack-formulas/docker-formula/commit/648666d0590960f0f2a513c219ac7405bab62eb5))
+* **gemfile+lock:** use `ssf` customised `kitchen-docker` repo [skip ci] ([d88eac1](https://github.com/saltstack-formulas/docker-formula/commit/d88eac16001c45c1c5314fc58ddf70fd7fadb73f))
+* **github/kitchen:** use GitHub Actions for Linux testing [skip ci] ([1febf87](https://github.com/saltstack-formulas/docker-formula/commit/1febf87eb0b135914f7d0fac77381f52121cab28))
+* **gitlab-ci:** add `rubocop` linter (with `allow_failure`) [skip ci] ([a5b95c0](https://github.com/saltstack-formulas/docker-formula/commit/a5b95c01377db3ab9f63210234ac19aa51043c88))
+* **kitchen+ci:** use latest pre-salted images (after CVE) [skip ci] ([2e15ae3](https://github.com/saltstack-formulas/docker-formula/commit/2e15ae3eff47dd19b153dac440a323cbbacfd5d5))
+* **pre-commit:** update hook for `rubocop` [skip ci] ([8624eb0](https://github.com/saltstack-formulas/docker-formula/commit/8624eb06f0847e64743b5e8cb398d0ac3ad930b1))
+
 ## [1.1.1](https://github.com/saltstack-formulas/docker-formula/compare/v1.1.0...v1.1.1) (2020-12-18)
 
 
