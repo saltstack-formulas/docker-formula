@@ -11,10 +11,14 @@
 
 {{ formula }}-software-docker-archive-install:
         {%- if 'deps' in d.pkg and d.pkg.deps %}
-            {%- if grains.os|lower == 'centos' %}
+            {%- if grains.os|lower in ('centos', 'redhat') %}
+                # python-docker package is not available or too old on CentOS, RedHat
                 # https://github.com/saltstack/salt/issues/58920
   pip.installed:
     - name: docker
+    - reload_modules: {{ d.misc.reload or true }}
+    - require:
+      - pkg: {{ formula }}-software-docker-archive-install
             {%- endif %}
   pkg.installed:
     - names: {{ d.pkg.deps|json }}
