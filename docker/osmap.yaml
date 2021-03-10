@@ -7,7 +7,7 @@ FreeBSD:
     deps:
       - devel/py-pip
 
-Centos:
+CentOS:
   pkg:
     deps:
       - procps
