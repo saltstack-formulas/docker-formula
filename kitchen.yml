@@ -491,6 +491,7 @@ suites:
       state_top:
         base:
           '*':
+            - docker._mapdata
             - docker
       pillars:
         top.sls:
@@ -507,6 +508,7 @@ suites:
       state_top:
         base:
           '*':
+            - docker._mapdata
             - docker
       pillars:
         top.sls:
@@ -523,6 +525,7 @@ suites:
       state_top:
         base:
           '*':
+            - docker._mapdata
             - docker.clean
       pillars:
         top.sls:
