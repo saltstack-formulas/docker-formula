@@ -94,7 +94,7 @@
         workdir: {{ d.dir.lib }}
         env: {{ d.pkg.docker.service.env }}
         stop: ''
-        start: {{ d.pkg.docker.path }}/{{ d.pkg.docker.service.name }}
+        start: {{ d.pkg.docker.path }}/dockerd
   cmd.run:
     - name: systemctl daemon-reload
     - require:

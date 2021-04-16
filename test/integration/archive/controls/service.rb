@@ -3,9 +3,9 @@
 control 'Docker service' do
   title 'should be running and enabled'
 
-  describe service('dockerd') do
+  describe service('docker') do
     it { should be_installed }
     it { should be_enabled }
-    # it { should be_running }
+    it { should be_running } unless %w[fedora suse].include? platform[:family]
   end
 end

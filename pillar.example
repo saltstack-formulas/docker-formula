@@ -9,6 +9,7 @@ docker:
   pkg:
     docker:
       service:
+        name: docker
         env: HTTP_PROXY=http://YOUR_PROXY_IP_ADDRESS:PROXY_PORT
       environ:
         # yamllint disable-line rule:line-length
