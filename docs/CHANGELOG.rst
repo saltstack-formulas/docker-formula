@@ -2,6 +2,32 @@
 Changelog
 =========
 
+`2.0.0 <https://github.com/saltstack-formulas/docker-formula/compare/v1.1.2...v2.0.0>`_ (2021-04-16)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **service:** change default service name (\ `f8f96f1 <https://github.com/saltstack-formulas/docker-formula/commit/f8f96f1fab80e9edb6e2e86d4df310dc312bf9bb>`_\ )
+
+Tests
+^^^^^
+
+
+* standardise use of ``share`` suite & ``_mapdata`` state [skip ci] (\ `69d7e65 <https://github.com/saltstack-formulas/docker-formula/commit/69d7e65e9f5b6982e758ab0e04d177b16ebd2d7c>`_\ )
+* **service:** enable for ``archive`` and ``package`` suites (\ `c168ee1 <https://github.com/saltstack-formulas/docker-formula/commit/c168ee110e80c993869ec38cab6a16782ea60fef>`_\ )
+
+BREAKING CHANGES
+^^^^^^^^^^^^^^^^
+
+
+* **service:** due changes in default service name, on systems
+  where 'archive' installation method is used, duplicate service
+  will be created. This can be avoided by updating pillar with
+  'docker:pkg:docker:service:name: dockerd'. Due fact that 'archive'
+  method is default this change may affect a large number of users
+
 `1.1.2 <https://github.com/saltstack-formulas/docker-formula/compare/v1.1.1...v1.1.2>`_ (2021-03-10)
 --------------------------------------------------------------------------------------------------------
 
