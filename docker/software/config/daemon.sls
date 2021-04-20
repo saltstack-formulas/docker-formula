@@ -5,7 +5,7 @@
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 {%- set formula = d.formula %}
 
-    {%- if 'config' in d.pkg.docker and d.pkg.docker.config %}
+    {%- if 'daemon_config' in d.pkg.docker and d.pkg.docker.daemon_config %}
         {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
         {%- set sls_archive = tplroot ~ '.software.archive.install' %}
         {%- set sls_desktop = tplroot ~ '.software.desktop.install' %}
