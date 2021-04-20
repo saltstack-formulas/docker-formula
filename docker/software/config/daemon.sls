@@ -14,11 +14,11 @@
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
-{{ formula }}-software-config-file-managed-config_file:
+{{ formula }}-software-daemon-file-managed-daemon_file:
   file.managed:
-    - name: {{ d.pkg.docker.config_file }}
+    - name: {{ d.pkg.docker.daemon_config_file }}
     - source: {{ files_switch(['daemon.json.jinja'],
-                              lookup=formula ~ '-software-config-file-managed-config_file'
+                              lookup=formula ~ '-software-daemon-file-managed-daemon_file'
                  )
               }}
     - makedirs: True
@@ -29,7 +29,7 @@ include:
               {%- endif %}
     - template: jinja
     - context:
-      config: {{ d.pkg.docker.config|json }}
+      config: {{ d.pkg.docker.daemon_config|json }}
     - require:
       - sls: {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
