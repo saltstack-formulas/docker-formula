@@ -17,7 +17,7 @@ include:
 {{ formula }}-software-config-file-managed-config_file:
   file.managed:
     - name: {{ d.pkg.docker.config_file }}
-    - source: {{ files_switch(['config.sh.jinja'],
+    - source: {{ files_switch(['daemon.json.jinja'],
                               lookup=formula ~ '-software-config-file-managed-config_file'
                  )
               }}
