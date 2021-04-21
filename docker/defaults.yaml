@@ -32,10 +32,12 @@ docker:
 
     docker:
       version: '19.03.9'  # archive package version
-      config_file: /etc/default/docker   # /etc/docker/daemon.json
+      config_file: /etc/default/docker
       config: {}
       environ_file: /etc/default/docker
       environ: {}
+      daemon_config_file: /etc/docker/daemon.json
+      daemon_config: {}
 
       name: docker-ce
       service:
