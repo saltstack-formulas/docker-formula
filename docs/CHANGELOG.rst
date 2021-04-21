@@ -2,6 +2,21 @@
 Changelog
 =========
 
+`2.0.1 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.0...v2.0.1>`_ (2021-04-21)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **config:** remove empty daemon.json (\ `3631fdb <https://github.com/saltstack-formulas/docker-formula/commit/3631fdb2cc6ed50d26f6ffd9cb9bccf31edaf5d5>`_\ )
+* **config:** revert previous changes in file.sls (\ `1cdfb57 <https://github.com/saltstack-formulas/docker-formula/commit/1cdfb57b6bbbc2f13c1877b71fcd18fc1274518b>`_\ )
+* **config:** write config dictionary to daemon.json (\ `0e6febc <https://github.com/saltstack-formulas/docker-formula/commit/0e6febc5f104f5d6de232bf0d49226b53c1a8644>`_\ )
+* **config:** write config dictionary to daemon.json (\ `413cf58 <https://github.com/saltstack-formulas/docker-formula/commit/413cf58b4f283af4d3a3aa8595e21fd56828d310>`_\ )
+* **config:** write daemon_config dictionary to daemon.json (\ `4af9866 <https://github.com/saltstack-formulas/docker-formula/commit/4af9866f04632a0bcad8ce930ef85f219559693f>`_\ )
+* **config:** write daemon_config dictionary to daemon.json (\ `ea2505b <https://github.com/saltstack-formulas/docker-formula/commit/ea2505b98871c1da8f7fff1a801157d1cee14ac5>`_\ )
+* **python-docker:** install with pip (\ `7d73e8a <https://github.com/saltstack-formulas/docker-formula/commit/7d73e8aca45e2e1e95ace6add1f665271519840c>`_\ )
+
 `2.0.0 <https://github.com/saltstack-formulas/docker-formula/compare/v1.1.2...v2.0.0>`_ (2021-04-16)
 --------------------------------------------------------------------------------------------------------
 
