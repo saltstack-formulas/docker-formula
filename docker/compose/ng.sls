@@ -16,18 +16,6 @@ include:
         {%- set required_networks = [] %}
 
 {{ formula }}-compose-ng-{{ id }}-present:
-        {%- if 'deps' in d.pkg and d.pkg.deps %}
-            {%- if grains.os|lower == 'centos' %}
-                # https://github.com/saltstack/salt/issues/58920
-  pip.installed:
-    - name: docker
-            {%- endif %}
-  pkg.installed:
-    - names: {{ d.pkg.deps|json }}
-    - reload_modules: {{ d.misc.reload or true }}
-    - require_in:
-      - docker_image: {{ formula }}-compose-ng-{{ id }}-present
-        {%- endif %}
   docker_image.present:
     - force: {{ d.misc.force_present }}
         {%- if ':' in container.image %}

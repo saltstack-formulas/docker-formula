@@ -17,6 +17,15 @@ include:
             {%- if 'deps' in d.pkg and d.pkg.deps %}
 
 {{ formula }}-software-package-install-deps:
+                {%- if grains.os|lower in ('centos', 'redhat') %}
+                    # python-docker package is not available or too old on CentOS, RedHat
+                    # https://github.com/saltstack/salt/issues/58920
+  pip.installed:
+    - name: docker
+    - reload_modules: {{ d.misc.reload or true }}
+    - require:
+      - pkg: {{ formula }}-software-package-install-deps
+                {%- endif %}
   pkg.installed:
     - names: {{ d.pkg.deps|json }}
     - require_in:
