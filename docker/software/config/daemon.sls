@@ -33,4 +33,10 @@ include:
     - require:
       - sls: {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
+    {%- else %}
+
+{{ formula }}-software-daemon-file-managed-daemon_file:
+  file.absent:
+    - name: {{ d.pkg.docker.daemon_config_file }}
+
     {%- endif %}
