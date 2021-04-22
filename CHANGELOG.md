@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.1...v2.0.2) (2021-04-22)
+
+
+### Bug Fixes
+
+* **config:** remove block comment from daemon file ([d075a0f](https://github.com/saltstack-formulas/docker-formula/commit/d075a0f926f5f17bee3932f4fe48f9b4627ad899))
+
 ## [2.0.1](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.0...v2.0.1) (2021-04-21)
 
 
