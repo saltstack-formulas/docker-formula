@@ -6,4 +6,7 @@ control 'Docker configuration' do
   describe file('/etc/default/docker') do
     it { should_not exist }
   end
+  describe file('/etc/docker/daemon.json') do
+    it { should_not exist }
+  end
 end

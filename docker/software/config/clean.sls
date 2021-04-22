@@ -16,5 +16,6 @@ include:
     - names:
       - {{ d.pkg.docker.config_file }}
       - {{ d.pkg.docker.environ_file }}
+      - {{ d.pkg.docker.daemon_config_file }}
     - require:
       - sls: {{ sls_archive_clean if d.pkg.docker.use_upstream == 'archive' else sls_package_clean }}

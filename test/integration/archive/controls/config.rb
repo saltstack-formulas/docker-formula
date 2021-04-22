@@ -11,4 +11,7 @@ control 'Docker configuration' do
     its('content') { should include 'DOCKER_OPTS="-s btrfs --dns 8.8.8.8"' }
     its('content') { should include 'export http_proxy="http://172.17.42.1:3128"' }
   end
+  describe file('/etc/docker/daemon.json') do
+    it { should_not exist }
+  end
 end
