@@ -17,6 +17,8 @@ docker:
         # yamllint disable-line rule:line-length
         - DOCKER_OPTS="-s btrfs --dns 8.8.8.8"
         - export http_proxy="http://172.17.42.1:3128"
+      daemon_config:
+        insecure-registries: []
 
   containers:
     running:
