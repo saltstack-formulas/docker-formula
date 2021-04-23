@@ -2,6 +2,21 @@
 Changelog
 =========
 
+`2.0.3 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.2...v2.0.3>`_ (2021-04-23)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **config:** remove daemon.json in clean states (\ `6967a98 <https://github.com/saltstack-formulas/docker-formula/commit/6967a98eb5219370996b6091f81eace56870174a>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **kitchen+gitlab:** adjust matrix to add ``3003`` [skip ci] (\ `2c7fe1a <https://github.com/saltstack-formulas/docker-formula/commit/2c7fe1ad322667664eb38782bd95a311c3c387cf>`_\ )
+
 `2.0.2 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.1...v2.0.2>`_ (2021-04-22)
 --------------------------------------------------------------------------------------------------------
 
