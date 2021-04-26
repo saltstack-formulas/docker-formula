@@ -9,7 +9,7 @@
         {%- if grains.kernel|lower in ('linux',) %}
             {%- if d.pkg.docker.use_upstream == 'repo' %}
 include:
-  - .package.repo.clean
+  - .repo.clean
             {%- endif %}
 
 {{ formula }}-software-package-clean-pkg:
@@ -18,7 +18,7 @@ include:
     - reload_modules: {{ d.misc.reload|default(true, true) }}
             {%- if d.pkg.docker.use_upstream == 'repo' %}
     - require:
-      - pkgrepo: {{ formula }}-package-repo-absent
+      - pkgrepo: {{ formula }}-software-package-repo-absent
             {%- endif %}
 
         {%- elif grains.os_family == 'MacOS' %}
