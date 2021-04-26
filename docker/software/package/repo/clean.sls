@@ -5,8 +5,12 @@
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 {%- set formula = d.formula %}
 
+    {%- if 'repo' in d.pkg.docker and d.pkg.docker.repo %}
+
 {{ formula }}-software-package-repo-absent:
   pkgrepo.absent:
     - name: {{ d.pkg.docker.repo.name }}
     - onlyif:
       - {{ d.pkg.docker.repo }}
+
+    {%- endif %}
