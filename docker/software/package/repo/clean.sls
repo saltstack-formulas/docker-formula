@@ -10,7 +10,5 @@
 {{ formula }}-software-package-repo-absent:
   pkgrepo.absent:
     - name: {{ d.pkg.docker.repo.name }}
-    - onlyif:
-      - {{ d.pkg.docker.repo }}
 
     {%- endif %}
