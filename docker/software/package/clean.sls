@@ -6,7 +6,7 @@
 {%- set formula = d.formula %}
 
     {%- if d.pkg.docker.use_upstream in ('package', 'repo') %}
-        {%- set enable_repo = grains.os_family in ('RedHat', 'Debian') %}
+        {%- set enable_repo = grains.os_family in ('RedHat', 'Debian') and d.pkg.docker.get('repo') %}
         {%- if enable_repo %}
             {%- set sls_repo_clean = tplroot ~ '.software.package.repo.clean' %}
 include:
