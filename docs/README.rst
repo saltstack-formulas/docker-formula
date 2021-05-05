@@ -1,5 +1,3 @@
-.. _readme:
-
 docker-formula
 ==============
 
@@ -47,10 +45,10 @@ Contributing to this repo
 
 **Commit message formatting is significant!!**
 
-Please see :ref:`How to contribute <CONTRIBUTING>` for more details.
+Please see `How to contribute <https://github.com/saltstack-formulas/.github/blob/master/CONTRIBUTING.rst>`_ for more details.
 
 Available Meta states
-----------------------
+---------------------
 
 .. contents::
    :local:
@@ -90,8 +88,8 @@ This state installs Docker (see https://docs.docker.com/engine/install and https
 
 This state installs Dockerd daemon on Linux (systemd support).
 
-``docker.software.service``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+``docker.software.service.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This state stops Dockerd daemon on Linux (systemd support).
 
@@ -233,7 +231,7 @@ Saltstack `swarm module` state support (See https://docs.saltstack.com/en/latest
 Opposite of `docker.swarm` state (See https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.swarm.html).
 
 ``docker.networks``
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 Create docker networks
 
@@ -270,27 +268,26 @@ Where ``[platform]`` is the platform name defined in ``kitchen.yml``,
 e.g. ``debian-9-2019-2-py3``.
 
 ``bin/kitchen converge``
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Creates the Docker instance and runs the ``docker`` main state, ready for testing.
 
 ``bin/kitchen verify``
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
 Runs the ``inspec`` tests on the actual instance.
 
 ``bin/kitchen destroy``
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Removes the Docker instance.
 
 ``bin/kitchen test``
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
 Runs all of the stages above in one go: i.e. ``destroy`` + ``converge`` + ``verify`` + ``destroy``.
 
 ``bin/kitchen login``
-^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
 Gives you SSH access to the instance for manual testing.
-
