@@ -79,8 +79,8 @@ docker:
       binary:
         options: ''
         # yamllint disable-line rule:line-length
-        source: 'https://dl.bintray.com/docker-compose/master/docker-compose-Linux-x86_64'
-        source_hash: '3c96b57ea8e0027aee7e1a3023f7599bcecae54e77bcfd5f4e65a59672637e54'
+        source: 'https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64'
+        source_hash: 'f3f10cf3dbb8107e9ba2ea5f23c1d2159ff7321d16f0a23051d68d8e2547b323'
 
   networks: {}
   containers:
