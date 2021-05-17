@@ -2,13 +2,13 @@
 # vim: ft=jinja
 
 {%- set tplroot = tpldir.split('/')[0] %}
-{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
-{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
-{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
-{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
-{%- import_yaml tplroot ~ "/codenamemap.yaml" as codenamemap %}
-{%- import_yaml tplroot ~ "/osarchmap.yaml" as osarchmap %}
-{%- import_yaml tplroot ~ "/cpuarchmap.yaml" as cpuarchmap %}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings with context %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap with context %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap with context %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap with context %}
+{%- import_yaml tplroot ~ "/codenamemap.yaml" as codenamemap with context %}
+{%- import_yaml tplroot ~ "/osarchmap.yaml" as osarchmap with context %}
+{%- import_yaml tplroot ~ "/cpuarchmap.yaml" as cpuarchmap with context %}
 
 {%- set _config = salt['config.get'](tplroot, default={}) %}
 {%- set defaults = salt['grains.filter_by'](
