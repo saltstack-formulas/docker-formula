@@ -2,6 +2,29 @@
 Changelog
 =========
 
+`2.0.4 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.3...v2.0.4>`_ (2021-05-19)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **config:** replace URLs to bintray.com by github.com (\ `2f60c21 <https://github.com/saltstack-formulas/docker-formula/commit/2f60c21fc26dd790c4cb032671a59b477d0197e1>`_\ )
+* **config:** use 'latest' docker-compose versions from github (\ `d434e25 <https://github.com/saltstack-formulas/docker-formula/commit/d434e2570dbf775b34e2c98d835f9c0378709a63>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* add ``arch-master`` to matrix and update ``.travis.yml`` [skip ci] (\ `cec557a <https://github.com/saltstack-formulas/docker-formula/commit/cec557abc7dc77a5227852c216047855ab726c57>`_\ )
+
+Documentation
+^^^^^^^^^^^^^
+
+
+* remove files which aren't formula-specific [skip ci] (\ `4cc1e70 <https://github.com/saltstack-formulas/docker-formula/commit/4cc1e706e4778e1aabef0023da668eaafef8afff>`_\ )
+* **readme:** fix headings and links [skip ci] (\ `b0021eb <https://github.com/saltstack-formulas/docker-formula/commit/b0021eb3a379fe8db7bed584fb6ae5d1f060a581>`_\ )
+
 `2.0.3 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.2...v2.0.3>`_ (2021-04-23)
 --------------------------------------------------------------------------------------------------------
 
