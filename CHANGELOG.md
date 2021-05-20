@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.5](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.4...v2.0.5) (2021-05-20)
+
+
+### Bug Fixes
+
+* **clean:** fix clean of repo for the RedHat family ([4730a72](https://github.com/saltstack-formulas/docker-formula/commit/4730a725c773430674199be99fb8fffe65febfdf))
+* **clean:** fix syntax error in networks.clean state file ([53db7ad](https://github.com/saltstack-formulas/docker-formula/commit/53db7ad8ef775f725b5c339402473d15075174bc))
+* **clean:** fix syntax error with use_upstream repo ([428dccd](https://github.com/saltstack-formulas/docker-formula/commit/428dccdf15c119c32847db0374ff71152157c8a9))
+* **clean:** make repo install and clean states consistent ([af16bb7](https://github.com/saltstack-formulas/docker-formula/commit/af16bb7781da5653c50375c8e197591a2b7d7c09))
+* **clean:** remove invalid 'onlyif' statement from repo.clean ([b3c56cb](https://github.com/saltstack-formulas/docker-formula/commit/b3c56cb9e1784d217eb4cba71caf2a75b0c3a0d4))
+* **clean:** update condition that enables the repo ([1f5190b](https://github.com/saltstack-formulas/docker-formula/commit/1f5190b20c77cfc5be0e9150cce09b46917f7fdd))
+* **clean:** update enable_repo condition to be more robust ([a7f382f](https://github.com/saltstack-formulas/docker-formula/commit/a7f382f3f511b7006f0980efae3db7164ae2a95d))
+* **test:** add missing tests to verify installation from repo ([5a62de9](https://github.com/saltstack-formulas/docker-formula/commit/5a62de91f8afeed3656d939951739c6da3907b9d))
+
+
+### Continuous Integration
+
+* **kitchen:** use `master` as default instance for Arch Linux [skip ci] ([161d8cc](https://github.com/saltstack-formulas/docker-formula/commit/161d8cc691eb3dd389cdbce4f3cd54013c3093ed))
+
 ## [2.0.4](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.3...v2.0.4) (2021-05-19)
 
 
