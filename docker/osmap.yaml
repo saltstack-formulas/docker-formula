@@ -21,6 +21,20 @@ OEL:
         file: '/etc/yum.repos.d/docker-ce.repo'
         gpgkey: 'https://download.docker.com/linux/centos/gpg'
 
+Raspbian:
+  pkg:
+    docker:
+      repo:
+                {%- if 'oscodename' in grains %}
+        name: deb [arch=armhf] https://download.docker.com/linux/{{ grains.os|lower }} {{ grains.oscodename }} stable
+                {%- endif %}
+        file: /etc/apt/sources.list.d/docker.list
+        gpgkey: "https://download.docker.com/linux/{{ grains.os|lower }}/gpg"
+
+
+    compose:
+      name: docker-compose  
+      use_upstream: package   
 Amazon:
   pkg:
     docker:

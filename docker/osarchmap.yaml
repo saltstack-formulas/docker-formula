@@ -41,7 +41,11 @@ armhf:
   arch: armhf
   pkg:
     docker:
+                {%- if grains.os == 'Raspbian' %}
+      use_upstream: repo
+                {%- else %}
       use_upstream: archive
+                {%- endif %}
       archive:
         source_hash: '5e757cf65d99b0326f49cabbfc3b9a65151cb569f04fcb64a7a0c7424772c7cf'
       suffix: tgz
