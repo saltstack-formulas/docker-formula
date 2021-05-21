@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.6](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.5...v2.0.6) (2021-05-21)
+
+
+### Bug Fixes
+
+* **service:** reload the docker service when daemon.json has changed ([b34f434](https://github.com/saltstack-formulas/docker-formula/commit/b34f434a5ae35ee1fb54b7c542a59d5ba4ab32da))
+
 ## [2.0.5](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.4...v2.0.5) (2021-05-20)
 
 
