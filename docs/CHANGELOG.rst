@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`2.0.7 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.6...v2.0.7>`_ (2021-06-02)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **clean:** fix syntax error in networks.clean (\ `89cd4fc <https://github.com/saltstack-formulas/docker-formula/commit/89cd4fccf0109fb37a33a4de762b6a2c5c02bbc2>`_\ )
+
 `2.0.6 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.5...v2.0.6>`_ (2021-05-21)
 --------------------------------------------------------------------------------------------------------
 
