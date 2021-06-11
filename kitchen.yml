@@ -632,6 +632,23 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/package
+  - name: repo
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - docker._mapdata
+            - docker
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - docker
+      pillars_from_files:
+        docker.sls: test/salt/pillar/repo.sls
+    verifier:
+      inspec_tests:
+        - path: test/integration/package
   - name: clean
     provisioner:
       state_top:
@@ -645,7 +662,7 @@ suites:
             '*':
               - docker
       pillars_from_files:
-        docker.sls: test/salt/pillar/archive.sls
+        docker.sls: test/salt/pillar/repo.sls
     verifier:
       inspec_tests:
         - path: test/integration/clean

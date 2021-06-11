@@ -6,13 +6,14 @@
 {%- set formula = d.formula %}
 
     {%- if d.pkg.docker.use_upstream in ('package', 'repo') %}
+        {%- set enable_repo = grains.os_family in ('RedHat', 'Debian') and d.pkg.docker.get('repo') %}
         {%- set docker_pkg_version = d.version | default(d.pkg.version, true) %}
-        {%- if grains.os_family in ('RedHat', 'Debian') %}
+        {%- if enable_repo %}
             {%- set sls_repo_install = tplroot ~ '.software.package.repo.install' %}
-
 include:
   - {{ sls_repo_install }}
         {%- endif %}
+
         {%- if grains.kernel|lower in ('linux', 'darwin') %}
             {%- if 'deps' in d.pkg and d.pkg.deps %}
 
@@ -43,7 +44,7 @@ include:
             {%- if grains.os|lower not in ('suse',) %}
     - hold: {{ d.misc.hold|default(false, true) }}
             {%- endif %}
-            {%- if grains.os_family in ('RedHat', 'Debian') %}
+            {%- if enable_repo %}
     - require:
       - pkgrepo: {{ formula }}-software-package-repo-managed
             {%- endif %}

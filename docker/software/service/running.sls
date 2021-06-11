@@ -6,6 +6,7 @@
 {%- set formula = d.formula %}
 
     {%- if 'service' in d.pkg.docker and d.pkg.docker.service and grains.os != 'Windows' %}
+        {%- set sls_config_daemon = tplroot ~ '.software.config.daemon' %}
         {%- set sls_config_file = tplroot ~ '.software.config.file' %}
         {%- set sls_archive = tplroot ~ '.software.archive.install' %}
         {%- set sls_desktop = tplroot ~ '.software.desktop.install' %}
@@ -14,6 +15,7 @@
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
   - {{ sls_config_file }}
+  - {{ sls_config_daemon }}
 
         {%- if grains.kernel|lower == 'linux' %}
 
@@ -23,8 +25,9 @@ include:
     - onlyif: systemctl list-unit-files | grep {{ d.pkg.docker.service.name }} >/dev/null 2>&1
     - require_in:
       - service: {{ formula }}-software-service-running-docker
-            {%- if 'config' in d.pkg.docker and d.pkg.docker.config %}
     - require:
+      - sls: {{ sls_config_daemon }}
+            {%- if 'config' in d.pkg.docker and d.pkg.docker.config %}
       - sls: {{ sls_config_file }}
             {%- endif %}
             {%- if d.misc.firewall %}
@@ -38,11 +41,15 @@ include:
 {{ formula }}-software-service-running-docker:
   service.running:
     - name: {{ d.pkg.docker.service.name }}
-        {%- if 'config' in d.pkg.docker and d.pkg.docker.config %}
     - require:
+      - sls: {{ sls_config_daemon }}
+        {%- if 'config' in d.pkg.docker and d.pkg.docker.config %}
       - sls: {{ sls_config_file }}
         {%- endif %}
     - enable: True
+    - watch:
+      - file: {{ formula }}-software-daemon-file-managed-daemon_file
+
         {%- if grains.kernel|lower == 'linux' %}
 
 {{ formula }}-software-service-running-docker-fail-notify:

@@ -87,6 +87,10 @@ jobs:
           # - package-oraclelinux-7-master-py3
           # - clean-oraclelinux-7-master-py3
           # - oraclelinux-7-master-py3
+          # - archive-arch-base-latest-master-py3
+          # - package-arch-base-latest-master-py3
+          # - clean-arch-base-latest-master-py3
+          - arch-base-latest-master-py3
           # - archive-gentoo-stage3-latest-master-py3
           # - package-gentoo-stage3-latest-master-py3
           # - clean-gentoo-stage3-latest-master-py3
@@ -108,9 +112,6 @@ jobs:
           # - archive-oraclelinux-8-3003-0-py3
           # - archive-oraclelinux-7-3003-0-py3
           # - archive-arch-base-latest-3003-0-py3
-          # - package-arch-base-latest-3003-0-py3
-          # - clean-arch-base-latest-3003-0-py3
-          - arch-base-latest-3003-0-py3
           # - archive-gentoo-stage3-latest-3003-0-py3
           # - archive-gentoo-stage3-systemd-3003-0-py3
           # - archive-debian-10-3002-6-py3

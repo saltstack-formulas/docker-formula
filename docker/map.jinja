@@ -62,6 +62,7 @@
                     {%- if 'source_hash' in p.binary and p.binary.source_hash %}
                         {%- do p.binary.update({'name': p.path, 'source_hash': p.binary.source_hash}) %}
                     {%- else %}
+                        {%- set url = p.binary.source %}
                         {%- do p.binary.update({'name': p.path, 'source_hash': url ~ '.sha256'}) %}
                     {%- endif %}
 

@@ -59,6 +59,7 @@ RedHat:
     docker:
       # environ_file: /etc/sysconfig/docker
       repo:
+        name: docker-ce
         baseurl: 'https://download.docker.com/linux/{{ grains.os|lower }}/$releasever/$basearch/stable'
         file: '/etc/yum.repos.d/docker-ce.repo'
         gpgkey: 'https://download.docker.com/linux/{{ grains.os|lower }}/gpg'
@@ -95,8 +96,8 @@ MacOS:
       name: docker-compose   # homebrew
       use_upstream: package   # Docker Desktop
       archive:
-        source: 'https://dl.bintray.com/docker-compose/master/docker-compose-Darwin-x86_64'
-        source_hash: 'c5e326611efa45cbaf5b338bf352cbf27e9eb7dff0619f77639cae1158f6571f'
+        source: 'https://github.com/docker/compose/releases/latest/download/docker-compose-Darwin-x86_64'
+        source_hash: null
 
 Windows:
   div: '\'
