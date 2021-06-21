@@ -34,12 +34,6 @@ platforms:
       provision_command:
         - apt-get update
         - apt-get -qq -y install conntrack
-  - name: ubuntu-1604-tiamat-py3
-    driver:
-      image: saltimages/salt-tiamat-py3:ubuntu-16.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
   - name: centos-8-tiamat-py3
     driver:
       image: saltimages/salt-tiamat-py3:centos-8
@@ -91,12 +85,6 @@ platforms:
       provision_command:
         - apt-get update
         - apt-get -qq -y install conntrack
-  - name: ubuntu-1604-master-py3
-    driver:
-      image: saltimages/salt-master-py3:ubuntu-16.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
   - name: centos-8-master-py3
     driver:
       image: saltimages/salt-master-py3:centos-8
@@ -115,11 +103,6 @@ platforms:
   - name: fedora-33-master-py3
     driver:
       image: saltimages/salt-master-py3:fedora-33
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: fedora-32-master-py3
-    driver:
-      image: saltimages/salt-master-py3:fedora-32
       provision_command:
         - dnf install conntrack-tools -y
   - name: opensuse-leap-152-master-py3
@@ -221,11 +204,6 @@ platforms:
       image: saltimages/salt-3003.0-py3:fedora-33
       provision_command:
         - dnf install conntrack-tools -y
-  - name: fedora-32-3003-0-py3
-    driver:
-      image: saltimages/salt-3003.0-py3:fedora-32
-      provision_command:
-        - dnf install conntrack-tools -y
   - name: amazonlinux-2-3003-0-py3
     driver:
       image: saltimages/salt-3003.0-py3:amazonlinux-2
@@ -285,12 +263,6 @@ platforms:
       provision_command:
         - apt-get update
         - apt-get -qq -y install conntrack
-  - name: ubuntu-1604-3002-6-py3
-    driver:
-      image: saltimages/salt-3002.6-py3:ubuntu-16.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
   - name: centos-8-3002-6-py3
     driver:
       image: saltimages/salt-3002.6-py3:centos-8
@@ -309,11 +281,6 @@ platforms:
   - name: fedora-33-3002-6-py3
     driver:
       image: saltimages/salt-3002.6-py3:fedora-33
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: fedora-32-3002-6-py3
-    driver:
-      image: saltimages/salt-3002.6-py3:fedora-32
       provision_command:
         - dnf install conntrack-tools -y
   - name: amazonlinux-2-3002-6-py3
@@ -399,12 +366,6 @@ platforms:
       provision_command:
         - apt-get update
         - apt-get -qq -y install conntrack
-  - name: ubuntu-1604-3001-7-py3
-    driver:
-      image: saltimages/salt-3001.7-py3:ubuntu-16.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
   - name: centos-8-3001-7-py3
     driver:
       image: saltimages/salt-3001.7-py3:centos-8
@@ -423,11 +384,6 @@ platforms:
   - name: fedora-33-3001-7-py3
     driver:
       image: saltimages/salt-3001.7-py3:fedora-33
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: fedora-32-3001-7-py3
-    driver:
-      image: saltimages/salt-3001.7-py3:fedora-32
       provision_command:
         - dnf install conntrack-tools -y
   - name: opensuse-leap-152-3001-7-py3
@@ -505,12 +461,6 @@ platforms:
       provision_command:
         - apt-get update
         - apt-get -qq -y install conntrack
-  - name: ubuntu-1604-3000-9-py3
-    driver:
-      image: saltimages/salt-3000.9-py3:ubuntu-16.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
   - name: centos-8-3000-9-py3
     driver:
       image: saltimages/salt-3000.9-py3:centos-8
@@ -549,12 +499,6 @@ platforms:
   - name: ubuntu-1804-3000-9-py2
     driver:
       image: saltimages/salt-3000.9-py2:ubuntu-18.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-  - name: ubuntu-1604-3000-9-py2
-    driver:
-      image: saltimages/salt-3000.9-py2:ubuntu-16.04
       provision_command:
         - apt-get update
         - apt-get -qq -y install conntrack
