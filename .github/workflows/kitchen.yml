@@ -26,6 +26,8 @@ jobs:
           # - archive-amazonlinux-2-tiamat-py3
           # - archive-oraclelinux-8-tiamat-py3
           # - archive-oraclelinux-7-tiamat-py3
+          # - archive-almalinux-8-tiamat-py3
+          # - archive-rockylinux-8-tiamat-py3
           # - archive-debian-10-master-py3
           # - package-debian-10-master-py3
           # - repo-debian-10-master-py3
@@ -66,6 +68,11 @@ jobs:
           # - repo-fedora-33-master-py3
           # - clean-fedora-33-master-py3
           - fedora-33-master-py3
+          # - archive-opensuse-leap-153-master-py3
+          # - package-opensuse-leap-153-master-py3
+          # - repo-opensuse-leap-153-master-py3
+          # - clean-opensuse-leap-153-master-py3
+          - opensuse-leap-153-master-py3
           # - archive-opensuse-leap-152-master-py3
           # - package-opensuse-leap-152-master-py3
           # - repo-opensuse-leap-152-master-py3
@@ -106,20 +113,33 @@ jobs:
           # - repo-gentoo-stage3-systemd-master-py3
           # - clean-gentoo-stage3-systemd-master-py3
           # - gentoo-stage3-systemd-master-py3
-          # - archive-debian-10-3003-0-py3
-          # - archive-debian-9-3003-0-py3
-          # - archive-ubuntu-2004-3003-0-py3
-          # - archive-ubuntu-1804-3003-0-py3
-          # - archive-centos-8-3003-0-py3
-          # - archive-centos-7-3003-0-py3
-          # - archive-fedora-34-3003-0-py3
-          # - archive-fedora-33-3003-0-py3
-          # - archive-amazonlinux-2-3003-0-py3
-          # - archive-oraclelinux-8-3003-0-py3
-          # - archive-oraclelinux-7-3003-0-py3
-          # - archive-arch-base-latest-3003-0-py3
-          # - archive-gentoo-stage3-latest-3003-0-py3
-          # - archive-gentoo-stage3-systemd-3003-0-py3
+          # - archive-almalinux-8-master-py3
+          # - package-almalinux-8-master-py3
+          # - repo-almalinux-8-master-py3
+          # - clean-almalinux-8-master-py3
+          - almalinux-8-master-py3
+          # - archive-rockylinux-8-master-py3
+          # - package-rockylinux-8-master-py3
+          # - repo-rockylinux-8-master-py3
+          # - clean-rockylinux-8-master-py3
+          - rockylinux-8-master-py3
+          # - archive-debian-10-3003-1-py3
+          # - archive-debian-9-3003-1-py3
+          # - archive-ubuntu-2004-3003-1-py3
+          # - archive-ubuntu-1804-3003-1-py3
+          # - archive-centos-8-3003-1-py3
+          # - archive-centos-7-3003-1-py3
+          # - archive-fedora-34-3003-1-py3
+          # - archive-fedora-33-3003-1-py3
+          # - archive-opensuse-leap-153-3003-1-py3
+          # - archive-opensuse-leap-152-3003-1-py3
+          # - archive-opensuse-tmbl-latest-3003-1-py3
+          # - archive-amazonlinux-2-3003-1-py3
+          # - archive-oraclelinux-8-3003-1-py3
+          # - archive-oraclelinux-7-3003-1-py3
+          # - archive-arch-base-latest-3003-1-py3
+          # - archive-gentoo-stage3-latest-3003-1-py3
+          # - archive-gentoo-stage3-systemd-3003-1-py3
           # - archive-debian-10-3002-6-py3
           # - archive-debian-9-3002-6-py3
           # - archive-ubuntu-2004-3002-6-py3
@@ -132,8 +152,9 @@ jobs:
           # - archive-oraclelinux-8-3002-6-py3
           # - archive-oraclelinux-7-3002-6-py3
           # - archive-arch-base-latest-3002-6-py3
-          # - archive-gentoo-stage3-latest-3002-5-py3
-          # - archive-gentoo-stage3-systemd-3002-5-py3
+          # - archive-gentoo-stage3-latest-3002-6-py3
+          # - archive-gentoo-stage3-systemd-3002-6-py3
+          # - archive-opensuse-leap-153-3002-2-py3
           # - archive-opensuse-leap-152-3002-2-py3
           # - archive-opensuse-tmbl-latest-3002-2-py3
           # - archive-debian-10-3001-7-py3
@@ -144,27 +165,29 @@ jobs:
           # - archive-centos-7-3001-7-py3
           # - archive-fedora-34-3001-7-py3
           # - archive-fedora-33-3001-7-py3
+          # - archive-opensuse-leap-153-3001-7-py3
           # - archive-opensuse-leap-152-3001-7-py3
           # - archive-opensuse-tmbl-latest-3001-7-py3
           # - archive-amazonlinux-2-3001-7-py3
           # - archive-oraclelinux-8-3001-7-py3
           # - archive-oraclelinux-7-3001-7-py3
           # - archive-arch-base-latest-3001-7-py3
-          # - archive-gentoo-stage3-latest-3001-6-py3
-          # - archive-gentoo-stage3-systemd-3001-6-py3
+          # - archive-gentoo-stage3-latest-3001-7-py3
+          # - archive-gentoo-stage3-systemd-3001-7-py3
           # - archive-debian-10-3000-9-py3
           # - archive-debian-9-3000-9-py3
           # - archive-ubuntu-1804-3000-9-py3
           # - archive-centos-8-3000-9-py3
           # - archive-centos-7-3000-9-py3
+          # - archive-opensuse-leap-153-3000-9-py3
           # - archive-opensuse-leap-152-3000-9-py3
           # - archive-amazonlinux-2-3000-9-py3
           # - archive-oraclelinux-8-3000-9-py3
           # - archive-oraclelinux-7-3000-9-py3
+          # - archive-gentoo-stage3-latest-3000-9-py3
+          # - archive-gentoo-stage3-systemd-3000-9-py3
           # - archive-ubuntu-1804-3000-9-py2
           # - archive-arch-base-latest-3000-9-py2
-          # - archive-gentoo-stage3-latest-3000-8-py3
-          # - archive-gentoo-stage3-systemd-3000-8-py3
     steps:
       - name: 'Check out code'
         uses: 'actions/checkout@v2'
