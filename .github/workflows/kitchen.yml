@@ -17,6 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         instance:
+          # - archive-debian-11-tiamat-py3
           # - archive-debian-10-tiamat-py3
           # - archive-debian-9-tiamat-py3
           # - archive-ubuntu-2004-tiamat-py3
@@ -28,6 +29,11 @@ jobs:
           # - archive-oraclelinux-7-tiamat-py3
           # - archive-almalinux-8-tiamat-py3
           # - archive-rockylinux-8-tiamat-py3
+          # - archive-debian-11-master-py3
+          # - package-debian-11-master-py3
+          # - repo-debian-11-master-py3
+          # - clean-debian-11-master-py3
+          - debian-11-master-py3
           # - archive-debian-10-master-py3
           # - package-debian-10-master-py3
           # - repo-debian-10-master-py3
@@ -123,6 +129,7 @@ jobs:
           # - repo-rockylinux-8-master-py3
           # - clean-rockylinux-8-master-py3
           - rockylinux-8-master-py3
+          # - archive-debian-11-3003-1-py3
           # - archive-debian-10-3003-1-py3
           # - archive-debian-9-3003-1-py3
           # - archive-ubuntu-2004-3003-1-py3
@@ -140,6 +147,7 @@ jobs:
           # - archive-arch-base-latest-3003-1-py3
           # - archive-gentoo-stage3-latest-3003-1-py3
           # - archive-gentoo-stage3-systemd-3003-1-py3
+          # - archive-debian-11-3002-6-py3
           # - archive-debian-10-3002-6-py3
           # - archive-debian-9-3002-6-py3
           # - archive-ubuntu-2004-3002-6-py3
