@@ -1,5 +1,57 @@
 # Changelog
 
+## [2.0.7](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.6...v2.0.7) (2021-06-02)
+
+
+### Bug Fixes
+
+* **clean:** fix syntax error in networks.clean ([89cd4fc](https://github.com/saltstack-formulas/docker-formula/commit/89cd4fccf0109fb37a33a4de762b6a2c5c02bbc2))
+
+## [2.0.6](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.5...v2.0.6) (2021-05-21)
+
+
+### Bug Fixes
+
+* **service:** reload the docker service when daemon.json has changed ([b34f434](https://github.com/saltstack-formulas/docker-formula/commit/b34f434a5ae35ee1fb54b7c542a59d5ba4ab32da))
+
+## [2.0.5](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.4...v2.0.5) (2021-05-20)
+
+
+### Bug Fixes
+
+* **clean:** fix clean of repo for the RedHat family ([4730a72](https://github.com/saltstack-formulas/docker-formula/commit/4730a725c773430674199be99fb8fffe65febfdf))
+* **clean:** fix syntax error in networks.clean state file ([53db7ad](https://github.com/saltstack-formulas/docker-formula/commit/53db7ad8ef775f725b5c339402473d15075174bc))
+* **clean:** fix syntax error with use_upstream repo ([428dccd](https://github.com/saltstack-formulas/docker-formula/commit/428dccdf15c119c32847db0374ff71152157c8a9))
+* **clean:** make repo install and clean states consistent ([af16bb7](https://github.com/saltstack-formulas/docker-formula/commit/af16bb7781da5653c50375c8e197591a2b7d7c09))
+* **clean:** remove invalid 'onlyif' statement from repo.clean ([b3c56cb](https://github.com/saltstack-formulas/docker-formula/commit/b3c56cb9e1784d217eb4cba71caf2a75b0c3a0d4))
+* **clean:** update condition that enables the repo ([1f5190b](https://github.com/saltstack-formulas/docker-formula/commit/1f5190b20c77cfc5be0e9150cce09b46917f7fdd))
+* **clean:** update enable_repo condition to be more robust ([a7f382f](https://github.com/saltstack-formulas/docker-formula/commit/a7f382f3f511b7006f0980efae3db7164ae2a95d))
+* **test:** add missing tests to verify installation from repo ([5a62de9](https://github.com/saltstack-formulas/docker-formula/commit/5a62de91f8afeed3656d939951739c6da3907b9d))
+
+
+### Continuous Integration
+
+* **kitchen:** use `master` as default instance for Arch Linux [skip ci] ([161d8cc](https://github.com/saltstack-formulas/docker-formula/commit/161d8cc691eb3dd389cdbce4f3cd54013c3093ed))
+
+## [2.0.4](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.3...v2.0.4) (2021-05-19)
+
+
+### Bug Fixes
+
+* **config:** replace URLs to bintray.com by github.com ([2f60c21](https://github.com/saltstack-formulas/docker-formula/commit/2f60c21fc26dd790c4cb032671a59b477d0197e1))
+* **config:** use 'latest' docker-compose versions from github ([d434e25](https://github.com/saltstack-formulas/docker-formula/commit/d434e2570dbf775b34e2c98d835f9c0378709a63))
+
+
+### Continuous Integration
+
+* add `arch-master` to matrix and update `.travis.yml` [skip ci] ([cec557a](https://github.com/saltstack-formulas/docker-formula/commit/cec557abc7dc77a5227852c216047855ab726c57))
+
+
+### Documentation
+
+* remove files which aren't formula-specific [skip ci] ([4cc1e70](https://github.com/saltstack-formulas/docker-formula/commit/4cc1e706e4778e1aabef0023da668eaafef8afff))
+* **readme:** fix headings and links [skip ci] ([b0021eb](https://github.com/saltstack-formulas/docker-formula/commit/b0021eb3a379fe8db7bed584fb6ae5d1f060a581))
+
 ## [2.0.3](https://github.com/saltstack-formulas/docker-formula/compare/v2.0.2...v2.0.3) (2021-04-23)
 
 

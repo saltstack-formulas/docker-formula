@@ -13,10 +13,11 @@
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
-        {%- for name in docker.networks %}
+        {%- for name in d.networks %}
 
 {{ formula }}-network-{{ name }}-absent:
   docker_network.absent:
     - name: {{ name }}
 
         {%- endfor %}
+    {%- endif %}

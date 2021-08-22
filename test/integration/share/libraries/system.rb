@@ -36,7 +36,7 @@ class SystemResource < Inspec.resource(1)
 
   def build_platform_name
     case inspec.platform[:name]
-    when 'amazon', 'oracle'
+    when 'amazon', 'oracle', 'rocky'
       "#{inspec.platform[:name]}linux"
     when /^windows_/
       inspec.platform[:family]
@@ -49,7 +49,7 @@ class SystemResource < Inspec.resource(1)
   def build_platform_release
     case inspec.platform[:name]
     when 'amazon'
-      # `2018` relase is named `1` in kitchen.yaml
+      # `2018` relase is named `1` in `kitchen.yml`
       inspec.platform[:release].gsub(/2018.*/, '1')
     when 'arch'
       'base-latest'

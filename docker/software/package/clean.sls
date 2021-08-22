@@ -6,17 +6,19 @@
 {%- set formula = d.formula %}
 
     {%- if d.pkg.docker.use_upstream in ('package', 'repo') %}
-        {%- if grains.kernel|lower in ('linux',) %}
-            {%- if d.pkg.docker.use_upstream == 'repo' %}
+        {%- set enable_repo = grains.os_family in ('RedHat', 'Debian') and d.pkg.docker.get('repo') %}
+        {%- if enable_repo %}
+            {%- set sls_repo_clean = tplroot ~ '.software.package.repo.clean' %}
 include:
-  - .repo.clean
-            {%- endif %}
+  - {{ sls_repo_clean }}
+        {%- endif %}
 
+        {%- if grains.kernel|lower in ('linux', 'darwin') %}
 {{ formula }}-software-package-clean-pkg:
   pkg.removed:
     - name: {{ d.pkg.docker.name }}
     - reload_modules: {{ d.misc.reload|default(true, true) }}
-            {%- if d.pkg.docker.use_upstream == 'repo' %}
+            {%- if enable_repo %}
     - require:
       - pkgrepo: {{ formula }}-software-package-repo-absent
             {%- endif %}

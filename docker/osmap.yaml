@@ -13,6 +13,26 @@ CentOS:
       - procps
       - yum-utils
 
+AlmaLinux:
+  pkg:
+    deps:
+      - python3-dnf-plugin-versionlock
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
+
+Rocky:
+  pkg:
+    deps:
+      - python3-dnf-plugin-versionlock
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
+
 OEL:
   pkg:
     docker:
