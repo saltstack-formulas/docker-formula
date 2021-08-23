@@ -3,5 +3,5 @@
 
 include:
   # .containers.clean
-  - .compose.clean
+  # .compose.clean
   - .software.clean

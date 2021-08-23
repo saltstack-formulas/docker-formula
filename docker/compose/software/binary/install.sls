@@ -7,7 +7,8 @@
 
     {%- if grains.kernel|lower in ('linux',) %}
         {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
-        {%- if d.pkg.compose.use_upstream == 'binary' and 'binary' in d.pkg.compose %}
+        {%- set composer = d.pkg.compose %}
+        {%- if composer.use_upstream == 'binary' and 'binary' in composer and 'path' in composer %}
 
 {{ formula }}-compose-software-binary-install:
         {%- if 'deps' in d.pkg and d.pkg.deps %}
@@ -27,12 +28,12 @@
       - file: {{ formula }}-compose-software-binary-install
         {%- endif %}
   file.managed:
-    - unless: test -x {{ d.pkg.compose.path }}/docker-compose
-    - name: {{ d.pkg.compose.path }}/docker-compose
-    - source: {{ d.pkg.compose.binary.source }}
+    - unless: test -x {{ composer.path }}/docker-compose
+    - name: {{ composer.path }}/docker-compose
+    - source: {{ composer.binary.source }}
     - clean: {{ d.misc.clean }}
-        {%- if 'source_hash' in d.pkg.compose.binary and d.pkg.compose.binary.source_hash %}
-    - source_hash: {{ d.pkg.compose.binary.source_hash }}
+        {%- if 'source_hash' in composer.binary and composer.binary.source_hash %}
+    - source_hash: {{ composer.binary.source_hash }}
         {%- else %}
     - skip_verify: True
         {%- endif %}
@@ -47,12 +48,12 @@
         - mode
 
             {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
-                {%- for cmd in d.pkg.compose.commands|unique %}
+                {%- for cmd in composer.commands|unique %}
 
 {{ formula }}-compose-software-binary-install-symlink-{{ cmd }}:
   file.symlink:
     - name: /usr/local/bin/{{ cmd }}
-    - target: {{ d.pkg.compose.path }}/{{ cmd }}
+    - target: {{ composer.path }}/{{ cmd }}
     - force: True
     - onchanges:
       - file: {{ formula }}-compose-software-binary-install

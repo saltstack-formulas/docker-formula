@@ -15,11 +15,13 @@ include:
   file.absent:
     - names:
       - {{ d.dir.tmp }}/docker-compose
+           {%- if 'path' in d.pkg.compose %}
       - {{ d.pkg.compose.path }}
-        {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
-            {%- for cmd in d.pkg.compose.commands|unique %}
+           {%- endif %}
+           {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
+               {%- for cmd in d.pkg.compose.commands|unique %}
       - /usr/local/bin/{{ cmd }}
-            {%- endfor %}
-        {%- endif %}
+               {%- endfor %}
+           {%- endif %}
 
     {%- endif %}

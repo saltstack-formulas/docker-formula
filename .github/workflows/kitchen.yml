@@ -38,7 +38,7 @@ jobs:
           # - package-debian-10-master-py3
           # - repo-debian-10-master-py3
           # - clean-debian-10-master-py3
-          - debian-10-master-py3
+          - dockeronly-debian-10-master-py3
           # - archive-debian-9-master-py3
           # - package-debian-9-master-py3
           # - repo-debian-9-master-py3
@@ -53,7 +53,7 @@ jobs:
           # - package-ubuntu-1804-master-py3
           # - repo-ubuntu-1804-master-py3
           # - clean-ubuntu-1804-master-py3
-          - ubuntu-1804-master-py3
+          - composeclean-ubuntu-1804-master-py3
           # - archive-centos-8-master-py3
           # - package-centos-8-master-py3
           # - repo-centos-8-master-py3
@@ -73,7 +73,7 @@ jobs:
           # - package-fedora-33-master-py3
           # - repo-fedora-33-master-py3
           # - clean-fedora-33-master-py3
-          - fedora-33-master-py3
+          - dockeronly-fedora-33-master-py3
           # - archive-opensuse-leap-153-master-py3
           # - package-opensuse-leap-153-master-py3
           # - repo-opensuse-leap-153-master-py3
