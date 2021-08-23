@@ -14,7 +14,7 @@
     {%- set rootuser = salt['cmd.run']("stat -f '%Su' /dev/console") %}
     {%- set rootgroup = salt['cmd.run']("stat -f '%Sg' /dev/console") %}
 {%- elif grains.os == 'Windows' %}
-    {%- set rootuser = salt['cmd.run']("id -un") %}
+    {%- set rootuser = salt['cmd.run']("whoami").split("\\")[1] %}
 {%- endif %}
 
 Arch:
