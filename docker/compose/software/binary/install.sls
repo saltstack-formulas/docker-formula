@@ -8,7 +8,7 @@
     {%- if grains.kernel|lower in ('linux',) %}
         {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
         {%- set composer = d.pkg.compose %}
-        {%- if composer.use_upstream == 'binary' and 'binary' in composer. and 'path' in composer %}
+        {%- if composer.use_upstream == 'binary' and 'binary' in composer and 'path' in composer %}
 
 {{ formula }}-compose-software-binary-install:
         {%- if 'deps' in d.pkg and d.pkg.deps %}
