@@ -8,6 +8,8 @@ docker:
 
   pkg:
     docker:
+      # choice is 'archive' (default) or 'repo' (yum/apt)
+      use_upstream: archive   # or repo
       service:
         name: docker
         env: HTTP_PROXY=http://YOUR_PROXY_IP_ADDRESS:PROXY_PORT
