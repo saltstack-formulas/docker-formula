@@ -43,6 +43,7 @@ docker:
       service:
         name: docker
         env: ''
+        limitnofile: ~
       suffix: tgz
       commands:
         - docker

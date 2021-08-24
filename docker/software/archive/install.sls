@@ -95,6 +95,7 @@
         name: {{ d.pkg.docker.service.name }}
         user: {{ d.identity.rootuser }}
         group: {{ d.identity.rootgroup }}
+        limitnofile: {{ d.pkg.docker.service.limitnofile }}
         workdir: {{ d.dir.lib }}
         env: {{ d.pkg.docker.service.env }}
         stop: ''
