@@ -3,13 +3,12 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if grains.kernel|lower in ('linux',) %}
         {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
         {%- if d.pkg.compose.use_upstream == 'binary' and 'binary' in d.pkg.compose %}
 
-{{ formula }}-compose-software-binary-install:
+docker-compose-software-binary-install:
         {%- if 'deps' in d.pkg and d.pkg.deps %}
             {%- if grains.os|lower in ('centos', 'redhat') %}
                 # python-docker package is not available or too old on CentOS, RedHat
@@ -18,13 +17,13 @@
     - name: docker
     - reload_modules: {{ d.misc.reload or true }}
     - require:
-      - pkg: {{ formula }}-compose-software-binary-install
+      - pkg: docker-compose-software-binary-install
             {%- endif %}
   pkg.installed:
     - names: {{ d.pkg.deps|json }}
     - reload_modules: {{ d.misc.reload or true }}
     - require_in:
-      - file: {{ formula }}-compose-software-binary-install
+      - file: docker-compose-software-binary-install
         {%- endif %}
   file.managed:
     - unless: test -x {{ d.pkg.compose.path }}/docker-compose
@@ -49,22 +48,22 @@
             {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
                 {%- for cmd in d.pkg.compose.commands|unique %}
 
-{{ formula }}-compose-software-binary-install-symlink-{{ cmd }}:
+docker-compose-software-binary-install-symlink-{{ cmd }}:
   file.symlink:
     - name: /usr/local/bin/{{ cmd }}
     - target: {{ d.pkg.compose.path }}/{{ cmd }}
     - force: True
     - onchanges:
-      - file: {{ formula }}-compose-software-binary-install
+      - file: docker-compose-software-binary-install
     - require:
-      - file: {{ formula }}-compose-software-binary-install
+      - file: docker-compose-software-binary-install
 
                 {%- endfor %}
             {%- endif %}
         {%- endif %}
     {%- else %}
 
-{{ formula }}-compose-software-binary-install-other:
+docker-compose-software-binary-install-other:
   test.show_notification:
     - text: |
         The docker-compose binary is unavailable/unselected for {{ salt['grains.get']('finger', grains.os_family) }}

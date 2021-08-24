@@ -3,7 +3,6 @@
 ---
 docker:
   div: '/'
-  formula: docker
   supported:
     - docker
     - compose

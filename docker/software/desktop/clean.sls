@@ -3,9 +3,8 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
-{{ formula }}-docker-desktop-absent:
+docker-desktop-absent:
   file.absent:
     - names:
       - {{ d.pkg.docker.path }}

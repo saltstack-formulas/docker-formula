@@ -3,7 +3,6 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if grains.kernel|lower in ('linux',) %}
         {%- set sls_alternatives_clean = tplroot ~ '.software.alternatives.clean' %}
@@ -11,7 +10,7 @@
 include:
   - {{ sls_alternatives_clean }}
 
-{{ formula }}-docker-archive-absent:
+docker-archive-absent:
   file.absent:
     - names:
       - {{ d.dir.tmp }}/docker

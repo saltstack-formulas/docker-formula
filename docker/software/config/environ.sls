@@ -3,7 +3,6 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
         {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
@@ -14,11 +13,11 @@
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
-{{ formula }}-software-environ-file-managed-environ_file:
+docker-software-environ-file-managed-environ_file:
   file.managed:
     - name: {{ d.pkg.docker.environ_file }}
     - source: {{ files_switch(['config.sh.jinja'],
-                              lookup=formula ~ '-software-environ-file-managed-environ_file'
+                              lookup='docker-software-environ-file-managed-environ_file'
                  )
               }}
     - makedirs: True
