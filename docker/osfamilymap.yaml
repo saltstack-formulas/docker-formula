@@ -52,7 +52,6 @@ RedHat:
   pkg:
     deps:
       - python3-pip
-      # python3-docker
       - iptables
       - git
       - tar
@@ -67,8 +66,8 @@ RedHat:
 Suse:
   pkg:
     deps:
-      - python3-pip
-      - python3-docker
+      - python38-pip
+      - python38-docker
       - tar
       - gzip
     docker:

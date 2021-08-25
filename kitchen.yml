@@ -730,6 +730,7 @@ suites:
         base:
           '*':
             - docker._mapdata
+            - docker
             - docker.clean
       pillars:
         top.sls:

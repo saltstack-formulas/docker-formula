@@ -2,6 +2,6 @@
 # vim: ft=sls
 
 include:
-  # .containers.clean
-  # .compose.clean
+  - .containers.clean
+  - .compose.clean
   - .software.clean

@@ -16,7 +16,9 @@ include:
         {%- if grains.kernel|lower in ('linux', 'darwin') %}
 {{ formula }}-software-package-clean-pkg:
   pkg.removed:
-    - name: {{ d.pkg.docker.name }}
+    - names:
+      - {{ d.pkg.docker.name }}
+      - python3-docker
     - reload_modules: {{ d.misc.reload|default(true, true) }}
             {%- if enable_repo %}
     - require:

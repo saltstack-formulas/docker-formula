@@ -31,6 +31,7 @@ CentOS Linux-7:
       - selinux-policy-minimum
       - yum-plugin-versionlock
       - python3-pip
+      - python36-docker
       - iptables
       - git
       - tar

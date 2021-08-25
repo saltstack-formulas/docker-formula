@@ -78,12 +78,12 @@ jobs:
           # - package-opensuse-leap-153-master-py3
           # - repo-opensuse-leap-153-master-py3
           # - clean-opensuse-leap-153-master-py3
-          - opensuse-leap-153-master-py3
+          # opensuse-leap-153-master-py3
           # - archive-opensuse-leap-152-master-py3
           # - package-opensuse-leap-152-master-py3
           # - repo-opensuse-leap-152-master-py3
           # - clean-opensuse-leap-152-master-py3
-          - opensuse-leap-152-master-py3
+          # opensuse-leap-152-master-py3
           # - archive-opensuse-tmbl-latest-master-py3
           # - package-opensuse-tmbl-latest-master-py3
           # - repo-opensuse-tmbl-latest-master-py3
