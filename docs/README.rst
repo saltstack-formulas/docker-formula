@@ -281,7 +281,7 @@ or the following SLS
 
 The provisioning of docker to raspbian uses functionality from https://docs.docker.com/engine/install/debian/#install-using-the-convenience-script. It specifically mentions
 Using these scripts is not recommended for production environments, and you should understand the potential risks before you use them:
-The reasons are stated as :
+The reasons are stated as:
 
 * The scripts require root or sudo privileges to run. Therefore, you should carefully examine and audit the scripts before running them.
 
