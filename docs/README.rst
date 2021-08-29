@@ -262,13 +262,14 @@ The Reason for this is as documented `here <https://forums.docker.com/t/failing-
 The summary reason is that the docker installer uses iptables for nat. Unfortunately Debian uses nftables. You can convert the entries over to nftables or just setup Debian to use the legacy iptables.
 On the target Raspberry Pi issue the following to resolve or incorporate the SLS before in your custom SLS
 
-.. code:: bash
+.. code-block:: bash
     sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
     sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
     sudo shutdown -r 0  # Do a restart, Docker.d should then function
 
 or the following SLS
-.. code:: yaml
+
+.. code-block:: yaml
     iptables:
       alternatives.set:
         - path:  /usr/sbin/iptables-legacy
