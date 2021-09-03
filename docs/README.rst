@@ -257,7 +257,8 @@ There are some caveats with regard to the support of this module on Rasberry Pi 
 
 * This module supports raspbian only when used from Salt 3002.6. Salt 3003.x fails with template isses.
 
-* Docker service is known to fail starting when freshly installed via this module on Rasbian Buster with all apt-get updates and upgrades performed. The error found in logs for failing to start is`dockerd: failed to create NAT chain DOCKER`
+* Docker service is known to fail starting when freshly installed via this module on Rasbian Buster with all apt-get updates and upgrades performed. The error found in logs for failing to start is :code:`dockerd: failed to create NAT chain DOCKER`
+  
 The Reason for this is as documented `here <https://forums.docker.com/t/failing-to-start-dockerd-failed-to-create-nat-chain-docker/78269>`_ . The following Fix followed by a restart fixes this.
 The summary reason is that the docker installer uses iptables for nat. Unfortunately Debian uses nftables. You can convert the entries over to nftables or just setup Debian to use the legacy iptables.
 On the target Raspberry Pi issue the following to resolve or incorporate the SLS before in your custom SLS
