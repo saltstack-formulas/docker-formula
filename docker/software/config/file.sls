@@ -3,7 +3,6 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if 'config' in d.pkg.docker and d.pkg.docker.config %}
         {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
@@ -14,11 +13,11 @@
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
-{{ formula }}-software-config-file-managed-config_file:
+docker-software-config-file-managed-config_file:
   file.managed:
     - name: {{ d.pkg.docker.config_file }}
     - source: {{ files_switch(['config.sh.jinja'],
-                              lookup=formula ~ '-software-config-file-managed-config_file'
+                              lookup='docker-software-config-file-managed-config_file'
                  )
               }}
     - makedirs: True

@@ -3,7 +3,6 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if 'networks' in d and d.networks %}
         {%- set sls_archive = tplroot ~ '.software.archive.install' %}
@@ -15,7 +14,7 @@ include:
 
         {%- for name in d.networks %}
 
-{{ formula }}-network-{{ name }}-absent:
+docker-network-{{ name }}-absent:
   docker_network.absent:
     - name: {{ name }}
 

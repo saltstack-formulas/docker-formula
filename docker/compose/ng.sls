@@ -4,18 +4,17 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
 include:
-  - {{ formula }}.compose.software
-  - {{ formula }}.networks
+  - docker.compose.software
+  - docker.networks
 
     {%- for name, container in d.compose.ng.items() %}
         {%- set id = container.container_name|d(name) %}
         {%- set required_containers = [] %}
         {%- set required_networks = [] %}
 
-{{ formula }}-compose-ng-{{ id }}-present:
+docker-compose-ng-{{ id }}-present:
   docker_image.present:
     - force: {{ d.misc.force_present }}
         {%- if ':' in container.image %}
@@ -26,7 +25,7 @@ include:
     - name: {{ container.image }}
         {%- endif %}
 
-{{ formula }}-compose-ng-{{ id }}-running:
+docker-compose-ng-{{ id }}-running:
   docker_container.running:
     - name: {{ id }}
     - image: {{ container.image }}
@@ -126,15 +125,15 @@ include:
             {%- endfor %}
         {%- endif %}
     - require:
-      - docker_image: {{ formula }}-compose-ng-{{ id }}-present
+      - docker_image: docker-compose-ng-{{ id }}-present
         {%- if required_containers is defined %}
             {%- for containerid in required_containers %}
-      - docker_image: {{ formula }}-compose-ng-{{ id }}-present
+      - docker_image: docker-compose-ng-{{ id }}-present
             {%- endfor %}
         {%- endif %}
         {%- if required_networks is defined %}
             {%- for networkid in required_networks %}
-      - docker_network: {{ formula }}-network-{{ networkid }}-present
+      - docker_network: docker-network-{{ networkid }}-present
             {%- endfor %}
         {%- endif %}
 

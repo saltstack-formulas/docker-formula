@@ -3,13 +3,12 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if 'applications' in d.compose and d.compose.applications %}
         {%- for service in d.compose.applications|unique %}
             {%- if 'path' in d.compose[service] and d.compose[service]['path'] %}
 
-{{ formula }}-compose-{{ service }}-start:
+docker-compose-{{ service }}-start:
   module.run:
     - name: dockercompose.start
     - path: {{ d.compose[service]['path'] }}
