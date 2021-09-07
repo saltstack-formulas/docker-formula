@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`2.1.1 <https://github.com/saltstack-formulas/docker-formula/compare/v2.1.0...v2.1.1>`_ (2021-09-07)
+--------------------------------------------------------------------------------------------------------
+
+Code Refactoring
+^^^^^^^^^^^^^^^^
+
+
+* **jinja2:** remove excessive jinja, not useful pattern (\ `#303 <https://github.com/saltstack-formulas/docker-formula/issues/303>`_\ ) (\ `a79f8d3 <https://github.com/saltstack-formulas/docker-formula/commit/a79f8d31cb2439bdf8ce0ef9f37b5913d392faa6>`_\ )
+
 `2.1.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.7...v2.1.0>`_ (2021-09-04)
 --------------------------------------------------------------------------------------------------------
 
