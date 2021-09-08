@@ -86,7 +86,4 @@
     {%- endfor %}
 {%- endif %}
 
-{%- if 'formula' not in d %}
-    {%- do d.update({'formula': 'docker'}) %}
-{%- endif %}
 {%- set data = d %}

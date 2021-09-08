@@ -17,7 +17,7 @@ docker-software-environ-file-managed-environ_file:
   file.managed:
     - name: {{ d.pkg.docker.environ_file }}
     - source: {{ files_switch(['environ.sh.jinja'],
-                              lookup=formula ~ '-software-environ-file-managed-environ_file'
+                              lookup='docker-software-environ-file-managed-environ_file'
                  )
               }}
     - makedirs: True
