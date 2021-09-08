@@ -3,7 +3,6 @@
 
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
-{%- set formula = d.formula %}
 
     {%- if 'daemon_config' in d.pkg.docker and d.pkg.docker.daemon_config %}
         {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
@@ -14,11 +13,11 @@
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
-{{ formula }}-software-daemon-file-managed-daemon_file:
+docker-software-daemon-file-managed-daemon_file:
   file.managed:
     - name: {{ d.pkg.docker.daemon_config_file }}
     - source: {{ files_switch(['daemon.json.jinja'],
-                              lookup=formula ~ '-software-daemon-file-managed-daemon_file'
+                              lookup='docker-software-daemon-file-managed-daemon_file'
                  )
               }}
     - makedirs: True
@@ -35,7 +34,7 @@ include:
 
     {%- else %}
 
-{{ formula }}-software-daemon-file-managed-daemon_file:
+docker-software-daemon-file-managed-daemon_file:
   file.absent:
     - name: {{ d.pkg.docker.daemon_config_file }}
 

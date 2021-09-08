@@ -2,6 +2,41 @@
 Changelog
 =========
 
+`2.1.1 <https://github.com/saltstack-formulas/docker-formula/compare/v2.1.0...v2.1.1>`_ (2021-09-07)
+--------------------------------------------------------------------------------------------------------
+
+Code Refactoring
+^^^^^^^^^^^^^^^^
+
+
+* **jinja2:** remove excessive jinja, not useful pattern (\ `#303 <https://github.com/saltstack-formulas/docker-formula/issues/303>`_\ ) (\ `a79f8d3 <https://github.com/saltstack-formulas/docker-formula/commit/a79f8d31cb2439bdf8ce0ef9f37b5913d392faa6>`_\ )
+
+`2.1.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.7...v2.1.0>`_ (2021-09-04)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* raspbian pi4 dockerd failing with segmentation fault, issue `#286 <https://github.com/saltstack-formulas/docker-formula/issues/286>`_ (\ `#287 <https://github.com/saltstack-formulas/docker-formula/issues/287>`_\ ) (\ `85fb5d4 <https://github.com/saltstack-formulas/docker-formula/commit/85fb5d4dedb59bcc367967dff7495f24ab0ddd23>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **3003.1:** update inc. AlmaLinux, Rocky & ``rst-lint`` [skip ci] (\ `4d373a1 <https://github.com/saltstack-formulas/docker-formula/commit/4d373a1167e5a935e22dca5e4e55f954c6fcaaae>`_\ )
+* **gemfile+lock:** use ``ssf`` customised ``inspec`` repo [skip ci] (\ `16cc758 <https://github.com/saltstack-formulas/docker-formula/commit/16cc7581e3dd2552aa3ab1cf82c9492bae5582b3>`_\ )
+* **kitchen:** move ``provisioner`` block & update ``run_command`` [skip ci] (\ `4ea5f26 <https://github.com/saltstack-formulas/docker-formula/commit/4ea5f26104a1649b61036dd2550c91764f017f65>`_\ )
+* **kitchen+ci:** update with latest ``3003.2`` pre-salted images [skip ci] (\ `4fc33ad <https://github.com/saltstack-formulas/docker-formula/commit/4fc33ada834a28cd3fc714a9fc75fffe46173143>`_\ )
+* add Debian 11 Bullseye & update ``yamllint`` configuration [skip ci] (\ `1e822d0 <https://github.com/saltstack-formulas/docker-formula/commit/1e822d0855a1d46326fc5fa2559b302a18f6969c>`_\ )
+* **kitchen+gitlab:** remove Ubuntu 16.04 & Fedora 32 (EOL) [skip ci] (\ `0615c75 <https://github.com/saltstack-formulas/docker-formula/commit/0615c75ffc2debaca35b3901d1a9a2a17a74aee8>`_\ )
+
+Features
+^^^^^^^^
+
+
+* **alma+rocky:** add platforms (based on CentOS 8) [skip ci] (\ `39fc09a <https://github.com/saltstack-formulas/docker-formula/commit/39fc09a89d4389b1f93cff1d83a9b2d66038e6c0>`_\ )
+
 `2.0.7 <https://github.com/saltstack-formulas/docker-formula/compare/v2.0.6...v2.0.7>`_ (2021-06-02)
 --------------------------------------------------------------------------------------------------------
 

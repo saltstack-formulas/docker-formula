@@ -28,7 +28,7 @@ The other states support container managmement.
    :scale: 100%
    :target: https://github.com/semantic-release/semantic-release
 
-A SaltStack formula for Docker on MacOS, GNU/Linux and Windows.
+A SaltStack formula for Docker on MacOS, GNU/Linux,  Windows and Raspberry Pi (4b).
 
 .. contents:: **Table of Contents**
    :depth: 1
@@ -59,6 +59,7 @@ Available Meta states
 *Meta-state (This is a state that includes other states)*.
 
 This state installs the Docker solution (see https://docs.docker.io)
+for Raspberry Pi support please see `Notes <https://github.com/saltstack-formulas/docker-formula/blob/master/docs/README.rst#notes-on-raspberry-pi-support>`_
 
 ``docker.clean``
 ^^^^^^^^^^^^^^^^
@@ -245,6 +246,54 @@ Sub-states
 ----------
 
 Sub-states are available inside sub-directories.
+
+
+Notes on Raspberry Pi support
+-----------------------------
+
+There are some caveats with regard to the support of this module on Rasberry Pi 4b's.
+
+* This module has only been tested with Raspberry Pi 4b using Rasbian Os Version Buster
+
+* This module supports raspbian only when used from Salt 3002.6. Salt 3003.x fails with template isses.
+
+* Docker service is known to fail starting when freshly installed via this module on Rasbian Buster with all apt-get updates and upgrades performed. The error found in logs for failing to start is :code:`dockerd: failed to create NAT chain DOCKER`
+  
+The Reason for this is as documented `here <https://forums.docker.com/t/failing-to-start-dockerd-failed-to-create-nat-chain-docker/78269>`_ . The following Fix followed by a restart fixes this.
+The summary reason is that the docker installer uses iptables for nat. Unfortunately Debian uses nftables. You can convert the entries over to nftables or just setup Debian to use the legacy iptables.
+On the target Raspberry Pi issue the following to resolve or incorporate the SLS before in your custom SLS
+
+.. code-block:: bash
+
+    sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+    sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+    sudo shutdown -r 0  # Do a restart, Docker.d should then function
+
+or the following SLS
+
+.. code-block:: yaml
+
+    iptables:
+      alternatives.set:
+        - path:  /usr/sbin/iptables-legacy
+    ip6tables:
+      alternatives.set:
+        - path:  /usr/sbin/ip6tables-legacy
+
+The provisioning of docker to raspbian uses functionality from https://docs.docker.com/engine/install/debian/#install-using-the-convenience-script. It specifically mentions
+Using these scripts is not recommended for production environments, and you should understand the potential risks before you use them:
+The reasons are stated as :
+
+* The scripts require root or sudo privileges to run. Therefore, you should carefully examine and audit the scripts before running them.
+
+* The scripts attempt to detect your Linux distribution and version and configure your package management system for you. In addition, the scripts do not allow you to customize any installation parameters. This may lead to an unsupported configuration, either from Docker’s point of view or from your own organization’s guidelines and standards.
+
+* The scripts install all dependencies and recommendations of the package manager without asking for confirmation. This may install a large number of packages, depending on the current configuration of your host machine.
+
+* The script does not provide options to specify which version of Docker to install, and installs the latest version that is released in the “edge” channel.
+
+* Do not use the convenience script if Docker has already been installed on the host machine using another mechanism.
+
 
 
 Testing
