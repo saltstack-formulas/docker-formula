@@ -2,6 +2,23 @@
 Changelog
 =========
 
+`2.2.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.1.1...v2.2.0>`_ (2021-09-08)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **coupling:** allow docker install without compose (\ `#298 <https://github.com/saltstack-formulas/docker-formula/issues/298>`_\ ) (\ `aaedb00 <https://github.com/saltstack-formulas/docker-formula/commit/aaedb001f17e02ee44fb0609d04dda5d1c395916>`_\ )
+* **environ:** remove superfluous config dict (\ `#301 <https://github.com/saltstack-formulas/docker-formula/issues/301>`_\ ) (\ `67ba2af <https://github.com/saltstack-formulas/docker-formula/commit/67ba2af44e2ff76b2e498c8f53cdf2410da458c1>`_\ )
+* **windows:** change id to whoami (\ `#299 <https://github.com/saltstack-formulas/docker-formula/issues/299>`_\ ) (\ `c0780ad <https://github.com/saltstack-formulas/docker-formula/commit/c0780adcacf629bd639a248fb135c7be8b94ddb5>`_\ )
+
+Features
+^^^^^^^^
+
+
+* **limitnofile:** add support to systemd (\ `#302 <https://github.com/saltstack-formulas/docker-formula/issues/302>`_\ ) (\ `299a1d0 <https://github.com/saltstack-formulas/docker-formula/commit/299a1d087a96515fcf35739163e52330f4d7b297>`_\ )
+
 `2.1.1 <https://github.com/saltstack-formulas/docker-formula/compare/v2.1.0...v2.1.1>`_ (2021-09-07)
 --------------------------------------------------------------------------------------------------------
 
