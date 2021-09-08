@@ -15,6 +15,9 @@ ExecStart={{ start }}
 ExecStop={{ stop }}
 PIDFile=/var/run/{{ name }}.pid
 Environment={{ '' if not env else env }}
+{%- if limitnofile != 'None' %}
+LimitNOFILE={{ limitnofile }}
+{%- endif %}
 
 [Install]
 WantedBy=multi-user.target
