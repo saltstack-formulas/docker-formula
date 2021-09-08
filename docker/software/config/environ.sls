@@ -16,7 +16,7 @@ include:
 docker-software-environ-file-managed-environ_file:
   file.managed:
     - name: {{ d.pkg.docker.environ_file }}
-    - source: {{ files_switch(['config.sh.jinja'],
+    - source: {{ files_switch(['environ.sh.jinja'],
                               lookup='docker-software-environ-file-managed-environ_file'
                  )
               }}
@@ -28,7 +28,7 @@ docker-software-environ-file-managed-environ_file:
               {%- endif %}
     - template: jinja
     - context:
-      config: {{ d.pkg.docker.environ|json }}
+      environ: {{ d.pkg.docker.environ|json }}
     - require:
       - sls: {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 

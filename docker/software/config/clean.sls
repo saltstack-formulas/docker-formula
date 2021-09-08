@@ -13,7 +13,6 @@ include:
 docker-software-config-clean:
   file.absent:
     - names:
-      - {{ d.pkg.docker.config_file }}
       - {{ d.pkg.docker.environ_file }}
       - {{ d.pkg.docker.daemon_config_file }}
     - require:

@@ -11,7 +11,7 @@ docker:
   pkg:
     docker:
       use_upstream: repo
-      config:
+      environ:
         # yamllint disable-line rule:line-length
         - OPTIONS='-s devicemapper --storage-opt dm.fs=xfs --exec-opt native.cgroupdriver=cgroupfs --selinux-enabled'
         # yamllint disable-line rule:line-length

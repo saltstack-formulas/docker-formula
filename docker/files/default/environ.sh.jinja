@@ -3,8 +3,8 @@
 # Your changes may be overwritten.
 ########################################################################
 
-{%- if config %}
-    {%- for line in config|unique %}
+{%- if environ %}
+    {%- for line in environ|unique %}
 {{ line }}
     {%- endfor %}
 {%- endif %}
