@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`2.3.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.2.0...v2.3.0>`_ (2021-09-08)
+--------------------------------------------------------------------------------------------------------
+
+Features
+^^^^^^^^
+
+
+* **ng:** improve ng.clean state and ci (\ `#300 <https://github.com/saltstack-formulas/docker-formula/issues/300>`_\ ) (\ `92883e2 <https://github.com/saltstack-formulas/docker-formula/commit/92883e288cb9d0d76695e6f3867a2f6e3d5bef74>`_\ )
+
 `2.2.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.1.1...v2.2.0>`_ (2021-09-08)
 --------------------------------------------------------------------------------------------------------
 
