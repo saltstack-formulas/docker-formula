@@ -17,6 +17,7 @@ AlmaLinux:
   pkg:
     deps:
       - python3-dnf-plugin-versionlock
+      - python3-docker
     docker:
       repo:
         baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
@@ -27,6 +28,7 @@ Rocky:
   pkg:
     deps:
       - python3-dnf-plugin-versionlock
+      - python3-docker
     docker:
       repo:
         baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
@@ -68,3 +70,4 @@ Fedora:
     deps:
       - selinux-policy-minimum
       - python3-dnf-plugin-versionlock
+      - python3-docker

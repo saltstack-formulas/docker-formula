@@ -14,7 +14,9 @@ docker-compose-archive-absent:
   file.absent:
     - names:
       - {{ d.dir.tmp }}/docker-compose
+        {%- if 'path' in d.pkg.compose %}
       - {{ d.pkg.compose.path }}
+        {%- endif %}
         {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
             {%- if 'commands' in d.pkg.compose %}
                 {%- for cmd in d.pkg.compose.commands|unique %}
@@ -22,5 +24,4 @@ docker-compose-archive-absent:
                 {%- endfor %}
             {%- endif %}
         {%- endif %}
-
     {%- endif %}

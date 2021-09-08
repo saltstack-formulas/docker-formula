@@ -730,6 +730,7 @@ suites:
         base:
           '*':
             - docker._mapdata
+            - docker
             - docker.clean
       pillars:
         top.sls:
@@ -741,3 +742,38 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/clean
+  - name: composeclean
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - docker._mapdata
+            - docker
+            - docker.compose.clean
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - docker
+      pillars_from_files:
+        docker.sls: test/salt/pillar/dockeronly.sls
+    verifier:
+      inspec_tests:
+        - path: test/integration/dockeronly
+  - name: dockeronly
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - docker._mapdata
+            - docker
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - docker
+      pillars_from_files:
+        docker.sls: test/salt/pillar/dockeronly.sls
+    verifier:
+      inspec_tests:
+        - path: test/integration/dockeronly
