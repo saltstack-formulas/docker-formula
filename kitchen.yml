@@ -725,6 +725,8 @@ suites:
       inspec_tests:
         - path: test/integration/package
   - name: clean
+    excludes:
+      - debian-10-master-py3
     provisioner:
       state_top:
         base:

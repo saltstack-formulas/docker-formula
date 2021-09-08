@@ -33,101 +33,140 @@ jobs:
           # - package-debian-11-master-py3
           # - repo-debian-11-master-py3
           # - clean-debian-11-master-py3
+          # - composeclean-debian-11-master-py3
+          # - dockeronly-debian-11-master-py3
           - debian-11-master-py3
           # - archive-debian-10-master-py3
           # - package-debian-10-master-py3
           # - repo-debian-10-master-py3
-          # - clean-debian-10-master-py3
-          - dockeronly-debian-10-master-py3
+          # - composeclean-debian-10-master-py3
+          # - dockeronly-debian-10-master-py3
+          - debian-10-master-py3
           # - archive-debian-9-master-py3
           # - package-debian-9-master-py3
           # - repo-debian-9-master-py3
           # - clean-debian-9-master-py3
+          # - composeclean-debian-9-master-py3
+          # - dockeronly-debian-9-master-py3
           - debian-9-master-py3
           # - archive-ubuntu-2004-master-py3
           # - package-ubuntu-2004-master-py3
           # - repo-ubuntu-2004-master-py3
           # - clean-ubuntu-2004-master-py3
+          # - composeclean-ubuntu-2004-master-py3
+          # - dockeronly-ubuntu-2004-master-py3
           - ubuntu-2004-master-py3
           # - archive-ubuntu-1804-master-py3
           # - package-ubuntu-1804-master-py3
           # - repo-ubuntu-1804-master-py3
           # - clean-ubuntu-1804-master-py3
-          - composeclean-ubuntu-1804-master-py3
+          # - composeclean-ubuntu-1804-master-py3
+          # - dockeronly-ubuntu-1804-master-py3
+          - ubuntu-1804-master-py3
           # - archive-centos-8-master-py3
           # - package-centos-8-master-py3
           # - repo-centos-8-master-py3
           # - clean-centos-8-master-py3
+          # - composeclean-centos-8-master-py3
+          # - dockeronly-centos-8-master-py3
           - centos-8-master-py3
           # - archive-centos-7-master-py3
           # - package-centos-7-master-py3
           # - repo-centos-7-master-py3
           # - clean-centos-7-master-py3
+          # - composeclean-centos-7-master-py3
+          # - dockeronly-centos-7-master-py3
           - centos-7-master-py3
           # - archive-fedora-34-master-py3
           # - package-fedora-34-master-py3
           # - repo-fedora-34-master-py3
           # - clean-fedora-34-master-py3
+          # - composeclean-fedora-34-master-py3
+          # - dockeronly-fedora-34-master-py3
           - fedora-34-master-py3
           # - archive-fedora-33-master-py3
           # - package-fedora-33-master-py3
           # - repo-fedora-33-master-py3
           # - clean-fedora-33-master-py3
-          - dockeronly-fedora-33-master-py3
+          # - composeclean-fedora-33-master-py3
+          # - dockeronly-fedora-33-master-py3
+          - fedora-33-master-py3
           # - archive-opensuse-leap-153-master-py3
           # - package-opensuse-leap-153-master-py3
           # - repo-opensuse-leap-153-master-py3
           # - clean-opensuse-leap-153-master-py3
-          # opensuse-leap-153-master-py3
+          # - composeclean-opensuse-leap-153-master-py3
+          # - dockeronly-opensuse-leap-153-master-py3
+          # - opensuse-leap-153-master-py3
           # - archive-opensuse-leap-152-master-py3
           # - package-opensuse-leap-152-master-py3
           # - repo-opensuse-leap-152-master-py3
           # - clean-opensuse-leap-152-master-py3
-          # opensuse-leap-152-master-py3
+          # - composeclean-opensuse-leap-152-master-py3
+          # - dockeronly-opensuse-leap-152-master-py3
+          # - opensuse-leap-152-master-py3
           # - archive-opensuse-tmbl-latest-master-py3
           # - package-opensuse-tmbl-latest-master-py3
           # - repo-opensuse-tmbl-latest-master-py3
           - clean-opensuse-tmbl-latest-master-py3
+          # - composeclean-opensuse-tmbl-latest-master-py3
+          # - dockeronly-opensuse-tmbl-latest-master-py3
           # - opensuse-tmbl-latest-master-py3
           - archive-amazonlinux-2-master-py3
           # - package-amazonlinux-2-master-py3
           # - repo-amazonlinux-2-master-py3
           # - clean-amazonlinux-2-master-py3
+          # - composeclean-amazonlinux-2-master-py3
+          # - dockeronly-amazonlinux-2-master-py3
           # - amazonlinux-2-master-py3
           - archive-oraclelinux-8-master-py3
           # - package-oraclelinux-8-master-py3
           # - repo-oraclelinux-8-master-py3
           # - clean-oraclelinux-8-master-py3
+          # - composeclean-oraclelinux-8-master-py3
+          # - dockeronly-oraclelinux-8-master-py3
           # - oraclelinux-8-master-py3
           - archive-oraclelinux-7-master-py3
           # - package-oraclelinux-7-master-py3
           # - repo-oraclelinux-7-master-py3
           # - clean-oraclelinux-7-master-py3
+          # - composeclean-oraclelinux-7-master-py3
+          # - dockeronly-oraclelinux-7-master-py3
           # - oraclelinux-7-master-py3
           # - archive-arch-base-latest-master-py3
           # - package-arch-base-latest-master-py3
           # - repo-arch-base-latest-master-py3
           # - clean-arch-base-latest-master-py3
+          # - composeclean-arch-base-latest-master-py3
+          # - dockeronly-arch-base-latest-master-py3
           - arch-base-latest-master-py3
           # - archive-gentoo-stage3-latest-master-py3
           # - package-gentoo-stage3-latest-master-py3
           # - repo-gentoo-stage3-latest-master-py3
           # - clean-gentoo-stage3-latest-master-py3
+          # - composeclean-gentoo-stage3-latest-master-py3
+          # - dockeronly-gentoo-stage3-latest-master-py3
           # - gentoo-stage3-latest-master-py3
           - archive-gentoo-stage3-systemd-master-py3
           # - package-gentoo-stage3-systemd-master-py3
           # - repo-gentoo-stage3-systemd-master-py3
           # - clean-gentoo-stage3-systemd-master-py3
+          # - composeclean-gentoo-stage3-systemd-master-py3
+          # - dockeronly-gentoo-stage3-systemd-master-py3
           # - gentoo-stage3-systemd-master-py3
           # - archive-almalinux-8-master-py3
           # - package-almalinux-8-master-py3
           # - repo-almalinux-8-master-py3
           # - clean-almalinux-8-master-py3
+          # - composeclean-almalinux-8-master-py3
+          # - dockeronly-almalinux-8-master-py3
           - almalinux-8-master-py3
           # - archive-rockylinux-8-master-py3
           # - package-rockylinux-8-master-py3
           # - repo-rockylinux-8-master-py3
           # - clean-rockylinux-8-master-py3
+          # - composeclean-rockylinux-8-master-py3
+          # - dockeronly-rockylinux-8-master-py3
           - rockylinux-8-master-py3
           # - archive-debian-11-3003-2-py3
           # - archive-debian-10-3003-2-py3

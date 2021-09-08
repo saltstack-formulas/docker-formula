@@ -40,7 +40,7 @@ Finished in 0.0025 seconds (files took 0.12449 seconds to load)
 To run one control from the profile use `inspec exec /path/to/profile --controls name`.
 
 ```bash
-$ inspec exec dockeronly --controls dockeronly
+$ inspec exec dockeronly --controls package
 .
 
 Finished in 0.0025 seconds (files took 0.12449 seconds to load)
