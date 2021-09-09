@@ -115,7 +115,7 @@ Windows:
       use_upstream: desktop    # choco or desktop
       uri_d: 'https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer'
       desktop:
-        source_hash: 'b81b399ec34505981f9f2b0b68d6eec81bfd706b9376350f4ee93c24fa4e2729'
+        source_hash: 'c3d19fa55950c4311477e8977c6cbaf7fe866942e9a2df7ac9d296b8c8305df5'
       suffix: '.exe'
     compose:
       use_upstream: null    # included in docker-desktop
