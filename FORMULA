@@ -1,7 +1,7 @@
 name: docker
 os: Debian, Ubuntu, Raspbian, RedHat, Fedora, CentOS, Suse, openSUSE, Gentoo, Funtoo, Arch, Manjaro, Alpine, FreeBSD, OpenBSD, Solaris, SmartOS, Windows, MacOS
 os_family: Debian, RedHat, Suse, Gentoo, Arch, Alpine, FreeBSD, OpenBSD, Solaris, Windows, MacOS
-version: 2.3.0
+version: 2.3.1
 release: 1
 minimum_version: 2017.7
 summary: docker formula

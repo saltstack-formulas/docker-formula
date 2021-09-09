@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`2.3.1 <https://github.com/saltstack-formulas/docker-formula/compare/v2.3.0...v2.3.1>`_ (2021-09-09)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **windows:** pip install as user (\ `#306 <https://github.com/saltstack-formulas/docker-formula/issues/306>`_\ ) (\ `df35704 <https://github.com/saltstack-formulas/docker-formula/commit/df35704ebf6f7906146eb6c4c9773ea9bed52259>`_\ )
+
 `2.3.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.2.0...v2.3.0>`_ (2021-09-08)
 --------------------------------------------------------------------------------------------------------
 
