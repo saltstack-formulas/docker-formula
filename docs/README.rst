@@ -221,7 +221,7 @@ To use this formula, you might target a host with the following pillar:
             environment:
               NODE_ENV: "production"
             ports:
-                - "4000:80"
+              - "4000:80"
             volumes:
               - /srv/docker-registry/dashy:/app/public
             cap_drop:
