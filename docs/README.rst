@@ -200,6 +200,7 @@ To use this formula, you might target a host with the following pillar:
             # image: 'docker.io/nginx:latest'  ##Fedora
             image: 'nginx:latest'
             container_name: 'nginx-latest'
+            network_mode: 'bridge'
             links:
               - 'registry-service:registry'
             ports:

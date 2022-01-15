@@ -37,6 +37,9 @@ docker-compose-ng-{{ id }}-running:
         {%- if 'command' in container %}
     - command: {{ container.command }}
         {%- endif %}
+        {%- if 'network_mode' in container %}
+    - network_mode: {{ container.network_mode }}
+        {%- endif %}
         {%- if 'working_dir' in container %}
     - working_dir: {{ container.working_dir }}
         {%- endif %}
