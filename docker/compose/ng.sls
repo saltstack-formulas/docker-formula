@@ -50,10 +50,7 @@ docker-compose-ng-{{ id }}-running:
     - user: {{ container.user }}
         {%- endif %}
         {%- if 'healthcheck' in container and container.healthcheck is iterable %}
-    - healthcheck:
-            {%- for variable, value in container.healthcheck.items() %}
-        - {{ variable }}: {{ value }}
-            {%- endfor %}
+    - healthcheck: {{ container.healthcheck|unique|json }}
         {%- endif %}
         {%- if 'environment' in container and container.environment is iterable %}
     - environment:
