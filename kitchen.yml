@@ -60,11 +60,6 @@ platforms:
       image: saltimages/salt-tiamat-py3:centos-stream8
       provision_command:
         - yum install conntrack-tools -y
-  - name: centos-8-tiamat-py3
-    driver:
-      image: saltimages/salt-tiamat-py3:centos-8
-      provision_command:
-        - yum install conntrack-tools -y
   - name: centos-7-tiamat-py3
     driver:
       image: saltimages/salt-tiamat-py3:centos-7
@@ -133,11 +128,6 @@ platforms:
       image: saltimages/salt-master-py3:centos-stream8
       provision_command:
         - yum install conntrack-tools -y
-  - name: centos-8-master-py3
-    driver:
-      image: saltimages/salt-master-py3:centos-8
-      provision_command:
-        - yum install conntrack-tools -y
   - name: centos-7-master-py3
     driver:
       image: saltimages/salt-master-py3:centos-7
@@ -148,26 +138,12 @@ platforms:
       image: saltimages/salt-master-py3:fedora-34
       provision_command:
         - dnf install conntrack-tools -y
-  - name: fedora-33-master-py3
-    driver:
-      image: saltimages/salt-master-py3:fedora-33
-      provision_command:
-        - dnf install conntrack-tools -y
   - name: opensuse-leap-153-master-py3
     driver:
       image: saltimages/salt-master-py3:opensuse-leap-15.3
       provision_command:
         - zypper --non-interactive install conntrack-tools
     # Workaround to avoid intermittent failures on `opensuse-leap-15.3`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: opensuse-leap-152-master-py3
-    driver:
-      image: saltimages/salt-master-py3:opensuse-leap-15.2
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.2`:
     # => SCP did not finish successfully (255):  (Net::SCP::Error)
     transport:
       max_ssh_sessions: 1
@@ -260,11 +236,6 @@ platforms:
       image: saltimages/salt-3004.0-py3:centos-stream8
       provision_command:
         - yum install conntrack-tools -y
-  - name: centos-8-3004-0-py3
-    driver:
-      image: saltimages/salt-3004.0-py3:centos-8
-      provision_command:
-        - yum install conntrack-tools -y
   - name: centos-7-3004-0-py3
     driver:
       image: saltimages/salt-3004.0-py3:centos-7
@@ -275,26 +246,12 @@ platforms:
       image: saltimages/salt-3004.0-py3:fedora-34
       provision_command:
         - dnf install conntrack-tools -y
-  - name: fedora-33-3004-0-py3
-    driver:
-      image: saltimages/salt-3004.0-py3:fedora-33
-      provision_command:
-        - dnf install conntrack-tools -y
   - name: opensuse-leap-153-3004-0-py3
     driver:
       image: saltimages/salt-3004.0-py3:opensuse-leap-15.3
       provision_command:
         - zypper --non-interactive install conntrack-tools
     # Workaround to avoid intermittent failures on `opensuse-leap-15.3`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: opensuse-leap-152-3004-0-py3
-    driver:
-      image: saltimages/salt-3004.0-py3:opensuse-leap-15.2
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.2`:
     # => SCP did not finish successfully (255):  (Net::SCP::Error)
     transport:
       max_ssh_sessions: 1
@@ -347,13 +304,6 @@ platforms:
       image: saltimages/salt-3004.0-py3:rockylinux-8
 
   ## SALT `3003.3`
-  - name: debian-11-3003-3-py3
-    driver:
-      image: saltimages/salt-3003.3-py3:debian-11
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
   - name: debian-10-3003-3-py3
     driver:
       image: saltimages/salt-3003.3-py3:debian-10
@@ -387,24 +337,19 @@ platforms:
       image: saltimages/salt-3003.3-py3:centos-stream8
       provision_command:
         - yum install conntrack-tools -y
-  - name: centos-8-3003-3-py3
-    driver:
-      image: saltimages/salt-3003.3-py3:centos-8
-      provision_command:
-        - yum install conntrack-tools -y
   - name: centos-7-3003-3-py3
     driver:
       image: saltimages/salt-3003.3-py3:centos-7
       provision_command:
         - yum install conntrack-tools -y
+  - name: fedora-35-3003-3-py3
+    driver:
+      image: saltimages/salt-3003.3-py3:fedora-35
+      provision_command:
+        - dnf install conntrack-tools -y
   - name: fedora-34-3003-3-py3
     driver:
       image: saltimages/salt-3003.3-py3:fedora-34
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: fedora-33-3003-3-py3
-    driver:
-      image: saltimages/salt-3003.3-py3:fedora-33
       provision_command:
         - dnf install conntrack-tools -y
   - name: opensuse-leap-153-3003-3-py3
@@ -413,15 +358,6 @@ platforms:
       provision_command:
         - zypper --non-interactive install conntrack-tools
     # Workaround to avoid intermittent failures on `opensuse-leap-15.3`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: opensuse-leap-152-3003-3-py3
-    driver:
-      image: saltimages/salt-3003.3-py3:opensuse-leap-15.2
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.2`:
     # => SCP did not finish successfully (255):  (Net::SCP::Error)
     transport:
       max_ssh_sessions: 1
@@ -449,12 +385,6 @@ platforms:
       image: saltimages/salt-3003.3-py3:oraclelinux-7
       provision_command:
         - yum install conntrack-tools -y
-  - name: arch-base-latest-3003-3-py3
-    driver:
-      image: saltimages/salt-3003.3-py3:arch-base-latest
-      provision_command:
-        - (test -x /usr/bin/pacman-mirrors && /usr/bin/pacman-mirrors -g) || true
-        - pacman -S --noconfirm conntrack-tools tar
   - name: gentoo-stage3-latest-3003-3-py3
     driver:
       image: saltimages/salt-3003.3-py3:gentoo-stage3-latest
@@ -471,13 +401,6 @@ platforms:
       image: saltimages/salt-3003.3-py3:almalinux-8
 
   ## SALT `3002.7`
-  - name: debian-11-3002-7-py3
-    driver:
-      image: saltimages/salt-3002.7-py3:debian-11
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
   - name: debian-10-3002-7-py3
     driver:
       image: saltimages/salt-3002.7-py3:debian-10
@@ -506,24 +429,19 @@ platforms:
         - apt-get update
         - apt-get -qq -y install conntrack
       run_command: /lib/systemd/systemd
-  - name: centos-8-3002-7-py3
-    driver:
-      image: saltimages/salt-3002.7-py3:centos-8
-      provision_command:
-        - yum install conntrack-tools -y
   - name: centos-7-3002-7-py3
     driver:
       image: saltimages/salt-3002.7-py3:centos-7
       provision_command:
         - yum install conntrack-tools -y
+  - name: fedora-35-3002-7-py3
+    driver:
+      image: saltimages/salt-3002.7-py3:fedora-35
+      provision_command:
+        - dnf install conntrack-tools -y
   - name: fedora-34-3002-7-py3
     driver:
       image: saltimages/salt-3002.7-py3:fedora-34
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: fedora-33-3002-7-py3
-    driver:
-      image: saltimages/salt-3002.7-py3:fedora-33
       provision_command:
         - dnf install conntrack-tools -y
   - name: opensuse-leap-153-3002-7-py3
@@ -532,15 +450,6 @@ platforms:
       provision_command:
         - zypper --non-interactive install conntrack-tools
     # Workaround to avoid intermittent failures on `opensuse-leap-15.3`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: opensuse-leap-152-3002-7-py3
-    driver:
-      image: saltimages/salt-3002.7-py3:opensuse-leap-15.2
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.2`:
     # => SCP did not finish successfully (255):  (Net::SCP::Error)
     transport:
       max_ssh_sessions: 1
@@ -568,12 +477,6 @@ platforms:
       image: saltimages/salt-3002.7-py3:oraclelinux-7
       provision_command:
         - yum install conntrack-tools -y
-  - name: arch-base-latest-3002-7-py3
-    driver:
-      image: saltimages/salt-3002.7-py3:arch-base-latest
-      provision_command:
-        - (test -x /usr/bin/pacman-mirrors && /usr/bin/pacman-mirrors -g) || true
-        - pacman -S --noconfirm conntrack-tools tar
   - name: gentoo-stage3-latest-3002-7-py3
     driver:
       image: saltimages/salt-3002.7-py3:gentoo-stage3-latest
@@ -583,115 +486,6 @@ platforms:
   - name: gentoo-stage3-systemd-3002-7-py3
     driver:
       image: saltimages/salt-3002.7-py3:gentoo-stage3-systemd
-      provision_command:
-        emerge --noreplace --quiet --with-bdeps-auto=n net-firewall/conntrack-tools
-
-  ## SALT `3001.8`
-  - name: debian-10-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:debian-10
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: debian-9-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:debian-9
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: ubuntu-2004-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:ubuntu-20.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: ubuntu-1804-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:ubuntu-18.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: centos-8-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:centos-8
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: centos-7-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:centos-7
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: fedora-34-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:fedora-34
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: fedora-33-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:fedora-33
-      provision_command:
-        - dnf install conntrack-tools -y
-  - name: opensuse-leap-153-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:opensuse-leap-15.3
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.3`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: opensuse-leap-152-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:opensuse-leap-15.2
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-leap-15.2`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: opensuse-tmbl-latest-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:opensuse-tumbleweed-latest
-      provision_command:
-        - zypper --non-interactive install conntrack-tools
-    # Workaround to avoid intermittent failures on `opensuse-tumbleweed`:
-    # => SCP did not finish successfully (255):  (Net::SCP::Error)
-    transport:
-      max_ssh_sessions: 1
-  - name: amazonlinux-2-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:amazonlinux-2
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: oraclelinux-8-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:oraclelinux-8
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: oraclelinux-7-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:oraclelinux-7
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: arch-base-latest-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:arch-base-latest
-      provision_command:
-        - (test -x /usr/bin/pacman-mirrors && /usr/bin/pacman-mirrors -g) || true
-        - pacman -S --noconfirm conntrack-tools tar
-  - name: gentoo-stage3-latest-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:gentoo-stage3-latest
-      provision_command:
-        emerge --noreplace --quiet --with-bdeps-auto=n net-firewall/conntrack-tools
-      run_command: /sbin/init
-  - name: gentoo-stage3-systemd-3001-8-py3
-    driver:
-      image: saltimages/salt-3001.8-py3:gentoo-stage3-systemd
       provision_command:
         emerge --noreplace --quiet --with-bdeps-auto=n net-firewall/conntrack-tools
 
