@@ -12,6 +12,20 @@ CentOS:
     deps:
       - procps
       - yum-utils
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
+
+CentOS Stream:
+  pkg:
+    deps:
+      - python3-dnf-plugin-versionlock
+      - python3-docker
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
 
 AlmaLinux:
   pkg:
