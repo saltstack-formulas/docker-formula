@@ -7,6 +7,8 @@
     {%- if d.pkg.compose.use_upstream in ('package', 'repo') %}
         {%- if grains.os_family|lower in ('redhat', 'debian') %}
             {%- set sls_repo_clean = tplroot ~ '.software.package.repo.clean' %}
+            {%- set resource_repo_clean = 'file' if grains.os_family == 'Debian' else 'pkgrepo' %}
+
 include:
   - {{ sls_repo_clean }}
         {%- endif %}
@@ -17,7 +19,7 @@ docker-compose-package-clean-pkgs:
     - reload_modules: true
         {%- if grains.os_family|lower in ('redhat', 'debian') %}
     - require:
-      - pkgrepo: docker-software-package-repo-absent
+      - {{ resource_repo_clean }}: docker-software-package-repo-absent
         {%- endif %}
 
     {%- endif %}
