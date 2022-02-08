@@ -1,12 +1,23 @@
 # frozen_string_literal: true
 
-case platform.name
-when 'centos'
-  repo_file = '/etc/yum.repos.d/docker-ce.repo'
+case platform.family
+when 'redhat', 'fedora', 'suse'
+  os_name_repo_file = {
+    'opensuse' => '/etc/zypp/repos.d/docker-ce.repo'
+  }
+  os_name_repo_file.default = '/etc/yum.repos.d/docker-ce.repo'
+
+  os_name_repo_url = {
+    'amazon' => 'https://download.docker.com/linux/centos/7/$basearch/stable',
+    'opensuse' => 'https://download.docker.com/linux/sles/$releasever/$basearch/stable'
+  }
   # rubocop:disable Metrics/LineLength
-  repo_url = "https://download.docker.com/linux/#{platform.name}/$releasever/$basearch/stable"
+  os_name_repo_url.default = "https://download.docker.com/linux/#{platform.name}/$releasever/$basearch/stable"
   # rubocop:enable Metrics/LineLength
-when 'debian', 'ubuntu'
+  repo_url = os_name_repo_url[platform.name]
+  repo_file = os_name_repo_file[platform.name]
+
+when 'debian'
   # Inspec does not provide a `codename` matcher, so we add ours
   finger_codename = {
     'ubuntu-18.04' => 'bionic',
