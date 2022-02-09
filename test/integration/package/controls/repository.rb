@@ -16,7 +16,9 @@ when 'redhat', 'fedora', 'suse'
     'fedora' => 'https://download.docker.com/linux/fedora/$releasever/$basearch/stable',
     'opensuse' => 'https://download.docker.com/linux/sles/$releasever/$basearch/stable'
   }
+  # rubocop:disable Layout/LineLength
   os_name_repo_url.default = "https://download.docker.com/linux/centos/#{platform.release.to_i}/$basearch/stable"
+  # rubocop:enable Layout/LineLength
   repo_url = os_name_repo_url[platform.name]
   repo_file = os_name_repo_file[platform.name]
 
@@ -33,9 +35,9 @@ when 'debian'
 
   repo_keyring = '/usr/share/keyrings/docker-archive-keyring.gpg'
   repo_file = '/etc/apt/sources.list.d/docker.list'
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
   repo_url = "deb [signed-by=#{repo_keyring} arch=amd64] https://download.docker.com/linux/#{platform.name} #{codename} stable"
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
 end
 
 control 'Docker repository keyring' do

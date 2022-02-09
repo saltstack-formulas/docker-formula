@@ -10,6 +10,7 @@ FreeBSD:
 CentOS:
   pkg:
     deps:
+      - iptables
       - procps
       - yum-utils
     docker:
@@ -20,6 +21,7 @@ CentOS:
 CentOS Stream:
   pkg:
     deps:
+      - iptables
       - python3-dnf-plugin-versionlock
       - python3-docker
     docker:
@@ -30,6 +32,7 @@ CentOS Stream:
 AlmaLinux:
   pkg:
     deps:
+      - iptables
       - python3-dnf-plugin-versionlock
       - python3-docker
     docker:
@@ -41,6 +44,7 @@ AlmaLinux:
 Rocky:
   pkg:
     deps:
+      - iptables
       - python3-dnf-plugin-versionlock
       - python3-docker
     docker:
