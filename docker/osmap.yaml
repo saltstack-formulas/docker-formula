@@ -69,8 +69,9 @@ Raspbian:
 
 
     compose:
-      name: docker-compose  
-      use_upstream: package   
+      name: docker-compose
+      use_upstream: package
+
 Amazon:
   pkg:
     docker:
@@ -85,3 +86,8 @@ Fedora:
       - selinux-policy-minimum
       - python3-dnf-plugin-versionlock
       - python3-docker
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/fedora/$releasever/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/fedora/gpg'

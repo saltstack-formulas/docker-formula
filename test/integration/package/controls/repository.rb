@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+only_if('archlinux does not has a repository') do
+  os[:name] != 'arch'
+end
+
 case platform.family
 when 'redhat', 'fedora', 'suse'
   os_name_repo_file = {
@@ -9,11 +13,10 @@ when 'redhat', 'fedora', 'suse'
 
   os_name_repo_url = {
     'amazon' => 'https://download.docker.com/linux/centos/7/$basearch/stable',
+    'fedora' => 'https://download.docker.com/linux/fedora/$releasever/$basearch/stable',
     'opensuse' => 'https://download.docker.com/linux/sles/$releasever/$basearch/stable'
   }
-  # rubocop:disable Metrics/LineLength
-  os_name_repo_url.default = "https://download.docker.com/linux/#{platform.name}/$releasever/$basearch/stable"
-  # rubocop:enable Metrics/LineLength
+  os_name_repo_url.default = "https://download.docker.com/linux/centos/#{platform.release.to_i}/$basearch/stable"
   repo_url = os_name_repo_url[platform.name]
   repo_file = os_name_repo_file[platform.name]
 
