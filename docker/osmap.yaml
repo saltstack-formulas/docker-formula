@@ -10,12 +10,29 @@ FreeBSD:
 CentOS:
   pkg:
     deps:
+      - iptables
       - procps
       - yum-utils
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
+
+CentOS Stream:
+  pkg:
+    deps:
+      - iptables
+      - python3-dnf-plugin-versionlock
+      - python3-docker
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/centos/{{ grains.get('osmajorrelease', '') }}/$basearch/stable'
+        gpgkey: 'https://download.docker.com/linux/centos/gpg'
 
 AlmaLinux:
   pkg:
     deps:
+      - iptables
       - python3-dnf-plugin-versionlock
       - python3-docker
     docker:
@@ -27,6 +44,7 @@ AlmaLinux:
 Rocky:
   pkg:
     deps:
+      - iptables
       - python3-dnf-plugin-versionlock
       - python3-docker
     docker:
@@ -55,8 +73,9 @@ Raspbian:
 
 
     compose:
-      name: docker-compose  
-      use_upstream: package   
+      name: docker-compose
+      use_upstream: package
+
 Amazon:
   pkg:
     docker:
@@ -71,3 +90,8 @@ Fedora:
       - selinux-policy-minimum
       - python3-dnf-plugin-versionlock
       - python3-docker
+    docker:
+      repo:
+        baseurl: 'https://download.docker.com/linux/fedora/$releasever/$basearch/stable'
+        file: '/etc/yum.repos.d/docker-ce.repo'
+        gpgkey: 'https://download.docker.com/linux/fedora/gpg'

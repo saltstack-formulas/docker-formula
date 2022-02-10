@@ -41,12 +41,13 @@ Debian:
       - git
       - procps
     docker:
+          {%- if 'oscodename' in grains %}
+      {%- set repo_keyring = '/usr/share/keyrings/docker-archive-keyring.gpg' %}
       repo:
-                {%- if 'oscodename' in grains %}
-        name: deb [arch=amd64] https://download.docker.com/linux/{{ grains.os|lower }} {{ grains.oscodename }} stable
-                {%- endif %}
+        name: deb [signed-by={{ repo_keyring }} arch=amd64] https://download.docker.com/linux/{{ grains.os|lower }} {{ grains.oscodename }} stable
         file: /etc/apt/sources.list.d/docker.list
-        key_url: "https://download.docker.com/linux/{{ grains.os|lower }}/gpg"
+      repo_keyring: {{ repo_keyring }}
+          {%- endif %}
 
 RedHat:
   pkg:

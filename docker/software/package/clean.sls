@@ -8,6 +8,7 @@
         {%- set enable_repo = grains.os_family in ('RedHat', 'Debian') and d.pkg.docker.get('repo') %}
         {%- if enable_repo %}
             {%- set sls_repo_clean = tplroot ~ '.software.package.repo.clean' %}
+            {%- set resource_repo_clean = 'file' if grains.os_family == 'Debian' else 'pkgrepo' %}
 include:
   - {{ sls_repo_clean }}
         {%- endif %}
@@ -21,7 +22,7 @@ docker-software-package-clean-pkg:
     - reload_modules: {{ d.misc.reload|default(true, true) }}
             {%- if enable_repo %}
     - require:
-      - pkgrepo: docker-software-package-repo-absent
+      - {{ resource_repo_clean }}: docker-software-package-repo-absent
             {%- endif %}
 
         {%- elif grains.os_family == 'MacOS' %}
