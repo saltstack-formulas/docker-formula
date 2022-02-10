@@ -1,5 +1,33 @@
 # Changelog
 
+# [2.4.0](https://github.com/saltstack-formulas/docker-formula/compare/v2.3.1...v2.4.0) (2022-02-10)
+
+
+### Bug Fixes
+
+* **centos:** modify repository url ([55ff30a](https://github.com/saltstack-formulas/docker-formula/commit/55ff30afb13abdb578dd37435f5c37b9670de748))
+* **debian:** remove repository using `file` instead of `pkgrepo` ([28ea2f9](https://github.com/saltstack-formulas/docker-formula/commit/28ea2f92e05f95123467ec0f29e3a79ff944c731))
+* **dependencies:** add needed packages for Redhat's family members ([652da44](https://github.com/saltstack-formulas/docker-formula/commit/652da448311d2935e3695e8ca5a0084c10fae38d))
+* **repository:** amazonlinux repository url ([949551b](https://github.com/saltstack-formulas/docker-formula/commit/949551b46306297f7be2064ebd87c65b5df5c155))
+
+
+### Continuous Integration
+
+* **gemfile:** allow rubygems proxy to be provided as an env var [skip ci] ([a1a5880](https://github.com/saltstack-formulas/docker-formula/commit/a1a58804f560eb5a82c7b2c626f9b8d3f6b3d1a2))
+* **kitchen+ci:** update with `3004` pre-salted images/boxes [skip ci] ([caf640a](https://github.com/saltstack-formulas/docker-formula/commit/caf640ac724ef30f2b1b2d161bc3584db404e542))
+* **kitchen+ci:** update with latest CVE pre-salted images [skip ci] ([141ae5e](https://github.com/saltstack-formulas/docker-formula/commit/141ae5e15dfe2acea1fd727593610fb39c1ddc60))
+* **kitchen+gitlab:** update for new pre-salted images [skip ci] ([e19468b](https://github.com/saltstack-formulas/docker-formula/commit/e19468bc16e81431da398a84e91d635554defdb8))
+
+
+### Features
+
+* **debian:** use repository keyring instead of key_id ([db49eba](https://github.com/saltstack-formulas/docker-formula/commit/db49ebaaacc09da13fbbde3fe1303957d157170f))
+
+
+### Tests
+
+* **repository:** redhat's family alternatives for repo url ([410078c](https://github.com/saltstack-formulas/docker-formula/commit/410078c5f47da3dd52a45705175e719448cfb0a2))
+
 ## [2.3.1](https://github.com/saltstack-formulas/docker-formula/compare/v2.3.0...v2.3.1) (2021-09-09)
 
 
