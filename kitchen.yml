@@ -535,6 +535,7 @@ suites:
   - name: repo
     excludes:
       - arch-base-latest-master-py3
+      - arch-base-latest-3004-0-py3
     provisioner:
       state_top:
         base:

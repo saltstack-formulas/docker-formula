@@ -195,7 +195,6 @@ jobs:
     # - env: INSTANCE=oraclelinux-7-master-py3
     # - env: INSTANCE=archive-arch-base-latest-master-py3
     # - env: INSTANCE=package-arch-base-latest-master-py3
-    # - env: INSTANCE=repo-arch-base-latest-master-py3
     # - env: INSTANCE=clean-arch-base-latest-master-py3
     # - env: INSTANCE=composeclean-arch-base-latest-master-py3
     # - env: INSTANCE=dockeronly-arch-base-latest-master-py3

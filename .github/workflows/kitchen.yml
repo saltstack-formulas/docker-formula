@@ -121,7 +121,6 @@ jobs:
           # - oraclelinux-7-master-py3
           # - archive-arch-base-latest-master-py3
           # - package-arch-base-latest-master-py3
-          # - repo-arch-base-latest-master-py3
           # - clean-arch-base-latest-master-py3
           # - composeclean-arch-base-latest-master-py3
           # - dockeronly-arch-base-latest-master-py3
