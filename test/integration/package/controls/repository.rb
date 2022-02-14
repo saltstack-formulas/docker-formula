@@ -21,20 +21,10 @@ when 'redhat', 'fedora', 'suse'
   repo_file = os_name_repo_file[platform.name]
 
 when 'debian'
-  # Inspec does not provide a `codename` matcher, so we add ours
-  finger_codename = {
-    'ubuntu-18.04' => 'bionic',
-    'ubuntu-20.04' => 'focal',
-    'debian-9' => 'stretch',
-    'debian-10' => 'buster',
-    'debian-11' => 'bullseye'
-  }
-  codename = finger_codename[system.platform[:finger]]
-
   repo_keyring = '/usr/share/keyrings/docker-archive-keyring.gpg'
   repo_file = '/etc/apt/sources.list.d/docker.list'
   # rubocop:disable Layout/LineLength
-  repo_url = "deb [signed-by=#{repo_keyring} arch=amd64] https://download.docker.com/linux/#{platform.name} #{codename} stable"
+  repo_url = "deb [signed-by=#{repo_keyring} arch=amd64] https://download.docker.com/linux/#{platform.name} #{system.platform[:codename]} stable"
   # rubocop:enable Layout/LineLength
 end
 
