@@ -44,7 +44,7 @@ Debian:
           {%- if 'oscodename' in grains %}
       {%- set repo_keyring = '/usr/share/keyrings/docker-archive-keyring.gpg' %}
       repo:
-        name: deb [signed-by={{ repo_keyring }} arch=amd64] https://download.docker.com/linux/{{ grains.os|lower }} {{ grains.oscodename }} stable
+        name: deb [signed-by={{ repo_keyring }} arch={{ grains.osarch }}] https://download.docker.com/linux/{{ grains.os|lower }} {{ grains.oscodename }} stable
         file: /etc/apt/sources.list.d/docker.list
       repo_keyring: {{ repo_keyring }}
           {%- endif %}
