@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.2](https://github.com/saltstack-formulas/docker-formula/compare/v2.4.1...v2.4.2) (2022-03-02)
+
+
+### Bug Fixes
+
+* **debian:** avoid adding repositories entries multiple times ([31ab3af](https://github.com/saltstack-formulas/docker-formula/commit/31ab3afafca23b6cdfcef28b72f309117fdf2e76)), closes [/github.com/saltstack/salt/issues/59785#issuecomment-826590482](https://github.com//github.com/saltstack/salt/issues/59785/issues/issuecomment-826590482)
+
 ## [2.4.1](https://github.com/saltstack-formulas/docker-formula/compare/v2.4.0...v2.4.1) (2022-03-02)
 
 
