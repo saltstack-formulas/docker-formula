@@ -2,6 +2,29 @@
 Changelog
 =========
 
+`2.4.1 <https://github.com/saltstack-formulas/docker-formula/compare/v2.4.0...v2.4.1>`_ (2022-03-02)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **osfamilymap:** use correct OS arch for deb pkg (\ `62eae20 <https://github.com/saltstack-formulas/docker-formula/commit/62eae20c9b0e4c6cc393cf9b7d5d25e92701657b>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* update linters to latest versions [skip ci] (\ `6fc940b <https://github.com/saltstack-formulas/docker-formula/commit/6fc940bb5b0f4e3f6aa4ff3c50f50bd81a777255>`_\ )
+
+Tests
+^^^^^
+
+
+* **repository:** fix ``rubocop`` violation [skip ci] (\ `bf38410 <https://github.com/saltstack-formulas/docker-formula/commit/bf38410cfc5d5aa667fcb6fb56c930473f8372bd>`_\ )
+* **repository:** use ``system.platform[:codename]`` [skip ci] (\ `a13ec28 <https://github.com/saltstack-formulas/docker-formula/commit/a13ec287b87dd8e0bb0ef4dd74ea4cd613619331>`_\ )
+* **system:** add ``build_platform_codename`` [skip ci] (\ `80c4591 <https://github.com/saltstack-formulas/docker-formula/commit/80c4591a969b57adb0cf190958b9e9b92b2a043e>`_\ )
+
 `2.4.0 <https://github.com/saltstack-formulas/docker-formula/compare/v2.3.1...v2.4.0>`_ (2022-02-10)
 --------------------------------------------------------------------------------------------------------
 
