@@ -9,7 +9,7 @@
   {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
 
   {% if grains.os_family == 'Debian' %}
-docker-software-package-repo-keyring-file-managed:
+docker-software-package-repo-keyring-managed:
   file.managed:
     - name: {{ d.pkg.docker.repo_keyring }}
     - source: {{ files_switch(['docker-archive-keyring.gpg'],
