@@ -9,6 +9,7 @@
         {%- set docker_pkg_version = d.version | default(d.pkg.version, true) %}
         {%- if enable_repo %}
             {%- set sls_repo_install = tplroot ~ '.software.package.repo.install' %}
+            {%- set resource_repo_managed = 'file' if grains.os_family == 'Debian' else 'pkgrepo' %}
 include:
   - {{ sls_repo_install }}
         {%- endif %}
@@ -45,7 +46,7 @@ docker-software-package-install-pkg:
             {%- endif %}
             {%- if enable_repo %}
     - require:
-      - pkgrepo: docker-software-package-repo-managed
+      - {{ resource_repo_managed }}: docker-software-package-repo-managed
             {%- endif %}
 
         {%- elif grains.kernel|lower in ('windows',) %}

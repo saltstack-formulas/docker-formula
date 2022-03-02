@@ -7,6 +7,7 @@
     {%- if d.pkg.compose.use_upstream in ('package', 'repo') %}
         {%- if grains.os_family in ('RedHat', 'Debian') %}
             {%- set sls_repo_install = tplroot ~ '.software.package.repo.install' %}
+            {%- set resource_repo_managed = 'file' if grains.os_family == 'Debian' else 'pkgrepo' %}
 
 include:
   - {{ sls_repo_install }}
@@ -25,8 +26,9 @@ docker-compose-package-install-pkgs:
     - runas: {{ d.identity.rootuser }}
     - reload_modules: true
         {%- if grains.os_family in ('RedHat', 'Debian') %}
+    - refresh: {{ d.misc.refresh|default(true, true) }}
     - require:
-      - pkgrepo: docker-software-package-repo-managed
+      - {{ resource_repo_managed }}: docker-software-package-repo-managed
         {%- endif %}
 
     {%- else %}
