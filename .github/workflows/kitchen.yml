@@ -77,6 +77,13 @@ jobs:
           # - composeclean-centos-7-master-py3
           # - dockeronly-centos-7-master-py3
           - centos-7-master-py3
+          # - archive-fedora-36-master-py3
+          # - package-fedora-36-master-py3
+          # - repo-fedora-36-master-py3
+          # - clean-fedora-36-master-py3
+          # - composeclean-fedora-36-master-py3
+          # - dockeronly-fedora-36-master-py3
+          - fedora-36-master-py3
           # - archive-fedora-35-master-py3
           # - package-fedora-35-master-py3
           # - repo-fedora-35-master-py3
@@ -167,6 +174,7 @@ jobs:
           # - archive-ubuntu-1804-3004-1-py3
           # - archive-centos-stream8-3004-1-py3
           # - archive-centos-7-3004-1-py3
+          # - archive-fedora-36-3004-1-py3
           # - archive-fedora-35-3004-1-py3
           # - archive-fedora-34-3004-1-py3
           # - archive-amazonlinux-2-3004-1-py3

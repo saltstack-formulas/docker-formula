@@ -133,6 +133,11 @@ platforms:
       image: saltimages/salt-master-py3:centos-7
       provision_command:
         - yum install conntrack-tools -y
+  - name: fedora-36-master-py3
+    driver:
+      image: saltimages/salt-master-py3:fedora-36
+      provision_command:
+        - dnf install conntrack-tools -y
   - name: fedora-35-master-py3
     driver:
       image: saltimages/salt-master-py3:fedora-35
@@ -246,6 +251,11 @@ platforms:
       image: saltimages/salt-3004.1-py3:centos-7
       provision_command:
         - yum install conntrack-tools -y
+  - name: fedora-36-3004-1-py3
+    driver:
+      image: saltimages/salt-3004.1-py3:fedora-36
+      provision_command:
+        - dnf install conntrack-tools -y
   - name: fedora-35-3004-1-py3
     driver:
       image: saltimages/salt-3004.1-py3:fedora-35
