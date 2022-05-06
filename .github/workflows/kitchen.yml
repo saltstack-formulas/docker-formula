@@ -20,6 +20,7 @@ jobs:
           # - archive-debian-11-tiamat-py3
           # - archive-debian-10-tiamat-py3
           # - archive-debian-9-tiamat-py3
+          # - archive-ubuntu-2204-tiamat-py3
           # - archive-ubuntu-2004-tiamat-py3
           # - archive-ubuntu-1804-tiamat-py3
           # - archive-centos-stream8-tiamat-py3
@@ -49,6 +50,13 @@ jobs:
           # - composeclean-debian-9-master-py3
           # - dockeronly-debian-9-master-py3
           - debian-9-master-py3
+          # - archive-ubuntu-2204-master-py3
+          # - package-ubuntu-2204-master-py3
+          # - repo-ubuntu-2204-master-py3
+          # - clean-ubuntu-2204-master-py3
+          # - composeclean-ubuntu-2204-master-py3
+          # - dockeronly-ubuntu-2204-master-py3
+          - ubuntu-2204-master-py3
           # - archive-ubuntu-2004-master-py3
           # - package-ubuntu-2004-master-py3
           # - repo-ubuntu-2004-master-py3
@@ -170,6 +178,7 @@ jobs:
           # - archive-debian-11-3004-1-py3
           # - archive-debian-10-3004-1-py3
           # - archive-debian-9-3004-1-py3
+          # - archive-ubuntu-2204-3004-1-py3
           # - archive-ubuntu-2004-3004-1-py3
           # - archive-ubuntu-1804-3004-1-py3
           # - archive-centos-stream8-3004-1-py3

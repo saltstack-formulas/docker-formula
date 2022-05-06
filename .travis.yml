@@ -94,6 +94,7 @@ jobs:
     # - env: INSTANCE=archive-debian-11-tiamat-py3
     # - env: INSTANCE=archive-debian-10-tiamat-py3
     # - env: INSTANCE=archive-debian-9-tiamat-py3
+    # - env: INSTANCE=archive-ubuntu-2204-tiamat-py3
     # - env: INSTANCE=archive-ubuntu-2004-tiamat-py3
     # - env: INSTANCE=archive-ubuntu-1804-tiamat-py3
     # - env: INSTANCE=archive-centos-stream8-tiamat-py3
@@ -123,6 +124,13 @@ jobs:
     # - env: INSTANCE=composeclean-debian-9-master-py3
     # - env: INSTANCE=dockeronly-debian-9-master-py3
     - env: INSTANCE=debian-9-master-py3
+    # - env: INSTANCE=archive-ubuntu-2204-master-py3
+    # - env: INSTANCE=package-ubuntu-2204-master-py3
+    # - env: INSTANCE=repo-ubuntu-2204-master-py3
+    # - env: INSTANCE=clean-ubuntu-2204-master-py3
+    # - env: INSTANCE=composeclean-ubuntu-2204-master-py3
+    # - env: INSTANCE=dockeronly-ubuntu-2204-master-py3
+    - env: INSTANCE=ubuntu-2204-master-py3
     # - env: INSTANCE=archive-ubuntu-2004-master-py3
     # - env: INSTANCE=package-ubuntu-2004-master-py3
     # - env: INSTANCE=repo-ubuntu-2004-master-py3
@@ -244,6 +252,7 @@ jobs:
     # - env: INSTANCE=archive-debian-11-3004-1-py3
     # - env: INSTANCE=archive-debian-10-3004-1-py3
     # - env: INSTANCE=archive-debian-9-3004-1-py3
+    # - env: INSTANCE=archive-ubuntu-2204-3004-1-py3
     # - env: INSTANCE=archive-ubuntu-2004-3004-1-py3
     # - env: INSTANCE=archive-ubuntu-1804-3004-1-py3
     # - env: INSTANCE=archive-centos-stream8-3004-1-py3
