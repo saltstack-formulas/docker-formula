@@ -173,13 +173,6 @@ jobs:
     # - env: INSTANCE=composeclean-fedora-35-master-py3
     # - env: INSTANCE=dockeronly-fedora-35-master-py3
     - env: INSTANCE=fedora-35-master-py3
-    # - env: INSTANCE=archive-fedora-34-master-py3
-    # - env: INSTANCE=package-fedora-34-master-py3
-    # - env: INSTANCE=repo-fedora-34-master-py3
-    # - env: INSTANCE=clean-fedora-34-master-py3
-    # - env: INSTANCE=composeclean-fedora-34-master-py3
-    # - env: INSTANCE=dockeronly-fedora-34-master-py3
-    - env: INSTANCE=fedora-34-master-py3
     # - env: INSTANCE=archive-opensuse-leap-153-master-py3
     # - env: INSTANCE=package-opensuse-leap-153-master-py3
     # - env: INSTANCE=repo-opensuse-leap-153-master-py3
@@ -259,7 +252,6 @@ jobs:
     # - env: INSTANCE=archive-centos-7-3004-1-py3
     # - env: INSTANCE=archive-fedora-36-3004-1-py3
     # - env: INSTANCE=archive-fedora-35-3004-1-py3
-    # - env: INSTANCE=archive-fedora-34-3004-1-py3
     # - env: INSTANCE=archive-amazonlinux-2-3004-1-py3
     # - env: INSTANCE=archive-oraclelinux-8-3004-1-py3
     # - env: INSTANCE=archive-oraclelinux-7-3004-1-py3
@@ -280,14 +272,6 @@ jobs:
     # - env: INSTANCE=archive-oraclelinux-8-3003-4-py3
     # - env: INSTANCE=archive-oraclelinux-7-3003-4-py3
     # - env: INSTANCE=archive-almalinux-8-3003-4-py3
-    # - env: INSTANCE=archive-debian-10-3002-8-py3
-    # - env: INSTANCE=archive-debian-9-3002-8-py3
-    # - env: INSTANCE=archive-ubuntu-2004-3002-8-py3
-    # - env: INSTANCE=archive-ubuntu-1804-3002-8-py3
-    # - env: INSTANCE=archive-centos-7-3002-8-py3
-    # - env: INSTANCE=archive-amazonlinux-2-3002-8-py3
-    # - env: INSTANCE=archive-oraclelinux-8-3002-8-py3
-    # - env: INSTANCE=archive-oraclelinux-7-3002-8-py3
 
     ## Define the release stage that runs `semantic-release`
     - stage: 'release'

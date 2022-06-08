@@ -99,13 +99,6 @@ jobs:
           # - composeclean-fedora-35-master-py3
           # - dockeronly-fedora-35-master-py3
           - fedora-35-master-py3
-          # - archive-fedora-34-master-py3
-          # - package-fedora-34-master-py3
-          # - repo-fedora-34-master-py3
-          # - clean-fedora-34-master-py3
-          # - composeclean-fedora-34-master-py3
-          # - dockeronly-fedora-34-master-py3
-          - fedora-34-master-py3
           # - archive-opensuse-leap-153-master-py3
           # - package-opensuse-leap-153-master-py3
           # - repo-opensuse-leap-153-master-py3
@@ -185,7 +178,6 @@ jobs:
           # - archive-centos-7-3004-1-py3
           # - archive-fedora-36-3004-1-py3
           # - archive-fedora-35-3004-1-py3
-          # - archive-fedora-34-3004-1-py3
           # - archive-amazonlinux-2-3004-1-py3
           # - archive-oraclelinux-8-3004-1-py3
           # - archive-oraclelinux-7-3004-1-py3
@@ -206,14 +198,6 @@ jobs:
           # - archive-oraclelinux-8-3003-4-py3
           # - archive-oraclelinux-7-3003-4-py3
           # - archive-almalinux-8-3003-4-py3
-          # - archive-debian-10-3002-8-py3
-          # - archive-debian-9-3002-8-py3
-          # - archive-ubuntu-2004-3002-8-py3
-          # - archive-ubuntu-1804-3002-8-py3
-          # - archive-centos-7-3002-8-py3
-          # - archive-amazonlinux-2-3002-8-py3
-          # - archive-oraclelinux-8-3002-8-py3
-          # - archive-oraclelinux-7-3002-8-py3
     steps:
       - name: 'Check out code'
         uses: 'actions/checkout@v2'

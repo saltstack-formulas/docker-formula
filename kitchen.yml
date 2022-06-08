@@ -157,11 +157,6 @@ platforms:
       image: saltimages/salt-master-py3:fedora-35
       provision_command:
         - dnf install conntrack-tools -y
-  - name: fedora-34-master-py3
-    driver:
-      image: saltimages/salt-master-py3:fedora-34
-      provision_command:
-        - dnf install conntrack-tools -y
   - name: opensuse-leap-153-master-py3
     driver:
       image: saltimages/salt-master-py3:opensuse-leap-15.3
@@ -282,11 +277,6 @@ platforms:
       image: saltimages/salt-3004.1-py3:fedora-35
       provision_command:
         - dnf install conntrack-tools -y
-  - name: fedora-34-3004-1-py3
-    driver:
-      image: saltimages/salt-3004.1-py3:fedora-34
-      provision_command:
-        - dnf install conntrack-tools -y
   - name: amazonlinux-2-3004-1-py3
     driver:
       image: saltimages/salt-3004.1-py3:amazonlinux-2
@@ -403,56 +393,6 @@ platforms:
   - name: almalinux-8-3003-4-py3
     driver:
       image: saltimages/salt-3003.4-py3:almalinux-8
-
-  ## SALT `3002.8`
-  - name: debian-10-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:debian-10
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: debian-9-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:debian-9
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: ubuntu-2004-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:ubuntu-20.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: ubuntu-1804-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:ubuntu-18.04
-      provision_command:
-        - apt-get update
-        - apt-get -qq -y install conntrack
-      run_command: /lib/systemd/systemd
-  - name: centos-7-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:centos-7
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: amazonlinux-2-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:amazonlinux-2
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: oraclelinux-8-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:oraclelinux-8
-      provision_command:
-        - yum install conntrack-tools -y
-  - name: oraclelinux-7-3002-8-py3
-    driver:
-      image: saltimages/salt-3002.8-py3:oraclelinux-7
-      provision_command:
-        - yum install conntrack-tools -y
 
 verifier:
   # https://www.inspec.io/
