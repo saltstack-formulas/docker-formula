@@ -212,6 +212,31 @@ To use this formula, you might target a host with the following pillar:
             working_dir: '/var/www/html'
             volume_driver: 'local'
             userns_mode: 'host'
+          dashy:
+            image: 'lissy93/dashy:latest'
+            container_name: 'dashy'
+            networks:
+              - frontend
+            restart: unless-stopped
+            environment:
+              NODE_ENV: "production"
+            ports:
+              - "4000:80"
+            volumes:
+              - /srv/docker-registry/dashy:/app/public
+            cap_drop:
+              - ALL
+            cap_add:
+              - CHOWN
+              - SETGID
+              - SETUID
+              - DAC_OVERRIDE
+              - NET_BIND_SERVICE
+            healthcheck:
+              test: ['CMD', 'node', '/app/services/healthcheck']
+              interval: {{ 90e9 | int }}  # 1m30s
+              timeout: {{ 10e9 | int }}  # 5s
+              retries: 3
 
 Then you would target a host with the following states:
 
