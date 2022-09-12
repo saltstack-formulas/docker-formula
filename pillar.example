@@ -98,8 +98,29 @@ docker:
     ## salt dockercompose module ##
     applications:
       - composetest
+      - keycloak
     composetest:
       path: /srv/salt/docker/files/composetest/docker-compose.yml
+    keycloak:
+      path: /opt/keycloak/docker-compose.yml
+      compose:
+        services:
+          keycloak:
+            image: quay.io/keycloak/keycloak:18.0.2
+            restart: always
+            command: start --auto-build
+            # https://docs.docker.com/compose/compose-file/#volumes
+            volumes:
+              - type: bind
+                source: ./themes
+                target: /opt/keycloak/themes
+              - type: bind
+                source: ./providers
+                target: /opt/keycloak/providers
+            environment:
+              KC_DB: postgres
+            ports:
+              - 127.0.0.1:8181:8080
 
     ## formerly compose-ng state ##
     ng:
