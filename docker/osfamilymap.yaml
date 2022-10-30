@@ -73,6 +73,10 @@ Suse:
       - gzip
     docker:
       name: docker
+    compose:
+      # https://packagehub.suse.com/packages/python-docker-compose/
+      commands:
+        - python-docker-compose
 
 MacOS:
   identity:
