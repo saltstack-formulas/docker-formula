@@ -4,18 +4,18 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if grains.os|lower in ('darwin', 'windows') %}
-        {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
-        {%- if d.pkg.docker.use_upstream == 'desktop' and 'desktop' in d.pkg.docker %}
+{%- if grains.os|lower in ('darwin', 'windows') %}
+    {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
+    {%- if d.pkg.docker.use_upstream == 'desktop' and 'desktop' in d.pkg.docker %}
 
-            {%- if grains.os == 'MacOS' %}
+        {%- if grains.os == 'MacOS' %}
 docker-software-desktop-download-tmpdir:
   file.directory:
     - name: {{ d.dir.tmp }}
     - makedirs: true
     - require_in:
       - pkg: docker-macos-app-install-cmd-run
-            {%- endif %}
+        {%- endif %}
 
 docker-software-desktop-download:
   file.managed:
@@ -28,7 +28,7 @@ docker-software-desktop-download:
 
 docker-software-desktop-install:
 
-            {%- if grains.os|lower == 'windows' %}
+        {%- if grains.os|lower == 'windows' %}
   pip.installed:
     - name: docker
     - runas: {{ d.identity.rootuser }}
@@ -37,7 +37,7 @@ docker-software-desktop-install:
     - require:
       - file: docker-software-desktop-download
 
-            {%- elif grains.os|lower == 'macos' %}
+        {%- elif grains.os|lower == 'macos' %}
   macpackage.installed:
     - name: {{ d.dir.tmp }}/Docker-Desktop{{ d.pkg.docker.suffix }}
     - store: True
@@ -53,13 +53,13 @@ docker-software-desktop-install:
     - require:
       - macpackage: docker-software-desktop-install
 
-            {%- endif %}
         {%- endif %}
-    {%- else %}
+    {%- endif %}
+{%- else %}
 
 docker-software-desktop-install-other:
   test.show_notification:
     - text: |
         The docker desktop is unavailable/unselected for {{ salt['grains.get']('finger', grains.os_family) }}
 
-    {%- endif %}
+{%- endif %}

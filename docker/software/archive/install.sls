@@ -4,27 +4,27 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if grains.kernel|lower == 'linux' and d.pkg.docker.use_upstream == 'archive' and 'archive' in d.pkg.docker %}
-        {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
-        {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
+{%- if grains.kernel|lower == 'linux' and d.pkg.docker.use_upstream == 'archive' and 'archive' in d.pkg.docker %}
+    {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
+    {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
 docker-software-docker-archive-install:
-        {%- if 'deps' in d.pkg and d.pkg.deps %}
-            {%- if grains.os|lower in ('redhat', 'centos') %}
-                # python-docker package is not available or too old on CentOS, RedHat
-                # https://github.com/saltstack/salt/issues/58920
+    {%- if 'deps' in d.pkg and d.pkg.deps %}
+        {%- if grains.os|lower in ('redhat', 'centos') %}
+            # python-docker package is not available or too old on CentOS, RedHat
+            # https://github.com/saltstack/salt/issues/58920
   pip.installed:
     - name: docker
     - reload_modules: {{ d.misc.reload or true }}
     - require:
       - pkg: docker-software-docker-archive-install
-            {%- endif %}
+        {%- endif %}
   pkg.installed:
     - names: {{ d.pkg.deps|json }}
     - reload_modules: {{ d.misc.reload or true }}
     - require_in:
       - file: docker-software-docker-archive-install
-        {%- endif %}
+    {%- endif %}
   file.directory:
     - name: {{ d.pkg.docker.path }}
     - makedirs: True
@@ -52,8 +52,8 @@ docker-software-docker-archive-install:
     - require:
       - file: docker-software-docker-archive-install
 
-        {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
-            {%- for cmd in d.pkg.docker.commands|unique %}
+    {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
+        {%- for cmd in d.pkg.docker.commands|unique %}
 
 docker-software-docker-archive-install-symlink-{{ cmd }}:
   file.symlink:
@@ -65,9 +65,9 @@ docker-software-docker-archive-install-symlink-{{ cmd }}:
     - require:
       - archive: docker-software-docker-archive-install
 
-            {%- endfor %}
-        {%- endif %}
-        {%- if 'service' in d.pkg.docker and d.pkg.docker.service is mapping %}
+        {%- endfor %}
+    {%- endif %}
+    {%- if 'service' in d.pkg.docker and d.pkg.docker.service is mapping %}
 
 docker-software-docker-archive-install-file-directory:
   file.directory:
@@ -104,12 +104,12 @@ docker-software-docker-archive-install-managed-service:
     - require:
       - archive: docker-software-docker-archive-install
 
-        {%- endif %}
-    {%- else %}
+    {%- endif %}
+{%- else %}
 
 docker-software-docker-archive-install-other:
   test.show_notification:
     - text: |
         The docker archive is unavailable/unselected for {{ salt['grains.get']('finger', grains.os_family) }}
 
-    {%- endif %}
+{%- endif %}

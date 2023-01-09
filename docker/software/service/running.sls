@@ -4,19 +4,19 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if 'service' in d.pkg.docker and d.pkg.docker.service and grains.os != 'Windows' %}
-        {%- set sls_config_daemon = tplroot ~ '.software.config.daemon' %}
-        {%- set sls_environ = tplroot ~ '.software.config.environ' %}
-        {%- set sls_archive = tplroot ~ '.software.archive.install' %}
-        {%- set sls_desktop = tplroot ~ '.software.desktop.install' %}
-        {%- set sls_package = tplroot ~ '.software.package.install' %}
+{%- if 'service' in d.pkg.docker and d.pkg.docker.service and grains.os != 'Windows' %}
+    {%- set sls_config_daemon = tplroot ~ '.software.config.daemon' %}
+    {%- set sls_environ = tplroot ~ '.software.config.environ' %}
+    {%- set sls_archive = tplroot ~ '.software.archive.install' %}
+    {%- set sls_desktop = tplroot ~ '.software.desktop.install' %}
+    {%- set sls_package = tplroot ~ '.software.package.install' %}
 
 include:
   - {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
   - {{ sls_environ }}
   - {{ sls_config_daemon }}
 
-        {%- if grains.kernel|lower == 'linux' %}
+    {%- if grains.kernel|lower == 'linux' %}
 
 docker-software-service-running-unmasked:
   service.unmasked:
@@ -26,30 +26,30 @@ docker-software-service-running-unmasked:
       - service: docker-software-service-running-docker
     - require:
       - sls: {{ sls_config_daemon }}
-            {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
+        {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
       - sls: {{ sls_environ }}
-            {%- endif %}
-            {%- if d.misc.firewall %}
+        {%- endif %}
+        {%- if d.misc.firewall %}
   pkg.installed:
     - name: firewalld
     - reload_modules: true
-            {%- endif %}
-
         {%- endif %}
+
+    {%- endif %}
 
 docker-software-service-running-docker:
   service.running:
     - name: {{ d.pkg.docker.service.name }}
     - require:
       - sls: {{ sls_config_daemon }}
-        {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
+    {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
       - sls: {{ sls_environ }}
-        {%- endif %}
+    {%- endif %}
     - enable: True
     - watch:
       - file: docker-software-daemon-file-managed-daemon_file
 
-        {%- if grains.kernel|lower == 'linux' %}
+    {%- if grains.kernel|lower == 'linux' %}
 
 docker-software-service-running-docker-fail-notify:
   test.fail_without_changes:
@@ -69,7 +69,7 @@ docker-software-service-running-docker-fail-notify:
     - onfail:
       - service: docker-software-service-running-docker
 
-            {%- if d.misc.firewall and d.pkg.docker.firewall.ports %}
+        {%- if d.misc.firewall and d.pkg.docker.firewall.ports %}
 
 docker-software-service-running-docker:
   service.running:
@@ -80,6 +80,6 @@ docker-software-service-running-docker:
     - require:
       - service: docker-software-service-running-docker
 
-            {%- endif %}
         {%- endif %}
     {%- endif %}
+{%- endif %}

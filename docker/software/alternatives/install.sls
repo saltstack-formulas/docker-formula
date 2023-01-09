@@ -4,25 +4,25 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if grains.kernel == 'Linux' and d.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
-        {%- set sls_archive_install = tplroot ~ '.docker.archive.install' %}
+{%- if grains.kernel == 'Linux' and d.linux.altpriority|int > 0 and grains.os_family not in ('Arch',) %}
+    {%- set sls_archive_install = tplroot ~ '.docker.archive.install' %}
 
 include:
   - {{ sls_archive_install }}
 
-        {%- for cmd in d.pkg.docker.commands|unique %}
+    {%- for cmd in d.pkg.docker.commands|unique %}
 docker-alternatives-install-bin-{{ cmd }}:
-            {%- if grains.os_family not in ('Suse', 'Arch') %}
+        {%- if grains.os_family not in ('Suse', 'Arch') %}
   alternatives.install:
     - name: link-docker-{{ cmd }}
     - link: /usr/local/bin/{{ cmd }}
     - order: 10
     - path: {{ d.pkg.docker['path'] }}/{{ cmd }}
     - priority: {{ d.linux.altpriority }}
-            {%- else %}
+        {%- else %}
   cmd.run:
     - name: update-alternatives --install /usr/local/bin/{{ cmd }} link-docker-{{ cmd }} {{ d.pkg.docker['path'] }}/{{ cmd }} {{ d.linux.altpriority }} # noqa 204
-            {%- endif %}
+        {%- endif %}
 
     - onlyif:
       - test -f {{ d.pkg.docker['path'] }}/{{ cmd }}
@@ -39,5 +39,5 @@ docker-alternatives-set-bin-{{ cmd }}:
     - path: {{ d.pkg.docker.path }}/{{ cmd }}
     - onlyif: test -f {{ d.pkg.docker['path'] }}/{{ cmd }}
 
-        {%- endfor %}
-    {%- endif %}
+    {%- endfor %}
+{%- endif %}

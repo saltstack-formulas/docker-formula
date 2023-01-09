@@ -4,10 +4,10 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if grains.kernel|lower in ('linux',) %}
-        {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
-        {%- set composer = d.pkg.compose %}
-        {%- if composer.use_upstream == 'binary' and 'binary' in composer and 'path' in composer %}
+{%- if grains.kernel|lower in ('linux',) %}
+    {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
+    {%- set composer = d.pkg.compose %}
+    {%- if composer.use_upstream == 'binary' and 'binary' in composer and 'path' in composer %}
 
 docker-compose-software-binary-install:
         {%- if 'deps' in d.pkg and d.pkg.deps %}
@@ -46,8 +46,8 @@ docker-compose-software-binary-install:
         - group
         - mode
 
-            {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
-                {%- for cmd in composer.commands|unique %}
+        {%- if d.linux.altpriority|int == 0 or grains.os_family in ('Arch', 'MacOS') %}
+            {%- for cmd in composer.commands|unique %}
 
 docker-compose-software-binary-install-symlink-{{ cmd }}:
   file.symlink:
@@ -59,15 +59,14 @@ docker-compose-software-binary-install-symlink-{{ cmd }}:
     - require:
       - file: docker-compose-software-binary-install
 
-                {%- endfor %}
-            {%- endif %}
+            {%- endfor %}
         {%- endif %}
-    {%- else %}
+    {%- endif %}
+{%- else %}
 
 docker-compose-software-binary-install-other:
   test.show_notification:
     - text: |
         The docker-compose binary is unavailable/unselected for {{ salt['grains.get']('finger', grains.os_family) }}
 
-    {%- endif %}
-
+{%- endif %}
