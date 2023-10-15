@@ -28,7 +28,7 @@ docker-software-daemon-file-managed-daemon_file:
               {%- endif %}
     - template: jinja
     - context:
-      config: {{ d.pkg.docker.daemon_config|json }}
+        config: {{ d.pkg.docker.daemon_config|json }}
     - require:
       - sls: {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
