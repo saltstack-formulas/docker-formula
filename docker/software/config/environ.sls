@@ -28,7 +28,7 @@ docker-software-environ-file-managed-environ_file:
               {%- endif %}
     - template: jinja
     - context:
-      environ: {{ d.pkg.docker.environ|json }}
+        environ: {{ d.pkg.docker.environ|json }}
     - require:
       - sls: {{ sls_archive if d.pkg.docker.use_upstream == 'archive' else sls_desktop if d.pkg.docker.use_upstream == 'desktop' else sls_package }}
 
