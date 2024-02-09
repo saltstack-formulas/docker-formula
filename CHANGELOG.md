@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.4.3](https://github.com/saltstack-formulas/docker-formula/compare/v2.4.2...v2.4.3) (2024-02-09)
+
+
+### Continuous Integration
+
+* update `pre-commit` configuration inc. for pre-commit.ci [skip ci] ([244195f](https://github.com/saltstack-formulas/docker-formula/commit/244195f92f56ac464a6793a1f832e90b2c5735de))
+* **kitchen+gitlab:** update for new pre-salted images [skip ci] ([e618ee2](https://github.com/saltstack-formulas/docker-formula/commit/e618ee24487eec6653046fac6d4eaabf82a0900d))
+
+
+### Styles
+
+* format and update pre-commit ([66ec109](https://github.com/saltstack-formulas/docker-formula/commit/66ec109ea914a4788b38933273040762359607ba))
+
+
+### Tests
+
+* **system.rb:** add support for `mac_os_x` [skip ci] ([fa98767](https://github.com/saltstack-formulas/docker-formula/commit/fa987678161fa47988e376fb679bdc2bae9a8fa5))
+
 ## [2.4.2](https://github.com/saltstack-formulas/docker-formula/compare/v2.4.1...v2.4.2) (2022-03-02)
 
 
