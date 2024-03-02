@@ -4,11 +4,11 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if 'applications' in d.compose and d.compose.applications %}
-        {%- for service in d.compose.applications|unique %}
-            {%- if 'path' in d.compose[service] and d.compose[service]['path'] %}
-                {%- if 'service_name' in d.compose[service] and d.compose[service]['service_name'] %}
-                    {%- if 'tag' in d.compose[service] and d.compose[service]['tag'] %}
+{%- if 'applications' in d.compose and d.compose.applications %}
+    {%- for service in d.compose.applications|unique %}
+        {%- if 'path' in d.compose[service] and d.compose[service]['path'] %}
+            {%- if 'service_name' in d.compose[service] and d.compose[service]['service_name'] %}
+                {%- if 'tag' in d.compose[service] and d.compose[service]['tag'] %}
 
 docker-compose-{{ service }}-service_set_tag-{{ d.compose[service]['tag'] }}:
   module.run:
@@ -17,8 +17,8 @@ docker-compose-{{ service }}-service_set_tag-{{ d.compose[service]['tag'] }}:
     - service_name: {{ d.compose[service]['service_name'] }}
     - tag: {{ d.compose[service]['tag'] }}
 
-                    {% endif %}
                 {% endif %}
             {% endif %}
-        {%- endfor %}
-    {%- endif %}
+        {% endif %}
+    {%- endfor %}
+{%- endif %}

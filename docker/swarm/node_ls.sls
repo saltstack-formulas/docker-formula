@@ -4,12 +4,12 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if 'node_ls' in d.swarm and d.swarm.node_ls is mapping %}
-        {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
+{%- if 'node_ls' in d.swarm and d.swarm.node_ls is mapping %}
+    {%- from tplroot ~ "/files/macros.jinja" import format_kwargs with context %}
 
 docker-swarm-node_ls:
   module.run:
     - name: swarm.node_ls
     {{- format_kwargs(d.swarm.node_ls) }}
 
-    {%- endif %}
+{%- endif %}

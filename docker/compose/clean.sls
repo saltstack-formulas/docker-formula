@@ -8,7 +8,7 @@
 include:
   - {{ sls_compose_software_clean }}
 
-    {%- for name, container in d.compose.ng.items() %}
+{%- for name, container in d.compose.ng.items() %}
 
 docker-compose-ng-{{ container.container_name|d(name) }}-{{ loop.index }}-stopped:
   docker_container.stopped:
@@ -23,4 +23,4 @@ docker-compose-ng-{{ container.image }}-{{ loop.index }}-absent:
     - require_in:
       - sls: {{ sls_compose_software_clean }}
 
-     {% endfor %}
+{% endfor %}

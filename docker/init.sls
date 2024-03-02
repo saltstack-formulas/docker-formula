@@ -3,7 +3,7 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import data as d with context %}
 
-    {%- if d.wanted is iterable %}
+{%- if d.wanted is iterable %}
 
 include:
   {{ '- .software' if 'docker' in d.wanted else '' }}
@@ -11,4 +11,4 @@ include:
   # .networks
   # .containers
 
-    {%- endif %}
+{%- endif %}
