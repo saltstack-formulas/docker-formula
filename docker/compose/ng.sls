@@ -55,6 +55,18 @@ docker-compose-ng-{{ id }}-running:
         - {{ variable }}: {{ value }}
             {%- endfor %}
         {%- endif %}
+        {%- if 'cap_drop' in container and container.cap_drop is iterable %}
+    - cap_drop:
+            {%- for cap in container.cap_drop %}
+        - {{ cap }}
+            {%- endfor %}
+        {%- endif %}
+        {%- if 'cap_add' in container and container.cap_add is iterable %}
+    - cap_add:
+            {%- for cap in container.cap_add %}
+        - {{ cap }}
+            {%- endfor %}
+        {%- endif %}
         {%- if 'ports' in container and container.ports is iterable %}
     - port_bindings:
             {%- for port_mapping in container.ports %}

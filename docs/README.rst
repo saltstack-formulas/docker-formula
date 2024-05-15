@@ -187,6 +187,11 @@ To use this formula, you might target a host with the following pillar:
               STORAGE_PATH: *datapath
               SEARCH_BACKEND: 'sqlalchemy'
               REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: '/registry'
+            cap_add:
+              - ALL
+            cap_drop:
+              - NET_ADMIN
+              - SYS_ADMIN
             ports:
               - 127.0.0.1:5000:5000
             # restart: 'always'    # compose v1.9
