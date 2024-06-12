@@ -12,7 +12,7 @@ supports:
   - platform-name: centos
   - platform-name: fedora
   - platform-name: opensuse
-  - platform-name: suse
+  # - platform-name: suse
   - platform-name: freebsd
   - platform-name: openbsd
   - platform-name: amazon

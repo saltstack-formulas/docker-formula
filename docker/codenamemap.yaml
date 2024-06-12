@@ -22,3 +22,15 @@ precise:
     deps:
       - linux-image-generic-lts-raring
       - linux-headers-generic-lts-raring
+
+SUSE Linux Enterprise Server 15:
+  pkg:
+    compose:
+      commands:
+        - docker-compose
+
+SUSE Linux Enterprise Server 15 SP1:
+  pkg:
+    compose:
+      commands:
+        - docker-compose
