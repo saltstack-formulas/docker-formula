@@ -6,6 +6,7 @@
 
     {%- if 'service' in d.pkg.docker and d.pkg.docker.service and grains.os != 'Windows' %}
         {%- set sls_config_daemon = tplroot ~ '.software.config.daemon' %}
+        {%- set sls_dropin = tplroot ~ '.software.config.dropin' %}
         {%- set sls_environ = tplroot ~ '.software.config.environ' %}
         {%- set sls_archive = tplroot ~ '.software.archive.install' %}
         {%- set sls_desktop = tplroot ~ '.software.desktop.install' %}
@@ -38,6 +39,13 @@ docker-software-service-running-unmasked:
         {%- endif %}
 
 docker-software-service-running-docker:
+  {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - sls: {{ sls_dropin }}
+  {%- endif %}
+
   service.running:
     - name: {{ d.pkg.docker.service.name }}
     - require:
@@ -48,6 +56,10 @@ docker-software-service-running-docker:
     - enable: True
     - watch:
       - file: docker-software-daemon-file-managed-daemon_file
+        {%- if 'environ' in d.pkg.docker and d.pkg.docker.environ %}
+      - sls: {{ sls_environ }}
+      - sls: {{ sls_dropin }}
+        {%- endif %}
 
         {%- if grains.kernel|lower == 'linux' %}
 

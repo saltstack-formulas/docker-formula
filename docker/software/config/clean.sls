@@ -15,5 +15,7 @@ docker-software-config-clean:
     - names:
       - {{ d.pkg.docker.environ_file }}
       - {{ d.pkg.docker.daemon_config_file }}
+      - {{ d.pkg.docker.dropin_file }}
+      - {{ d.dir.dropin }}
     - require:
       - sls: {{ sls_archive_clean if d.pkg.docker.use_upstream == 'archive' else sls_package_clean }}

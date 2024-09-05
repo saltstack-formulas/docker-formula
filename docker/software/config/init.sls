@@ -3,4 +3,5 @@
 
 include:
   - .environ
+  - .dropin
   - .daemon
